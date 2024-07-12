@@ -6,9 +6,15 @@ import com.arkivanov.decompose.extensions.compose.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.mvikotlin.timetravel.server.TimeTravelServer
 import decision.component.RealComponent
+import di.startKoinWithSharedInitialized
 import javax.swing.SwingUtilities
+import org.koin.core.logger.Level
 
 fun main() {
+    startKoinWithSharedInitialized {
+        printLogger(Level.DEBUG)
+    }
+
     val lifecycle = LifecycleRegistry()
     val component = RealComponent(
         componentContext = DefaultComponentContext(lifecycle = lifecycle),

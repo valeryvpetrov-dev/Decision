@@ -8,18 +8,17 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popToFirst
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
-import decision.decision.component.RealDecisionComponent
-import decision.problem.component.RealProblemComponent
-import decision.repository.DecisionRepository
-import decision.repository.DecisionRepositoryImpl
-import decision.solutions.component.RealSolutionsComponent
+import decision.decision.component.DecisionComponent
+import decision.problem.component.ProblemComponent
+import decision.solutions.component.SolutionsComponent
 import kotlinx.serialization.Serializable
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
+import org.koin.core.parameter.parametersOf
 
 class RealComponent(
     componentContext: ComponentContext,
-    // FIXME DI
-    private val decisionRepository: DecisionRepository = DecisionRepositoryImpl()
-) : ComponentContext by componentContext, Component {
+) : ComponentContext by componentContext, Component, KoinComponent {
 
     @Serializable
     private sealed class Config {
@@ -48,40 +47,36 @@ class RealComponent(
         config: Config,
         componentContext: ComponentContext
     ): Component.Child = when (config) {
-        is Config.Decision -> Component.Child.Decision(
-            RealDecisionComponent(
-                componentContext = componentContext,
-                onGoToSolutions = {
-                    navigation.pop()
-                },
-                onRestart = {
-                    navigation.popToFirst()
-                },
-                decisionRepository = decisionRepository,
-            )
-        )
+        is Config.Decision -> {
+            val component = get<DecisionComponent> {
+                parametersOf(
+                    componentContext,
+                    { navigation.pop() },
+                    { navigation.popToFirst() }
+                )
+            }
+            Component.Child.Decision(component)
+        }
 
-        is Config.Problem -> Component.Child.Problem(
-            RealProblemComponent(
-                componentContext = componentContext,
-                onGoToSolutions = {
-                    navigation.push(Config.Solutions)
-                },
-                decisionRepository = decisionRepository,
-            ),
-        )
+        is Config.Problem -> {
+            val component = get<ProblemComponent> {
+                parametersOf(
+                    componentContext,
+                    { navigation.push(Config.Solutions) },
+                )
+            }
+            Component.Child.Problem(component)
+        }
 
-        is Config.Solutions -> Component.Child.Solutions(
-            RealSolutionsComponent(
-                componentContext = componentContext,
-                onGoToProblem = {
-                    navigation.pop()
-                },
-                onGoToDecision = {
-                    navigation.push(Config.Decision)
-                },
-                decisionRepository = decisionRepository,
-            )
-        )
+        is Config.Solutions -> {
+            val component = get<SolutionsComponent> {
+                parametersOf(
+                    componentContext,
+                    { navigation.pop() },
+                    { navigation.push(Config.Decision) },
+                )
+            }
+            Component.Child.Solutions(component)
+        }
     }
 }

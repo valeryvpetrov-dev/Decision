@@ -28,36 +28,37 @@ kotlin {
         }
         binaries.executable()
     }
-    
+
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     jvm("desktop")
-    
+
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
+        iosSimulatorArm64(),
+    ).takeIf {
+        // Export the framework only for Xcode builds
+        "XCODE_VERSION_MAJOR" in System.getenv().keys
+    }?.forEach {
+        it.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
-
-            export(libs.decompose)
-            export(libs.essenty.lifecycle)
         }
     }
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(projects.shared)
@@ -67,11 +68,11 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-
             implementation(libs.mvikotlin.timetravel)
-
             implementation(libs.decompose)
             implementation(libs.decompose.extensions.compose)
+            implementation(libs.essenty.lifecycle)
+            implementation(libs.koin.core)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

@@ -1,9 +1,7 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
-import org.jetbrains.kotlin.konan.target.Family
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -13,15 +11,21 @@ plugins {
 
 kotlin {
 
-    targets
-        .filterIsInstance<KotlinNativeTarget>()
-        .filter { it.konanTarget.family == Family.IOS }
-        .forEach {
-            it.binaries.framework {
-                export(libs.decompose)
-                export(libs.essenty.lifecycle)
-            }
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).takeIf {
+        // Export the framework only for Xcode builds
+        "XCODE_VERSION_MAJOR" in System.getenv().keys
+    }?.forEach {
+        it.binaries.framework {
+            baseName = "shared"
+
+            export(libs.decompose)
+            export(libs.essenty.lifecycle)
         }
+    }
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
@@ -36,30 +40,27 @@ kotlin {
             }
         }
     }
-    
+
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    
+
     jvm()
-    
+
     sourceSets {
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
             implementation(libs.mvikotlin)
             implementation(libs.mvikotlin.main)
             implementation(libs.mvikotlin.extensions.coroutines)
             implementation(libs.mvikotlin.timetravel)
             implementation(libs.kotlinx.serialization)
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.decompose)
+            api(libs.decompose)
+            api(libs.essenty.lifecycle)
+            implementation(libs.koin.core)
         }
     }
 }

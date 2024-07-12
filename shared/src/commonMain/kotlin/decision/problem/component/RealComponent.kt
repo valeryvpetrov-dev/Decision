@@ -2,15 +2,12 @@ package decision.problem.component
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.subscribe
+import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.extensions.coroutines.labels
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
-import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 import decision.problem.mvi.Intent
 import decision.problem.mvi.Label
 import decision.problem.mvi.State
-import decision.problem.mvi.Store
-import decision.problem.mvi.StoreFactory
-import decision.repository.DecisionRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,9 +17,7 @@ typealias RealProblemComponent = RealComponent
 class RealComponent(
     componentContext: ComponentContext,
     private val onGoToSolutions: () -> Unit,
-    // FIXME DI
-    private val decisionRepository: DecisionRepository,
-    private val store: Store = StoreFactory(DefaultStoreFactory()).create(decisionRepository)
+    private val store: Store<Intent, State, Label>,
 ) : ComponentContext by componentContext, Component {
 
     @OptIn(ExperimentalCoroutinesApi::class)
