@@ -8,6 +8,6 @@ class Reducer : MviReducer<State, Message> {
         Message.OnGoToSolutions,
         is Message.OnRestart -> this
 
-        is Message.OnRefresh -> copy(decision = msg.decisionMessage)
+        is Message.OnCalculateDecision -> copy(decision = msg.decisionMessage)
     }
 }

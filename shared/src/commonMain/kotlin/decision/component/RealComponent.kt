@@ -5,8 +5,8 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
-import com.arkivanov.decompose.router.stack.popToFirst
 import com.arkivanov.decompose.router.stack.push
+import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
 import decision.decision.component.DecisionComponent
 import decision.problem.component.ProblemComponent
@@ -23,8 +23,9 @@ class RealComponent(
     @Serializable
     private sealed class Config {
 
+        // Class is used to separate configs after make decision flow pass
         @Serializable
-        data object Problem : Config()
+        class Problem : Config()
 
         @Serializable
         data object Solutions : Config()
@@ -38,7 +39,7 @@ class RealComponent(
     override var childStack: Value<ChildStack<*, Component.Child>> = childStack(
         source = navigation,
         serializer = Config.serializer(),
-        initialConfiguration = Config.Problem,
+        initialConfiguration = Config.Problem(),
         handleBackButton = true,
         childFactory = ::createChild
     )
@@ -52,7 +53,7 @@ class RealComponent(
                 parametersOf(
                     componentContext,
                     { navigation.pop() },
-                    { navigation.popToFirst() }
+                    { navigation.replaceAll(Config.Problem()) }
                 )
             }
             Component.Child.Decision(component)

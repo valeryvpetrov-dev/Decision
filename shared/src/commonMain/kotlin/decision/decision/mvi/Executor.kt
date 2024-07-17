@@ -6,7 +6,7 @@ import model.MakeDecision
 
 class Executor(
     private val decisionRepository: DecisionRepository,
-) : CoroutineExecutor<Intent, Nothing, State, Message, Label>() {
+) : CoroutineExecutor<Intent, Action, State, Message, Label>() {
 
     override fun executeIntent(intent: Intent) {
         when (intent) {
@@ -15,10 +15,14 @@ class Executor(
                 decisionRepository.restart()
                 publish(Label.Restart)
             }
+        }
+    }
 
-            Intent.Refresh -> {
+    override fun executeAction(action: Action) {
+        when (action) {
+            Action.CalculateDecision -> {
                 val makeDecision = decisionRepository.getDecision()
-                dispatch(Message.OnRefresh(makeDecision.getDecisionMessage()))
+                dispatch(Message.OnCalculateDecision(makeDecision.getDecisionMessage()))
             }
         }
     }

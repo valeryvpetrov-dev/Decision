@@ -31,11 +31,6 @@ class Executor(
                 decisionRepository.setSolutions(solutions = state.solutions)
                 publish(Label.GoToDecision)
             }
-
-            Intent.Refresh -> {
-                val solutions = decisionRepository.getSolutions()
-                dispatch(Message.OnRefresh(solutions))
-            }
         }
     }
 }

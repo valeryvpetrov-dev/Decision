@@ -20,11 +20,6 @@ class Executor(
                 decisionRepository.setProblem(problem)
                 publish(Label.GoToSolutions)
             }
-
-            Intent.Refresh -> {
-                val problem = decisionRepository.getProblem()
-                dispatch(Message.OnRefresh(problem))
-            }
         }
     }
 }
