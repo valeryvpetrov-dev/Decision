@@ -1,11 +1,11 @@
-package decision.problem.mvi
+package decision.mvi
 
 import kotlinx.serialization.Serializable
+import model.MakeDecision
 
 @Serializable
 data class State(
-    val description: String,
-    val isGoToSolutionsEnabled: Boolean,
+    val makeDecision: MakeDecision.Builder,
 ) {
 
     companion object {
@@ -13,8 +13,7 @@ data class State(
         val STATE_KEEPER_KEY = "${this::class.qualifiedName}"
 
         fun initial(): State = State(
-            description = "",
-            isGoToSolutionsEnabled = false
+            makeDecision = MakeDecision.Builder(),
         )
     }
 }

@@ -22,7 +22,7 @@ class RealComponent(
 ) : ComponentContext by componentContext, Component {
 
     private val store: Store<Intent, State, Label> = instanceKeeper.getStore {
-        storeFactory.create()
+        storeFactory.create(stateKeeper)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

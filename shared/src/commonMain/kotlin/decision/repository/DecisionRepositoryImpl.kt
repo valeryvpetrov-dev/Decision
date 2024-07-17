@@ -8,8 +8,12 @@ class DecisionRepositoryImpl : DecisionRepository {
 
     private var makeDecision = MakeDecision.Builder()
 
-    override fun restart() {
+    override fun clearDecision() {
         makeDecision = MakeDecision.Builder()
+    }
+
+    override fun restore(makeDecision: MakeDecision.Builder) {
+        this.makeDecision = makeDecision
     }
 
     override fun setProblem(problem: Problem) {

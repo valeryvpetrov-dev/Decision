@@ -8,7 +8,11 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.mvikotlin.core.instancekeeper.getStore
+import com.arkivanov.mvikotlin.core.store.Store
 import decision.decision.component.DecisionComponent
+import decision.mvi.State
+import decision.mvi.StoreFactory
 import decision.problem.component.ProblemComponent
 import decision.solutions.component.SolutionsComponent
 import kotlinx.serialization.Serializable
@@ -23,7 +27,7 @@ class RealComponent(
     @Serializable
     private sealed class Config {
 
-        // Class is used to separate configs after make decision flow pass
+        // Class is used to separate configs after make decision flow pass. New instance - new config
         @Serializable
         class Problem : Config()
 
@@ -32,6 +36,10 @@ class RealComponent(
 
         @Serializable
         data object Decision : Config()
+    }
+
+    private val store: Store<Nothing, State, Nothing> = instanceKeeper.getStore {
+        get<StoreFactory>().create(stateKeeper)
     }
 
     private var navigation = StackNavigation<Config>()

@@ -1,5 +1,8 @@
 package model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class MakeDecision(
     val problem: Problem,
     val solutions: List<Solution>,
@@ -9,6 +12,7 @@ data class MakeDecision(
         get() = solutions.first { it.isSelected }
 
 
+    @Serializable
     class Builder {
         var problem: Problem? = null
         var solutions: List<Solution>? = null

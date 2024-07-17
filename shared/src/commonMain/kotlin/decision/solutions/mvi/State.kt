@@ -1,7 +1,9 @@
 package decision.solutions.mvi
 
+import kotlinx.serialization.Serializable
 import model.Solution
 
+@Serializable
 data class State(
     val solutions: List<Solution>,
     val isGoToDecisionEnabled: Boolean,
@@ -9,6 +11,8 @@ data class State(
 ) {
 
     companion object {
+
+        val STATE_KEEPER_KEY = "${this::class.qualifiedName}"
 
         fun initial(): State = State(
             solutions = emptyList(),

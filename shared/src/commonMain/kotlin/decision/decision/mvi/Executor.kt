@@ -12,7 +12,7 @@ class Executor(
         when (intent) {
             is Intent.GoToSolutions -> publish(Label.GoToSolutions)
             is Intent.Restart -> {
-                decisionRepository.restart()
+                decisionRepository.clearDecision()
                 publish(Label.Restart)
             }
         }

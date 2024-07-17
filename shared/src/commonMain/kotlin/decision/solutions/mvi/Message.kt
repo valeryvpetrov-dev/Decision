@@ -4,7 +4,7 @@ import model.Solution
 
 sealed class Message {
 
-    data class OnRefresh(val solutions: List<Solution>?) : Message()
+    data class OnRestoreState(val solutions: List<Solution>?) : Message()
 
     data object OnAddNewSolution : Message()
 

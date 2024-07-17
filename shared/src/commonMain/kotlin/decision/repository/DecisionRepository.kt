@@ -6,7 +6,9 @@ import model.Solution
 
 interface DecisionRepository {
 
-    fun restart()
+    fun clearDecision()
+
+    fun restore(makeDecision: MakeDecision.Builder)
 
     fun setProblem(problem: Problem)
     fun getProblem(): Problem?
@@ -15,4 +17,5 @@ interface DecisionRepository {
     fun getSolutions(): List<Solution>?
 
     fun getDecision(): MakeDecision
+
 }

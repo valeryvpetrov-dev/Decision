@@ -5,7 +5,14 @@ import decision.repository.DecisionRepository
 
 class Executor(
     private val decisionRepository: DecisionRepository,
-) : CoroutineExecutor<Intent, Nothing, State, Message, Label>() {
+) : CoroutineExecutor<Intent, Action, State, Message, Label>() {
+
+    override fun executeAction(action: Action) = when (action) {
+        Action.RestoreState -> {
+            val solutions = decisionRepository.getSolutions()
+            dispatch(Message.OnRestoreState(solutions))
+        }
+    }
 
     override fun executeIntent(intent: Intent) {
         when (intent) {

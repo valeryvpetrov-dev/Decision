@@ -8,6 +8,7 @@ import decision.solutions.di.featureModule as solutionsFeatureModule
 val featureModule = module {
     includes(
         componentModule,
+        mviModule,
         repositoryModule,
         problemFeatureModule,
         solutionsFeatureModule,
