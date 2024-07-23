@@ -1,22 +1,23 @@
 package dev.valeryvpetrov.decision
 
-import App
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.arkivanov.decompose.defaultComponentContext
-import decision.component.RealComponent
+import dev.valeryvpetrov.decision.feature.make_decision.api.Component
+import org.koin.android.ext.android.getKoin
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val component = RealComponent(componentContext = defaultComponentContext())
-
+        val factory = getKoin().get<Component.Factory>()
+        val component = factory.create(
+            componentContext = defaultComponentContext()
+        )
         setContent {
-            App(
+            Root(
                 component = component
             )
         }
@@ -26,5 +27,6 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App()
+    // FIXME
+//    Root()
 }

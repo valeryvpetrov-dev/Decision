@@ -1,8 +1,6 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -12,23 +10,6 @@ plugins {
 }
 
 kotlin {
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        moduleName = "composeApp"
-        browser {
-            commonWebpackConfig {
-                outputFileName = "composeApp.js"
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        // Serve sources to debug inside browser
-                        add(project.projectDir.path)
-                    }
-                }
-            }
-        }
-        binaries.executable()
-    }
-
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
@@ -49,6 +30,12 @@ kotlin {
         it.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+
+            export(projects.feature.makeDecision.api)
+            export(projects.feature.makeDecision.impl)
+            export(projects.umbrella.di)
+            export(libs.decompose)
+            export(libs.essenty.lifecycle)
         }
     }
 
@@ -61,7 +48,15 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
-            implementation(projects.shared)
+            // Use api for exported dependencies in ios
+            api(projects.feature.makeDecision.api)
+            api(projects.feature.makeDecision.impl)
+            api(projects.umbrella.di)
+            api(libs.decompose)
+            api(libs.essenty.lifecycle)
+
+            implementation(projects.feature.makeDecision.di)
+            implementation(projects.feature.makeDecision.ui.compose)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -69,10 +64,9 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.mvikotlin.timetravel)
-            implementation(libs.decompose)
             implementation(libs.decompose.extensions.compose)
-            implementation(libs.essenty.lifecycle)
             implementation(libs.koin.core)
+            implementation(libs.koin.jetbrains.compose)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

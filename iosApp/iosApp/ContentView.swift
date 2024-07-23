@@ -1,6 +1,5 @@
 import UIKit
 import SwiftUI
-import shared
 import ComposeApp
 
 struct ContentView: UIViewControllerRepresentable {

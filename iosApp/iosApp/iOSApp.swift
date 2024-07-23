@@ -1,5 +1,5 @@
 import SwiftUI
-import shared
+import ComposeApp
 
 @main
 struct iOSApp: App {
@@ -7,7 +7,7 @@ struct iOSApp: App {
     var appDelegate: AppDelegate
 
     init() {
-        StartKoinKt.startKoinWithSharedInitialized(appDeclaration: {_ in })
+        StartKoinKt.startKoin(appDeclaration: {_ in })
     }
 
     var body: some Scene {
@@ -19,7 +19,7 @@ struct iOSApp: App {
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-    let root: Component = RealComponent(
+    var root: Component = IosKoin.shared.createMakeDecisionComponent(
         componentContext: DefaultComponentContext(lifecycle: ApplicationLifecycle())
     )
 }

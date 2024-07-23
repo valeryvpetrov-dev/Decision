@@ -1,6 +1,7 @@
 import androidx.compose.ui.window.ComposeUIViewController
-import decision.component.Component
+import dev.valeryvpetrov.decision.Root
+import dev.valeryvpetrov.decision.feature.make_decision.api.Component
 
 fun MainViewController(component: Component) = ComposeUIViewController {
-    App(component = component)
+    Root(component = component)
 }

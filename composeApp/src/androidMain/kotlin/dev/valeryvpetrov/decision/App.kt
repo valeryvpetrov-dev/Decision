@@ -2,7 +2,7 @@ package dev.valeryvpetrov.decision
 
 import android.app.Application
 import com.arkivanov.mvikotlin.timetravel.server.TimeTravelServer
-import di.startKoinWithSharedInitialized
+import dev.valeryvpetrov.decision.umbrella.di.startKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 
@@ -13,7 +13,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         timeTravelServer.start()
-        startKoinWithSharedInitialized {
+        startKoin {
             androidContext(this@App)
             androidLogger()
         }
