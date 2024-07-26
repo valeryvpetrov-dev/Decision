@@ -7,8 +7,10 @@ class Reducer : MviReducer<State, Message> {
 
     override fun State.reduce(msg: Message): State = when (msg) {
         Message.OnGoToSolutions,
-        is Message.OnRestart -> this
+        is Message.OnRestart,
+        -> this
 
-        is Message.OnCalculateDecision -> copy(decision = msg.decisionMessage)
+        is Message.OnCalculateDecision -> copy(decisionMessage = msg.decisionMessage)
+        is Message.OnRestore -> copy(decisionMessage = msg.decisionMessage)
     }
 }

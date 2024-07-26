@@ -18,6 +18,7 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.mvikotlin)
             implementation(libs.mvikotlin.main)
+            implementation(libs.mvikotlin.logging)
         }
     }
 }

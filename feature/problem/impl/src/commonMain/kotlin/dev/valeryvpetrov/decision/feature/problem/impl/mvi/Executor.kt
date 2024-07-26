@@ -1,15 +1,18 @@
 package dev.valeryvpetrov.decision.feature.problem.impl.mvi
 
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
-import dev.valeryvpetrov.decision.data.api.DecisionRepository
 import dev.valeryvpetrov.decision.domain.Problem
 import dev.valeryvpetrov.decision.feature.problem.api.Intent
-import dev.valeryvpetrov.decision.feature.problem.api.Label
 import dev.valeryvpetrov.decision.feature.problem.api.State
 
 class Executor(
-    private val decisionRepository: DecisionRepository,
-) : CoroutineExecutor<Intent, Nothing, State, Message, Label>() {
+    private val onGoToSolutions: (Problem) -> Unit,
+) : CoroutineExecutor<Intent, Nothing, State, Message, Nothing>() {
+
+    interface Factory {
+
+        fun create(onGoToSolutions: (Problem) -> Unit): Executor
+    }
 
     override fun executeIntent(intent: Intent) {
         when (intent) {
@@ -20,9 +23,10 @@ class Executor(
             Intent.GoToSolutions -> {
                 val state = state()
                 val problem = Problem(state.description)
-                decisionRepository.setProblem(problem)
-                publish(Label.GoToSolutions)
+                onGoToSolutions(problem)
             }
+
+            is Intent.Restore -> dispatch(Message.OnRestore(problem = intent.problem))
         }
     }
 }

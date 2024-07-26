@@ -13,7 +13,7 @@ class Reducer : MviReducer<State, Message> {
             )
         }
 
-        is Message.OnRefresh -> {
+        is Message.OnRestore -> {
             val description = msg.problem?.description ?: ""
             copy(
                 description = description,

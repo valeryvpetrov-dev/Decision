@@ -11,32 +11,19 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.valeryvpetrov.decision.feature.decision.api.DecisionComponent
 import dev.valeryvpetrov.decision.feature.decision.api.Intent
-import dev.valeryvpetrov.decision.feature.decision.api.Label
 import dev.valeryvpetrov.decision.feature.decision.api.State
-import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun Screen(
     component: DecisionComponent,
 ) {
     val state by component.state.collectAsState()
-
-    LaunchedEffect(Unit) {
-        component.labels.collectLatest { label ->
-            when (label) {
-                Label.GoToSolutions -> component.onGoToSolutions()
-                Label.Restart -> component.onRestart()
-            }
-        }
-    }
-
     ScreenContent(
         state = state,
         onGoToSolutions = {
@@ -64,7 +51,7 @@ private fun ScreenContent(
         Text(
             modifier = Modifier
                 .fillMaxWidth(),
-            text = state.decision,
+            text = state.decisionMessage,
         )
         Row(
             modifier = Modifier.fillMaxWidth(),

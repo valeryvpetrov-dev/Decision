@@ -29,6 +29,7 @@ kotlin {
             implementation(projects.feature.problem.api)
             implementation(projects.feature.solution.api)
             implementation(projects.feature.decision.api)
+            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.core)
             implementation(libs.decompose)
         }

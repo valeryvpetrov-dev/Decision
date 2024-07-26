@@ -1,7 +1,6 @@
 package dev.valeryvpetrov.decision.feature.decision.di
 
 import dev.valeryvpetrov.decision.base.api.Provider
-import dev.valeryvpetrov.decision.feature.decision.impl.mvi.Bootstrapper
 import dev.valeryvpetrov.decision.feature.decision.impl.mvi.Executor
 import dev.valeryvpetrov.decision.feature.decision.impl.mvi.Reducer
 import dev.valeryvpetrov.decision.feature.decision.impl.mvi.StoreFactory
@@ -20,15 +19,20 @@ internal val mviModule = module {
         StoreFactory(
             storeFactory = get<MviStoreFactory>(),
             storeName = get<String>(qualifier = FeatureQualifier.StoreName.qualifier),
-            executor = get<Executor>(),
+            executorFactory = get<Executor.Factory>(),
             reducer = get<Reducer>(),
-            bootstrapper = get<Bootstrapper>(),
         )
     }
     factory<String>(qualifier = FeatureQualifier.StoreName.qualifier) {
         FeatureQualifier.StoreName.name
     }
+    factory<Executor.Factory> {
+        object : Executor.Factory {
+            override fun create(onGoToSolutions: () -> Unit, onRestart: () -> Unit) = Executor(
+                onGoToSolutions = onGoToSolutions,
+                onRestart = onRestart,
+            )
+        }
+    }
     factoryOf(::Reducer)
-    factoryOf(::Executor)
-    factoryOf(::Bootstrapper)
 }

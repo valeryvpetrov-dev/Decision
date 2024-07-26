@@ -5,6 +5,7 @@ import dev.valeryvpetrov.decision.base.di.Qualifier.Feature.MakeDecision
 import dev.valeryvpetrov.decision.data.api.DecisionRepository
 import dev.valeryvpetrov.decision.feature.make_decision.impl.mvi.Bootstrapper
 import dev.valeryvpetrov.decision.feature.make_decision.impl.mvi.Executor
+import dev.valeryvpetrov.decision.feature.make_decision.impl.mvi.Reducer
 import dev.valeryvpetrov.decision.feature.make_decision.impl.mvi.StoreFactory
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
@@ -21,6 +22,7 @@ internal val mviModule = module {
             storeFactory = get<MviStoreFactory>(),
             storeName = get<String>(qualifier = MakeDecision.StoreName.qualifier),
             bootstrapper = get<Bootstrapper>(),
+            reducer = get<Reducer>(),
             executorFactory = get<Executor.Factory>(),
         )
     }
@@ -32,5 +34,6 @@ internal val mviModule = module {
             decisionRepository = get<DecisionRepository>()
         )
     }
+    factoryOf(::Reducer)
     factoryOf(::Bootstrapper)
 }

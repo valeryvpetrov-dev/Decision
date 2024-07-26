@@ -10,15 +10,20 @@ import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.core.store.Store
+import com.arkivanov.mvikotlin.extensions.coroutines.labels
 import dev.valeryvpetrov.decision.base.api.Provider
+import dev.valeryvpetrov.decision.domain.Problem
+import dev.valeryvpetrov.decision.domain.Solution
 import dev.valeryvpetrov.decision.feature.decision.api.DecisionComponentFactory
 import dev.valeryvpetrov.decision.feature.make_decision.api.Component
+import dev.valeryvpetrov.decision.feature.make_decision.api.Label
 import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecisionComponent
 import dev.valeryvpetrov.decision.feature.make_decision.api.State
+import dev.valeryvpetrov.decision.feature.make_decision.impl.mvi.Intent
 import dev.valeryvpetrov.decision.feature.make_decision.impl.mvi.StoreFactory
 import dev.valeryvpetrov.decision.feature.problem.api.ProblemComponentFactory
 import dev.valeryvpetrov.decision.feature.solution.api.SolutionComponentFactory
-import kotlinx.serialization.Serializable
+import kotlinx.coroutines.flow.Flow
 
 class RealComponent(
     componentContext: ComponentContext,
@@ -46,43 +51,57 @@ class RealComponent(
         )
     }
 
-    @Serializable
-    private sealed class Config {
-
-        // Class is used to separate configs after make decision flow pass. New instance - new config
-        @Serializable
-        class Problem : Config()
-
-        @Serializable
-        data object Solutions : Config()
-
-        @Serializable
-        data object Decision : Config()
-    }
-
-    private val store: Store<Nothing, State, Nothing> = instanceKeeper.getStore {
+    private val store: Store<Intent, State, Label> = instanceKeeper.getStore {
         storeFactoryProvider.get().create(stateKeeper)
     }
 
     private var navigation = StackNavigation<Config>()
 
+    override val labels: Flow<Label> = store.labels
+
     override var childStack: Value<ChildStack<*, Component.Child>> = childStack(
         source = navigation,
         serializer = Config.serializer(),
-        initialConfiguration = Config.Problem(),
+        initialConfiguration = Config.Problem(Problem.empty()),
         handleBackButton = true,
         childFactory = ::createChild
     )
 
+    override fun onGoToSolution(solutions: List<Solution>?) {
+        navigation.push(Config.Solution(solutions))
+    }
+
+    override fun onGoToDecision(decisionMessage: String) {
+        navigation.push(Config.Decision(decisionMessage))
+    }
+
+    override fun onBackToProblem(problem: Problem?) {
+        navigation.pop()
+    }
+
+    // FIXME: back after process death
+    override fun onBackToSolution(solutions: List<Solution>?) {
+        navigation.pop()
+    }
+
+    override fun onRestart(problem: Problem?) {
+        navigation.replaceAll(Config.Problem(problem))
+    }
+
     private fun createChild(
         config: Config,
-        componentContext: ComponentContext
+        componentContext: ComponentContext,
     ): Component.Child = when (config) {
         is Config.Decision -> {
             val component = decisionComponentFactory.create(
                 componentContext = componentContext,
-                onGoToSolutions = { navigation.pop() },
-                onRestart = { navigation.replaceAll(Config.Problem()) },
+                decisionMessage = config.decisionMessage,
+                onGoToSolution = {
+                    store.accept(Intent.BackToSolution)
+                },
+                onRestart = {
+                    store.accept(Intent.Restart)
+                },
             )
             Component.Child.Decision(component)
         }
@@ -90,16 +109,24 @@ class RealComponent(
         is Config.Problem -> {
             val component = problemComponentFactory.create(
                 componentContext = componentContext,
-                onGoToSolutions = { navigation.push(Config.Solutions) },
+                problem = config.problem,
+                onGoToSolutions = { problem ->
+                    store.accept(Intent.GoToSolution(problem))
+                },
             )
             Component.Child.Problem(component)
         }
 
-        is Config.Solutions -> {
+        is Config.Solution -> {
             val component = solutionComponentFactory.create(
                 componentContext = componentContext,
-                onGoToProblem = { navigation.pop() },
-                onGoToDecision = { navigation.push(Config.Decision) },
+                solutions = config.solutions,
+                onBackToProblem = { solutions ->
+                    store.accept(Intent.BackToProblem(solutions))
+                },
+                onGoToDecision = { solutions ->
+                    store.accept(Intent.GoToDecision(solutions))
+                },
             )
             Component.Child.Solutions(component)
         }

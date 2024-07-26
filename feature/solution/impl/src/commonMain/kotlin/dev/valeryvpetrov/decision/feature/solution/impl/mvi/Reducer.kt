@@ -48,7 +48,7 @@ class Reducer : MviReducer<State, Message> {
             )
         }
 
-        is Message.OnRestoreState -> {
+        is Message.OnRestore -> {
             val solutions = msg.solutions ?: emptyList()
             copy(
                 solutions = solutions,

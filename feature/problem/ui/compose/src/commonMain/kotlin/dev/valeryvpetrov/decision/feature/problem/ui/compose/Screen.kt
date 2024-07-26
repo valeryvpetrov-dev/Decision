@@ -12,31 +12,19 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.valeryvpetrov.decision.feature.problem.api.Intent
-import dev.valeryvpetrov.decision.feature.problem.api.Label
 import dev.valeryvpetrov.decision.feature.problem.api.ProblemComponent
 import dev.valeryvpetrov.decision.feature.problem.api.State
-import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun Screen(
     component: ProblemComponent,
 ) {
     val state by component.state.collectAsState()
-
-    LaunchedEffect(Unit) {
-        component.labels.collectLatest { label ->
-            when (label) {
-                Label.GoToSolutions -> component.onGoToSolutions()
-            }
-        }
-    }
-
     ScreenContent(
         state = state,
         onChangeProblemDescription = { description ->

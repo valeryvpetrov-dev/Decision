@@ -1,20 +1,20 @@
 package dev.valeryvpetrov.decision.feature.solution.impl.mvi
 
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
-import dev.valeryvpetrov.decision.data.api.DecisionRepository
+import dev.valeryvpetrov.decision.domain.Solution
 import dev.valeryvpetrov.decision.feature.solution.api.Intent
-import dev.valeryvpetrov.decision.feature.solution.api.Label
 import dev.valeryvpetrov.decision.feature.solution.api.State
 
 class Executor(
-    private val decisionRepository: DecisionRepository,
-) : CoroutineExecutor<Intent, Action, State, Message, Label>() {
+    private val onBackToProblem: (List<Solution>) -> Unit,
+    private val onGoToDecision: (List<Solution>) -> Unit,
+) : CoroutineExecutor<Intent, Nothing, State, Message, Nothing>() {
 
-    override fun executeAction(action: Action) = when (action) {
-        Action.RestoreState -> {
-            val solutions = decisionRepository.getSolutions()
-            dispatch(Message.OnRestoreState(solutions))
-        }
+    interface Factory {
+        fun create(
+            onBackToProblem: (List<Solution>) -> Unit,
+            onGoToDecision: (List<Solution>) -> Unit,
+        ): Executor
     }
 
     override fun executeIntent(intent: Intent) {
@@ -30,17 +30,19 @@ class Executor(
             is Intent.SelectSolution -> dispatch(Message.OnSelectSolution(index = intent.index))
             is Intent.DeleteSolution -> dispatch(Message.OnDeleteSolution(index = intent.index))
 
-            Intent.GoToProblem -> {
+            Intent.GoToProblem,
+            Intent.Back,
+            -> {
                 val state = state()
-                decisionRepository.setSolutions(solutions = state.solutions)
-                publish(Label.GoToProblem)
+                onBackToProblem(state.solutions)
             }
 
             Intent.GoToDecision -> {
                 val state = state()
-                decisionRepository.setSolutions(solutions = state.solutions)
-                publish(Label.GoToDecision)
+                onGoToDecision(state.solutions)
             }
+
+            is Intent.Restore -> dispatch(Message.OnRestore(solutions = intent.solutions))
         }
     }
 }

@@ -4,7 +4,7 @@ import dev.valeryvpetrov.decision.domain.Solution
 
 sealed class Message {
 
-    data class OnRestoreState(val solutions: List<Solution>?) : Message()
+    data class OnRestore(val solutions: List<Solution>?) : Message()
 
     data object OnAddNewSolution : Message()
 

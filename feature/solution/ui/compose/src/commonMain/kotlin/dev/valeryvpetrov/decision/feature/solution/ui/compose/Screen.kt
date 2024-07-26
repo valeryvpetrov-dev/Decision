@@ -18,7 +18,6 @@ import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -26,26 +25,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.valeryvpetrov.decision.feature.solution.api.Intent
-import dev.valeryvpetrov.decision.feature.solution.api.Label
 import dev.valeryvpetrov.decision.feature.solution.api.SolutionComponent
 import dev.valeryvpetrov.decision.feature.solution.api.State
-import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun Screen(
     component: SolutionComponent,
 ) {
     val state by component.state.collectAsState()
-
-    LaunchedEffect(Unit) {
-        component.labels.collectLatest { label ->
-            when (label) {
-                Label.GoToProblem -> component.onGoToProblem()
-                Label.GoToDecision -> component.onGoToDecision()
-            }
-        }
-    }
-
     ScreenContent(
         state = state,
         onAddNewSolution = {

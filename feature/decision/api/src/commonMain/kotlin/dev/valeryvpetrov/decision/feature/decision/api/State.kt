@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class State(
-    val decision: String,
+    val decisionMessage: String,
     val isGoToSolutionsEnabled: Boolean,
     val isRestartEnabled: Boolean,
 ) {
@@ -14,7 +14,7 @@ data class State(
         val STATE_KEEPER_KEY = "${this::class.qualifiedName}"
 
         fun initial(): State = State(
-            decision = "",
+            decisionMessage = "",
             isGoToSolutionsEnabled = true,
             isRestartEnabled = true,
         )
