@@ -25,7 +25,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.base.api)
-            api(projects.domain)
             implementation(libs.kotlinx.serialization.core)
             implementation(libs.decompose)
         }

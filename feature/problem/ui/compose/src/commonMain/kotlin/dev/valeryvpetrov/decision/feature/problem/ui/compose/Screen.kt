@@ -16,9 +16,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import dev.valeryvpetrov.decision.feature.problem.api.Intent
-import dev.valeryvpetrov.decision.feature.problem.api.ProblemComponent
-import dev.valeryvpetrov.decision.feature.problem.api.State
+import dev.valeryvpetrov.decision.feature.problem.presentation.component.ProblemComponent
+import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.Intent
+import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.State
 
 @Composable
 fun Screen(

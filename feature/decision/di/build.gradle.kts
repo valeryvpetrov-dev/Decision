@@ -25,8 +25,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.base.di)
             implementation(projects.feature.decision.api)
-            implementation(projects.feature.decision.impl)
-            implementation(projects.data.api)
+            implementation(projects.feature.decision.presentation)
             implementation(libs.mvikotlin)
             implementation(libs.mvikotlin.main)
             implementation(libs.mvikotlin.extensions.coroutines)

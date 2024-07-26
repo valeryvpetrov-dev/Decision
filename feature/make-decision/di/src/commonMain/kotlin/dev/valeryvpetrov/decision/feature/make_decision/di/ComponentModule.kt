@@ -2,12 +2,12 @@ package dev.valeryvpetrov.decision.feature.make_decision.di
 
 import dev.valeryvpetrov.decision.base.api.Provider
 import dev.valeryvpetrov.decision.base.di.Qualifier
-import dev.valeryvpetrov.decision.feature.decision.api.DecisionComponentFactory
-import dev.valeryvpetrov.decision.feature.make_decision.api.Component
-import dev.valeryvpetrov.decision.feature.make_decision.impl.component.RealComponent
-import dev.valeryvpetrov.decision.feature.make_decision.impl.mvi.StoreFactory
-import dev.valeryvpetrov.decision.feature.problem.api.ProblemComponentFactory
-import dev.valeryvpetrov.decision.feature.solution.api.SolutionComponentFactory
+import dev.valeryvpetrov.decision.feature.decision.presentation.component.DecisionComponentFactory
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.component.Component
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.component.RealComponent
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.StoreFactory
+import dev.valeryvpetrov.decision.feature.problem.presentation.component.ProblemComponentFactory
+import dev.valeryvpetrov.decision.feature.solution.presentation.component.SolutionComponentFactory
 import org.koin.dsl.module
 
 val componentModule = module {

@@ -31,10 +31,7 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
-            implementation(projects.feature.makeDecision.api)
-            implementation(projects.feature.problem.api)
-            implementation(projects.feature.solution.api)
-            implementation(projects.feature.decision.api)
+            implementation(projects.feature.makeDecision.presentation)
             implementation(projects.feature.problem.ui.compose)
             implementation(projects.feature.solution.ui.compose)
             implementation(projects.feature.decision.ui.compose)
@@ -69,4 +66,7 @@ android {
     dependencies {
         debugImplementation(compose.uiTooling)
     }
+}
+dependencies {
+    implementation(project(":feature:make-decision:presentation"))
 }

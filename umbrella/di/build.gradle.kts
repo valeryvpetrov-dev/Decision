@@ -13,7 +13,6 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.feature.makeDecision.api)
             implementation(projects.feature.makeDecision.di)
-            implementation(projects.data.di)
             implementation(libs.koin.core)
             implementation(libs.decompose)
             implementation(libs.mvikotlin)

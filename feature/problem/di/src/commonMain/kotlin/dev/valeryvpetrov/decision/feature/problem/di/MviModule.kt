@@ -1,10 +1,10 @@
 package dev.valeryvpetrov.decision.feature.problem.di
 
 import dev.valeryvpetrov.decision.base.api.Provider
-import dev.valeryvpetrov.decision.domain.Problem
-import dev.valeryvpetrov.decision.feature.problem.impl.mvi.Executor
-import dev.valeryvpetrov.decision.feature.problem.impl.mvi.Reducer
-import dev.valeryvpetrov.decision.feature.problem.impl.mvi.StoreFactory
+import dev.valeryvpetrov.decision.feature.problem.api.Problem
+import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.Executor
+import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.Reducer
+import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.StoreFactory
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 import com.arkivanov.mvikotlin.core.store.StoreFactory as MviStoreFactory

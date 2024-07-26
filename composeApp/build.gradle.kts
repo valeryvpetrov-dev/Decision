@@ -32,7 +32,7 @@ kotlin {
             isStatic = true
 
             export(projects.feature.makeDecision.api)
-            export(projects.feature.makeDecision.impl)
+            export(projects.feature.makeDecision.presentation)
             export(projects.umbrella.di)
             export(libs.decompose)
             export(libs.essenty.lifecycle)
@@ -50,7 +50,7 @@ kotlin {
         commonMain.dependencies {
             // Use api for exported dependencies in ios
             api(projects.feature.makeDecision.api)
-            api(projects.feature.makeDecision.impl)
+            api(projects.feature.makeDecision.presentation)
             api(projects.umbrella.di)
             api(libs.decompose)
             api(libs.essenty.lifecycle)

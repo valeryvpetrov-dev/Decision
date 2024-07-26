@@ -2,11 +2,11 @@ package dev.valeryvpetrov.decision.feature.make_decision.di
 
 import dev.valeryvpetrov.decision.base.api.Provider
 import dev.valeryvpetrov.decision.base.di.Qualifier.Feature.MakeDecision
-import dev.valeryvpetrov.decision.data.api.DecisionRepository
-import dev.valeryvpetrov.decision.feature.make_decision.impl.mvi.Bootstrapper
-import dev.valeryvpetrov.decision.feature.make_decision.impl.mvi.Executor
-import dev.valeryvpetrov.decision.feature.make_decision.impl.mvi.Reducer
-import dev.valeryvpetrov.decision.feature.make_decision.impl.mvi.StoreFactory
+import dev.valeryvpetrov.decision.feature.make_decision.api.DecisionRepository
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.Bootstrapper
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.Executor
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.Reducer
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.StoreFactory
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 import com.arkivanov.mvikotlin.core.store.StoreFactory as MviStoreFactory

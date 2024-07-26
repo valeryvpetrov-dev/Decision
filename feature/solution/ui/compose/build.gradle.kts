@@ -31,7 +31,7 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
-            implementation(projects.feature.solution.api)
+            implementation(projects.feature.solution.presentation)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)

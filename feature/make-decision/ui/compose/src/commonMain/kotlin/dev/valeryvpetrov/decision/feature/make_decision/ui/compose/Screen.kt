@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
-import dev.valeryvpetrov.decision.feature.make_decision.api.Component
-import dev.valeryvpetrov.decision.feature.make_decision.api.Label
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.component.Component
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.Label
 import kotlinx.coroutines.flow.collectLatest
 import dev.valeryvpetrov.decision.feature.decision.ui.compose.Screen as DecisionScreen
 import dev.valeryvpetrov.decision.feature.problem.ui.compose.Screen as ProblemScreen

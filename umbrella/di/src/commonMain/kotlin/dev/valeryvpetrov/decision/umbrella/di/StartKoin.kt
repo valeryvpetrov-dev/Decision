@@ -1,6 +1,5 @@
 package dev.valeryvpetrov.decision.umbrella.di
 
-import dev.valeryvpetrov.decision.data.di.repositoryModule
 import dev.valeryvpetrov.decision.feature.make_decision.di.featureModule
 import org.koin.core.KoinApplication
 import org.koin.dsl.KoinAppDeclaration
@@ -11,7 +10,6 @@ fun startKoin(appDeclaration: KoinAppDeclaration = {}): KoinApplication {
         appDeclaration()
         modules(
             featureModule,
-            repositoryModule,
             mviModule,
         )
     }

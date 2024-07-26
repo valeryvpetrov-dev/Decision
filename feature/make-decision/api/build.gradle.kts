@@ -25,7 +25,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.base.api)
-            implementation(projects.domain)
             implementation(projects.feature.problem.api)
             implementation(projects.feature.solution.api)
             implementation(projects.feature.decision.api)

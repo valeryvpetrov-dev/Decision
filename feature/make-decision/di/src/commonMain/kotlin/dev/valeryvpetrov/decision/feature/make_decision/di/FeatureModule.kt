@@ -9,6 +9,7 @@ val featureModule = module {
     includes(
         componentModule,
         mviModule,
+        repositoryModule,
         problemFeatureModule,
         solutionFeatureModule,
         decisionFeatureModule,

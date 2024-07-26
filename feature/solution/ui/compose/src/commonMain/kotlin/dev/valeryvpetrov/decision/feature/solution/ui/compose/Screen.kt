@@ -24,9 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import dev.valeryvpetrov.decision.feature.solution.api.Intent
-import dev.valeryvpetrov.decision.feature.solution.api.SolutionComponent
-import dev.valeryvpetrov.decision.feature.solution.api.State
+import dev.valeryvpetrov.decision.feature.solution.presentation.component.SolutionComponent
+import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Intent
+import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.State
 
 @Composable
 fun Screen(
