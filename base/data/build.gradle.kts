@@ -1,17 +1,15 @@
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.decision.common.kmp)
 }
 
 kotlin {
-
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    jvm()
-
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
         }
     }
+}
+
+android {
+    namespace = "dev.valeryvpetrov.decision.base.data"
 }

@@ -56,6 +56,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 kotlin-dsl = { id = "org.gradle.kotlin.kotlin-dsl", version.ref = "kotlin-dsl" }
 kotlin-dsl-precompiledScriptPlugins = { id = "org.gradle.kotlin.kotlin-dsl.precompiled-script-plugins", version.ref = "kotlin-dsl" }
 # Custom plugins prefixed with "decision". To make them accesible via version catalog stub version is set
+decision-common-kmp = { id = "common-kmp", version = "0.0.0" }
 decision-feature-api = { id = "feature-api", version = "0.0.0" }
 decision-feature-di = { id = "feature-di", version = "0.0.0" }
 decision-feature-presentation = { id = "feature-presentation", version = "0.0.0" }

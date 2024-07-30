@@ -11,3 +11,7 @@ kotlin {
         }
     }
 }
+
+android {
+    namespace = "dev.valeryvpetrov.decision.feature.make_decision.data"
+}
