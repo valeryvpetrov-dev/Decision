@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.arkivanov.decompose.defaultComponentContext
-import dev.valeryvpetrov.decision.feature.make_decision.api.Component
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.component.Component
 import org.koin.android.ext.android.getKoin
 
 class MainActivity : ComponentActivity() {

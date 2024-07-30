@@ -1,7 +1,7 @@
 package dev.valeryvpetrov.decision.umbrella.di
 
 import com.arkivanov.decompose.ComponentContext
-import dev.valeryvpetrov.decision.feature.make_decision.api.Component
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.component.Component
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

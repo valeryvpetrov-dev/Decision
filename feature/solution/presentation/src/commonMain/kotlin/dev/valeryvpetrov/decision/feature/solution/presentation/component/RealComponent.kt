@@ -13,6 +13,7 @@ import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.StoreFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.StateFlow
 
+// FIXME: put internal modifier to private api for all presentation modules
 class RealComponent(
     componentContext: ComponentContext,
     private val solutions: List<Solution>?,

@@ -8,7 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import dev.valeryvpetrov.decision.feature.make_decision.api.Component
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.component.Component
 import dev.valeryvpetrov.decision.feature.make_decision.ui.compose.Screen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

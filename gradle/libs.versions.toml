@@ -3,9 +3,11 @@ agp = "8.2.0"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
-androidx-activityCompose = "1.9.0"
+androidx-activityCompose = "1.9.1"
+android-gradle-plugin = "8.2.0"
 compose-plugin = "1.6.11"
 kotlin = "2.0.0"
+kotlin-dsl = "4.3.0"
 ktor = "2.3.12"
 logback = "1.5.6"
 mvikotlin = "4.1.0"
@@ -15,14 +17,18 @@ kotlinx-serialization = "1.7.1"
 kotlinx-coroutines = "1.8.1"
 koin = "3.5.6"
 koin-jetbrains-compose = "1.1.5"
+compose-gradle-plugin = "1.6.11"
 
 [libraries]
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+compose-gradle-plugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose-gradle-plugin" }
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
 ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }
@@ -47,3 +53,11 @@ kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-dsl = { id = "org.gradle.kotlin.kotlin-dsl", version.ref = "kotlin-dsl" }
+kotlin-dsl-precompiledScriptPlugins = { id = "org.gradle.kotlin.kotlin-dsl.precompiled-script-plugins", version.ref = "kotlin-dsl" }
+# Custom plugins prefixed with "decision". To make them accesible via version catalog stub version is set
+decision-feature-api = { id = "feature-api", version = "0.0.0" }
+decision-feature-di = { id = "feature-di", version = "0.0.0" }
+decision-feature-presentation = { id = "feature-presentation", version = "0.0.0" }
+decision-feature-data = { id = "feature-data", version = "0.0.0" }
+decision-feature-ui-compose = { id = "feature-ui-compose", version = "0.0.0" }
