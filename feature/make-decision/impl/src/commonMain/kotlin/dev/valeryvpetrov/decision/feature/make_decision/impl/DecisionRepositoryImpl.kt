@@ -1,4 +1,4 @@
-package dev.valeryvpetrov.decision.feature.make_decision.data
+package dev.valeryvpetrov.decision.feature.make_decision.impl
 
 import dev.valeryvpetrov.decision.feature.make_decision.api.DecisionRepository
 import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecision

@@ -11,5 +11,5 @@ kotlin {
 }
 
 android {
-    namespace = "dev.valeryvpetrov.decision.base.data"
+    namespace = "dev.valeryvpetrov.decision.base.impl"
 }

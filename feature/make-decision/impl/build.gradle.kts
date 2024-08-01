@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.decision.feature.data)
+    alias(libs.plugins.decision.feature.impl)
 }
 
 kotlin {
@@ -13,5 +13,5 @@ kotlin {
 }
 
 android {
-    namespace = "dev.valeryvpetrov.decision.feature.make_decision.data"
+    namespace = "dev.valeryvpetrov.decision.feature.make_decision.impl"
 }

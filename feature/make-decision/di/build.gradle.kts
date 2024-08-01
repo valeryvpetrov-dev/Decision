@@ -13,7 +13,7 @@ kotlin {
             implementation(projects.feature.problem.presentation)
             implementation(projects.feature.solution.presentation)
             implementation(projects.feature.decision.presentation)
-            implementation(projects.feature.makeDecision.data)
+            implementation(projects.feature.makeDecision.impl)
             implementation(projects.feature.problem.di)
             implementation(projects.feature.solution.di)
             implementation(projects.feature.decision.di)

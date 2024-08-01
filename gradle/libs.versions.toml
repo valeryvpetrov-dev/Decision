@@ -60,5 +60,5 @@ decision-common-kmp = { id = "common-kmp", version = "0.0.0" }
 decision-feature-api = { id = "feature-api", version = "0.0.0" }
 decision-feature-di = { id = "feature-di", version = "0.0.0" }
 decision-feature-presentation = { id = "feature-presentation", version = "0.0.0" }
-decision-feature-data = { id = "feature-data", version = "0.0.0" }
+decision-feature-impl = { id = "feature-impl", version = "0.0.0" }
 decision-feature-ui-compose = { id = "feature-ui-compose", version = "0.0.0" }

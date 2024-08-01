@@ -17,8 +17,8 @@ class BaseProjects(private val project: Project) {
     val presentation: Project
         get() = project.findProjectOrThrow(":base:presentation")
 
-    val data: Project
-        get() = project.findProjectOrThrow(":base:data")
+    val impl: Project
+        get() = project.findProjectOrThrow(":base:impl")
 }
 
 class FeatureProjects(private val project: Project)
