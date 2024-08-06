@@ -1,11 +1,11 @@
 package dev.valeryvpetrov.decision.feature.make_decision.impl
 
-import dev.valeryvpetrov.decision.feature.make_decision.api.DecisionRepository
 import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecision
+import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecisionRepository
 import dev.valeryvpetrov.decision.feature.problem.api.Problem
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
 
-class DecisionRepositoryImpl : DecisionRepository {
+class MakeDecisionRepositoryImpl : MakeDecisionRepository {
 
     private var makeDecision = MakeDecision.Builder()
 

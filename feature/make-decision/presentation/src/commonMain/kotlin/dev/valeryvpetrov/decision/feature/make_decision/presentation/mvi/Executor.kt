@@ -1,52 +1,52 @@
 package dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi
 
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
-import dev.valeryvpetrov.decision.feature.make_decision.api.DecisionRepository
 import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecision
+import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecisionRepository
 
 class Executor(
     private val savedState: State,
-    private val decisionRepository: DecisionRepository,
+    private val makeDecisionRepository: MakeDecisionRepository,
 ) : CoroutineExecutor<Intent, Action, State, Message, Label>() {
 
     class Factory(
-        private val decisionRepository: DecisionRepository,
+        private val makeDecisionRepository: MakeDecisionRepository,
     ) {
 
         fun create(savedState: State): Executor = Executor(
             savedState = savedState,
-            decisionRepository = decisionRepository,
+            makeDecisionRepository = makeDecisionRepository,
         )
     }
 
     override fun executeIntent(intent: Intent) = when (intent) {
         is Intent.GoToSolution -> {
-            decisionRepository.setProblem(intent.problem)
-            val solutions = decisionRepository.getSolutions()
+            makeDecisionRepository.setProblem(intent.problem)
+            val solutions = makeDecisionRepository.getSolutions()
             publish(Label.GoToSolution(solutions))
         }
 
         is Intent.GoToDecision -> {
-            decisionRepository.setSolutions(intent.solutions)
-            val makeDecision = decisionRepository.getDecision()
+            makeDecisionRepository.setSolutions(intent.solutions)
+            val makeDecision = makeDecisionRepository.getDecision()
             val decisionMessage = makeDecision.getDecisionMessage()
             publish(Label.GoToDecision(decisionMessage))
         }
 
         is Intent.BackToProblem -> {
-            decisionRepository.setSolutions(intent.solutions)
-            val problem = decisionRepository.getProblem()
+            makeDecisionRepository.setSolutions(intent.solutions)
+            val problem = makeDecisionRepository.getProblem()
             publish(Label.BackToProblem(problem))
         }
 
         Intent.Restart -> {
-            decisionRepository.clearDecision()
-            val problem = decisionRepository.getProblem()
+            makeDecisionRepository.clearDecision()
+            val problem = makeDecisionRepository.getProblem()
             publish(Label.Restart(problem))
         }
 
         Intent.BackToSolution -> {
-            val solutions = decisionRepository.getSolutions()
+            val solutions = makeDecisionRepository.getSolutions()
             publish(Label.BackToSolution(solutions))
         }
     }
@@ -55,7 +55,7 @@ class Executor(
         when (action) {
             Action.Restore -> {
                 val makeDecision = savedState.makeDecision
-                decisionRepository.restore(makeDecision)
+                makeDecisionRepository.restore(makeDecision)
                 dispatch(Message.OnRestore(makeDecision))
             }
         }
