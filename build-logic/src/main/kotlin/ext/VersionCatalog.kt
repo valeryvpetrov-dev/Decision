@@ -19,6 +19,12 @@ class LibsCatalog(private val versionCatalog: VersionCatalog) {
     val kotlinxCoroutinesCore: Provider<MinimalExternalModuleDependency>
         get() = versionCatalog.findLibraryOrThrow("kotlinx-coroutines-core")
 
+    val kotlinxCoroutinesSwing: Provider<MinimalExternalModuleDependency>
+        get() = versionCatalog.findLibraryOrThrow("kotlinx-coroutines-swing")
+
+    val kotlinxCoroutinesAndroid: Provider<MinimalExternalModuleDependency>
+        get() = versionCatalog.findLibraryOrThrow("kotlinx-coroutines-android")
+
     val kotlinxSerializationCore: Provider<MinimalExternalModuleDependency>
         get() = versionCatalog.findLibraryOrThrow("kotlinx-serialization-core")
 

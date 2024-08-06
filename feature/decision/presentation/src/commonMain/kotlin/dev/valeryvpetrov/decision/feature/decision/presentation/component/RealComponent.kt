@@ -4,13 +4,10 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.backhandler.BackCallback
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.core.store.Store
-import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import dev.valeryvpetrov.decision.base.api.Provider
 import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.Intent
 import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.State
 import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.StoreFactory
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.StateFlow
 
 class RealComponent(
     componentContext: ComponentContext,
@@ -18,7 +15,9 @@ class RealComponent(
     private val onGoToSolutions: () -> Unit,
     private val onRestart: () -> Unit,
     storeFactoryProvider: Provider<StoreFactory>,
-) : ComponentContext by componentContext, DecisionComponent {
+) : ComponentContext by componentContext, DecisionComponent(
+    componentContext = componentContext,
+) {
 
     class Factory(
         private val storeFactoryProvider: Provider<StoreFactory>,
@@ -38,7 +37,7 @@ class RealComponent(
         )
     }
 
-    private val store: Store<Intent, State, Nothing> = instanceKeeper.getStore {
+    override val store: Store<Intent, State, Nothing> = instanceKeeper.getStore {
         storeFactoryProvider.get().create(
             stateKeeper = stateKeeper,
             decisionMessage = decisionMessage,
@@ -50,11 +49,6 @@ class RealComponent(
     private val backCallback = BackCallback {
         store.accept(Intent.Back)
     }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    override val state: StateFlow<State> = store.stateFlow
-
-    override fun accept(intent: Intent) = store.accept(intent)
 
     init {
         backHandler.register(backCallback)

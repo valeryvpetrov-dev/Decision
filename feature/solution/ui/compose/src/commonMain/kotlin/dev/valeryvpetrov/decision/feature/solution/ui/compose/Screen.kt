@@ -13,58 +13,98 @@ import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.RadioButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarDuration
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.valeryvpetrov.decision.feature.solution.presentation.component.SolutionComponent
 import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Intent
+import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Label
 import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.State
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @Composable
 fun Screen(
     component: SolutionComponent,
 ) {
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+
     val state by component.state.collectAsState()
-    ScreenContent(
-        state = state,
-        onAddNewSolution = {
-            component.accept(Intent.AddNewSolution)
-        },
-        onSelectSolution = { index ->
-            component.accept(Intent.SelectSolution(index))
-        },
-        onDeleteSolution = { index ->
-            component.accept(Intent.DeleteSolution(index))
-        },
-        onChangeSolutionDescription = { index, description ->
-            component.accept(
-                Intent.ChangeSolutionDescription(
-                    index = index,
-                    description = description
-                )
-            )
-        },
-        onGoToProblem = {
-            component.accept(Intent.GoToProblem)
-        },
-        onGoToDecision = {
-            component.accept(Intent.GoToDecision)
+    LaunchedEffect(Unit) {
+        component.labels.collectLatest { label ->
+            when (label) {
+                is Label.OnAddNewSolutionFailure -> {
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            message = label.message,
+                            duration = SnackbarDuration.Short
+                        )
+                    }
+                }
+            }
         }
-    )
+    }
+
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        },
+    ) { contentPadding ->
+        ScreenContent(
+            modifier = Modifier.padding(contentPadding),
+            state = state,
+            onAddNewSolution = {
+                component.accept(Intent.AddNewSolution)
+            },
+            onSuggestNewSolution = {
+                component.accept(Intent.SuggestNewSolution)
+            },
+            onSelectSolution = { index ->
+                component.accept(Intent.SelectSolution(index))
+            },
+            onDeleteSolution = { index ->
+                component.accept(Intent.DeleteSolution(index))
+            },
+            onChangeSolutionDescription = { index, description ->
+                component.accept(
+                    Intent.ChangeSolutionDescription(
+                        index = index,
+                        description = description
+                    )
+                )
+            },
+            onGoToProblem = {
+                component.accept(Intent.GoToProblem)
+            },
+            onGoToDecision = {
+                component.accept(Intent.GoToDecision)
+            }
+        )
+    }
 }
 
 @Composable
 private fun ScreenContent(
+    modifier: Modifier,
     state: State,
     onAddNewSolution: () -> Unit,
+    onSuggestNewSolution: () -> Unit,
     onSelectSolution: (index: Int) -> Unit,
     onDeleteSolution: (index: Int) -> Unit,
     onChangeSolutionDescription: (index: Int, description: String) -> Unit,
@@ -72,7 +112,7 @@ private fun ScreenContent(
     onGoToDecision: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(16.dp),
@@ -80,6 +120,10 @@ private fun ScreenContent(
     ) {
         AddSolutionButton(
             onClick = onAddNewSolution
+        )
+        SuggestSolutionButton(
+            onClick = onSuggestNewSolution,
+            isEnabled = state.isSuggestSolutionEnabled,
         )
         state.solutions.forEachIndexed { index, solution ->
             SolutionRow(
@@ -127,6 +171,20 @@ private fun AddSolutionButton(onClick: () -> Unit) {
         onClick = onClick
     ) {
         Text(text = "Add solution")
+    }
+}
+
+@Composable
+private fun SuggestSolutionButton(
+    onClick: () -> Unit,
+    isEnabled: Boolean,
+) {
+    Button(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = onClick,
+        enabled = isEnabled,
+    ) {
+        Text(text = "Suggest solution")
     }
 }
 

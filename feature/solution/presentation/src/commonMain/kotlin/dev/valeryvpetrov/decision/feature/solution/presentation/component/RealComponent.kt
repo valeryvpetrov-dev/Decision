@@ -4,14 +4,12 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.backhandler.BackCallback
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.core.store.Store
-import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import dev.valeryvpetrov.decision.base.api.Provider
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
 import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Intent
+import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Label
 import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.State
 import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.StoreFactory
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.StateFlow
 
 class RealComponent(
     componentContext: ComponentContext,
@@ -19,7 +17,9 @@ class RealComponent(
     private val onBackToProblem: (List<Solution>) -> Unit,
     private val onGoToDecision: (List<Solution>) -> Unit,
     storeFactoryProvider: Provider<StoreFactory>,
-) : ComponentContext by componentContext, SolutionComponent {
+) : ComponentContext by componentContext, SolutionComponent(
+    componentContext = componentContext
+) {
 
     class Factory(
         private val storeFactoryProvider: Provider<StoreFactory>,
@@ -39,7 +39,7 @@ class RealComponent(
         )
     }
 
-    private val store: Store<Intent, State, Nothing> = instanceKeeper.getStore {
+    override val store: Store<Intent, State, Label> = instanceKeeper.getStore {
         storeFactoryProvider.get().create(
             stateKeeper = stateKeeper,
             solutions = solutions,
@@ -51,11 +51,6 @@ class RealComponent(
     private val backCallback = BackCallback {
         store.accept(Intent.Back)
     }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    override val state: StateFlow<State> = store.stateFlow
-
-    override fun accept(intent: Intent) = store.accept(intent)
 
     init {
         backHandler.register(backCallback)

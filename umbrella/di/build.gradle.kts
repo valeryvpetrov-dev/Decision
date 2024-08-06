@@ -8,6 +8,7 @@ kotlin {
             implementation(projects.feature.makeDecision.api)
             implementation(projects.feature.makeDecision.presentation)
             implementation(projects.feature.makeDecision.di)
+            implementation(projects.feature.chatGpt.di)
             implementation(libs.koin.core)
             implementation(libs.decompose)
             implementation(libs.mvikotlin)

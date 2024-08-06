@@ -4,9 +4,10 @@ import androidx.compose.ui.window.rememberWindowState
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.extensions.compose.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import com.arkivanov.mvikotlin.core.utils.setMainThreadId
 import com.arkivanov.mvikotlin.timetravel.server.TimeTravelServer
 import dev.valeryvpetrov.decision.Root
-import dev.valeryvpetrov.decision.feature.make_decision.api.Component
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.component.Component
 import dev.valeryvpetrov.decision.umbrella.di.startKoin
 import javax.swing.SwingUtilities
 import org.koin.core.logger.Level
@@ -18,9 +19,14 @@ fun main() {
     // FIXME provide through DI
     val lifecycle = LifecycleRegistry()
     val factory = koin.koin.get<Component.Factory>()
-    val component = factory.create(
-        componentContext = DefaultComponentContext(lifecycle = lifecycle),
-    )
+
+    lateinit var component: Component
+    SwingUtilities.invokeAndWait {
+        setMainThreadId(Thread.currentThread().id)
+        component = factory.create(
+            componentContext = DefaultComponentContext(lifecycle = lifecycle),
+        )
+    }
     application {
         TimeTravelServer(runOnMainThread = { SwingUtilities.invokeLater(it) })
             .start()

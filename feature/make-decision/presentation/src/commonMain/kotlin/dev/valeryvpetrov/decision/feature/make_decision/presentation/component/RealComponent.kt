@@ -10,7 +10,6 @@ import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.core.store.Store
-import com.arkivanov.mvikotlin.extensions.coroutines.labels
 import dev.valeryvpetrov.decision.base.api.Provider
 import dev.valeryvpetrov.decision.feature.decision.presentation.component.DecisionComponentFactory
 import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.Intent
@@ -21,7 +20,6 @@ import dev.valeryvpetrov.decision.feature.problem.api.Problem
 import dev.valeryvpetrov.decision.feature.problem.presentation.component.ProblemComponentFactory
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
 import dev.valeryvpetrov.decision.feature.solution.presentation.component.SolutionComponentFactory
-import kotlinx.coroutines.flow.Flow
 
 class RealComponent(
     componentContext: ComponentContext,
@@ -29,7 +27,9 @@ class RealComponent(
     private val solutionComponentFactory: SolutionComponentFactory,
     private val problemComponentFactory: ProblemComponentFactory,
     storeFactoryProvider: Provider<StoreFactory>,
-) : ComponentContext by componentContext, MakeDecisionComponent {
+) : ComponentContext by componentContext, MakeDecisionComponent(
+    componentContext = componentContext,
+) {
 
     class Factory(
         private val decisionComponentFactory: DecisionComponentFactory,
@@ -49,15 +49,13 @@ class RealComponent(
         )
     }
 
-    private val store: Store<Intent, State, Label> = instanceKeeper.getStore {
+    override val store: Store<Intent, State, Label> = instanceKeeper.getStore {
         storeFactoryProvider.get().create(stateKeeper)
     }
 
     private var navigation = StackNavigation<Config>()
 
-    override val labels: Flow<Label> = store.labels
-
-    override var childStack: Value<ChildStack<*, Component.Child>> = childStack(
+    override var childStack: Value<ChildStack<*, Child>> = childStack(
         source = navigation,
         serializer = Config.serializer(),
         initialConfiguration = Config.Problem(Problem.empty()),
@@ -89,7 +87,7 @@ class RealComponent(
     private fun createChild(
         config: Config,
         componentContext: ComponentContext,
-    ): Component.Child = when (config) {
+    ): Child = when (config) {
         is Config.Decision -> {
             val component = decisionComponentFactory.create(
                 componentContext = componentContext,
@@ -101,7 +99,7 @@ class RealComponent(
                     store.accept(Intent.Restart)
                 },
             )
-            Component.Child.Decision(component)
+            Child.Decision(component)
         }
 
         is Config.Problem -> {
@@ -112,7 +110,7 @@ class RealComponent(
                     store.accept(Intent.GoToSolution(problem))
                 },
             )
-            Component.Child.Problem(component)
+            Child.Problem(component)
         }
 
         is Config.Solution -> {
@@ -126,7 +124,7 @@ class RealComponent(
                     store.accept(Intent.GoToDecision(solutions))
                 },
             )
-            Component.Child.Solutions(component)
+            Child.Solutions(component)
         }
     }
 }

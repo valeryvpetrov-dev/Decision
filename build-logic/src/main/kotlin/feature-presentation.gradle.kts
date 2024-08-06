@@ -11,9 +11,6 @@ extensions.configure<KotlinMultiplatformExtension> {
     sourceSets {
         commonMain.dependencies {
             api(projects.base.presentation)
-            implementation(versionCatalog.libs.mvikotlin)
-            implementation(versionCatalog.libs.mvikotlinMain)
-            implementation(versionCatalog.libs.mvikotlinExtensionsCoroutines)
             implementation(versionCatalog.libs.mvikotlinTimetravel)
             implementation(versionCatalog.libs.kotlinxSerializationCore)
             implementation(versionCatalog.libs.kotlinxCoroutinesCore)

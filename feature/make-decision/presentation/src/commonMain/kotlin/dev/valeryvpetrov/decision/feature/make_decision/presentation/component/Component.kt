@@ -3,27 +3,31 @@ package dev.valeryvpetrov.decision.feature.make_decision.presentation.component
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
+import dev.valeryvpetrov.decision.base.presentation.ComponentWithStore
 import dev.valeryvpetrov.decision.feature.decision.presentation.component.DecisionComponent
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.Intent
 import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.Label
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.State
 import dev.valeryvpetrov.decision.feature.problem.api.Problem
 import dev.valeryvpetrov.decision.feature.problem.presentation.component.ProblemComponent
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
 import dev.valeryvpetrov.decision.feature.solution.presentation.component.SolutionComponent
-import kotlinx.coroutines.flow.Flow
 
 typealias MakeDecisionComponent = Component
 
-interface Component {
+abstract class Component(
+    componentContext: ComponentContext,
+) : ComponentWithStore<State, Intent, Label>(
+    componentContext = componentContext,
+) {
 
-    val labels: Flow<Label>
+    abstract fun onGoToSolution(solutions: List<Solution>?)
+    abstract fun onGoToDecision(decisionMessage: String)
+    abstract fun onBackToProblem(problem: Problem?)
+    abstract fun onBackToSolution(solutions: List<Solution>?)
+    abstract fun onRestart(problem: Problem?)
 
-    fun onGoToSolution(solutions: List<Solution>?)
-    fun onGoToDecision(decisionMessage: String)
-    fun onBackToProblem(problem: Problem?)
-    fun onBackToSolution(solutions: List<Solution>?)
-    fun onRestart(problem: Problem?)
-
-    val childStack: Value<ChildStack<*, Child>>
+    abstract val childStack: Value<ChildStack<*, Child>>
 
     sealed class Child {
         class Problem(val component: ProblemComponent) : Child()

@@ -54,6 +54,23 @@ class Reducer : MviReducer<State, Message> {
                 isGoToDecisionEnabled = isGoToDecisionEnabled(solutions)
             )
         }
+
+        is Message.OnSuggestNewSolution.Loading -> {
+            copy(isSuggestSolutionEnabled = false)
+        }
+
+        is Message.OnSuggestNewSolution.Success -> {
+            val solutions = this.solutions + msg.solution
+            copy(
+                solutions = solutions,
+                isSuggestSolutionEnabled = true,
+                isGoToDecisionEnabled = isGoToDecisionEnabled(solutions)
+            )
+        }
+
+        is Message.OnSuggestNewSolution.Failed -> {
+            copy(isSuggestSolutionEnabled = true)
+        }
     }
 
     private fun changeSolutionDescription(

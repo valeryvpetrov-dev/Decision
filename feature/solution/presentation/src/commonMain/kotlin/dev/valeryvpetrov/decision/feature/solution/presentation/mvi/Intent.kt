@@ -7,6 +7,7 @@ sealed class Intent {
     data class Restore(val solutions: List<Solution>?) : Intent()
 
     data object AddNewSolution : Intent()
+    data object SuggestNewSolution : Intent()
 
     data class ChangeSolutionDescription(
         val index: Int,

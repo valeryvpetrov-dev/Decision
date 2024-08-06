@@ -5,6 +5,7 @@ import org.koin.dsl.module
 val featureModule = module {
     includes(
         componentModule,
-        mviModule
+        mviModule,
+        implModule,
     )
 }

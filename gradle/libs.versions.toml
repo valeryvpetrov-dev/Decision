@@ -18,6 +18,7 @@ kotlinx-coroutines = "1.8.1"
 koin = "3.5.6"
 koin-jetbrains-compose = "1.1.5"
 compose-gradle-plugin = "1.6.11"
+buildconfig = "5.4.0"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin" }
@@ -25,6 +26,8 @@ kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
@@ -32,6 +35,14 @@ compose-gradle-plugin = { module = "org.jetbrains.compose:compose-gradle-plugin"
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
 ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 mvikotlin = { group = "com.arkivanov.mvikotlin", name = "mvikotlin", version.ref = "mvikotlin" }
 mvikotlin-main = { group = "com.arkivanov.mvikotlin", name = "mvikotlin-main", version.ref = "mvikotlin" }
 mvikotlin-extensions-coroutines = { group = "com.arkivanov.mvikotlin", name = "mvikotlin-extensions-coroutines", version.ref = "mvikotlin" }
@@ -55,10 +66,15 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-dsl = { id = "org.gradle.kotlin.kotlin-dsl", version.ref = "kotlin-dsl" }
 kotlin-dsl-precompiledScriptPlugins = { id = "org.gradle.kotlin.kotlin-dsl.precompiled-script-plugins", version.ref = "kotlin-dsl" }
+buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
+
 # Custom plugins prefixed with "decision". To make them accesible via version catalog stub version is set
 decision-common-kmp = { id = "common-kmp", version = "0.0.0" }
 decision-feature-api = { id = "feature-api", version = "0.0.0" }
+decision-feature-impl = { id = "feature-impl", version = "0.0.0" }
 decision-feature-di = { id = "feature-di", version = "0.0.0" }
 decision-feature-presentation = { id = "feature-presentation", version = "0.0.0" }
-decision-feature-impl = { id = "feature-impl", version = "0.0.0" }
 decision-feature-ui-compose = { id = "feature-ui-compose", version = "0.0.0" }
+
+# TODO: use https://github.com/VictorKabata/Notflix/blob/b26c47d30565f69b42f2d4c159dc667777c59133/gradle/libs.versions.toml#L138
+[bundles]

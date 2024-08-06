@@ -2,11 +2,14 @@ package dev.valeryvpetrov.decision.feature.solution.presentation.mvi
 
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
+import dev.valeryvpetrov.decision.feature.solution.api.SuggestSolutionUseCase
+import kotlinx.coroutines.launch
 
 class Executor(
     private val onBackToProblem: (List<Solution>) -> Unit,
     private val onGoToDecision: (List<Solution>) -> Unit,
-) : CoroutineExecutor<Intent, Nothing, State, Message, Nothing>() {
+    private val suggestSolutionUseCase: SuggestSolutionUseCase,
+) : CoroutineExecutor<Intent, Nothing, State, Message, Label>() {
 
     interface Factory {
         fun create(
@@ -41,6 +44,19 @@ class Executor(
             }
 
             is Intent.Restore -> dispatch(Message.OnRestore(solutions = intent.solutions))
+            Intent.SuggestNewSolution -> scope.launch {
+                dispatch(Message.OnSuggestNewSolution.Loading)
+                val solutions = state().solutions
+                try {
+                    val newSolution = suggestSolutionUseCase.suggestSolution(
+                        currentSolutions = solutions
+                    )
+                    dispatch(Message.OnSuggestNewSolution.Success(newSolution))
+                } catch (e: Throwable) {
+                    publish(Label.OnAddNewSolutionFailure(e.message ?: "Ошибка"))
+                    dispatch(Message.OnSuggestNewSolution.Failed(e))
+                }
+            }
         }
     }
 }

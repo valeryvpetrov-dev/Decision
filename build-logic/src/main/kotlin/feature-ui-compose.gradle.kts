@@ -11,11 +11,7 @@ with(plugins) {
 }
 
 extensions.configure<KotlinMultiplatformExtension> {
-    jvm("desktop")
-
     sourceSets {
-        val desktopMain by getting
-
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(versionCatalog.libs.androidxActivityCompose)
@@ -29,7 +25,7 @@ extensions.configure<KotlinMultiplatformExtension> {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
         }
-        desktopMain.dependencies {
+        jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
     }

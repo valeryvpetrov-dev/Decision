@@ -29,36 +29,42 @@ dependencyResolutionManagement {
     }
 }
 
-include(":composeApp")
-include(":server")
+include(
+    ":composeApp",
+    ":server",
 
-include(":feature:make-decision:api")
-include(":feature:make-decision:impl")
-include(":feature:make-decision:presentation")
-include(":feature:make-decision:di")
-include(":feature:make-decision:ui:compose")
+    ":feature:make-decision:api",
+    ":feature:make-decision:impl",
+    ":feature:make-decision:presentation",
+    ":feature:make-decision:di",
+    ":feature:make-decision:ui:compose",
 
-include(":feature:problem:api")
-include(":feature:problem:impl")
-include(":feature:problem:presentation")
-include(":feature:problem:di")
-include(":feature:problem:ui:compose")
+    ":feature:problem:api",
+    ":feature:problem:impl",
+    ":feature:problem:presentation",
+    ":feature:problem:di",
+    ":feature:problem:ui:compose",
 
-include(":feature:solution:api")
-include(":feature:solution:impl")
-include(":feature:solution:presentation")
-include(":feature:solution:di")
-include(":feature:solution:ui:compose")
+    ":feature:solution:api",
+    ":feature:solution:impl",
+    ":feature:solution:presentation",
+    ":feature:solution:di",
+    ":feature:solution:ui:compose",
 
-include(":feature:decision:api")
-include(":feature:decision:impl")
-include(":feature:decision:presentation")
-include(":feature:decision:di")
-include(":feature:decision:ui:compose")
+    ":feature:decision:api",
+    ":feature:decision:impl",
+    ":feature:decision:presentation",
+    ":feature:decision:di",
+    ":feature:decision:ui:compose",
 
-include(":base:api")
-include(":base:presentation")
-include(":base:di")
-include(":base:impl")
+    ":feature:chat-gpt:api",
+    ":feature:chat-gpt:impl",
+    ":feature:chat-gpt:di",
 
-include(":umbrella:di")
+    ":base:api",
+    ":base:presentation",
+    ":base:di",
+    ":base:impl",
+
+    ":umbrella:di"
+)

@@ -4,15 +4,19 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 with(plugins) {
     apply(project.versionCatalog.plugins.decisionCommonKmp.get().pluginId)
-    apply(project.versionCatalog.plugins.kotlinSerialization.get().pluginId)
 }
 
 extensions.configure<KotlinMultiplatformExtension> {
     sourceSets {
         commonMain.dependencies {
-            api(projects.base.api)
+            api(projects.base.impl)
             implementation(versionCatalog.libs.kotlinxCoroutinesCore)
-            implementation(versionCatalog.libs.kotlinxSerializationCore)
+        }
+        androidMain.dependencies {
+            implementation(versionCatalog.libs.kotlinxCoroutinesAndroid)
+        }
+        jvmMain.dependencies {
+            implementation(versionCatalog.libs.kotlinxCoroutinesSwing)
         }
     }
 }

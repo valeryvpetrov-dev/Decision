@@ -6,6 +6,9 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.feature.solution.api)
+            implementation(projects.feature.makeDecision.api)
+            implementation(projects.feature.problem.api)
+            implementation(projects.feature.chatGpt.api)
         }
     }
 }

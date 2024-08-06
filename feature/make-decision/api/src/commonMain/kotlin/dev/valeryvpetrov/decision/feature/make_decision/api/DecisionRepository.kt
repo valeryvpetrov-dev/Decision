@@ -3,6 +3,7 @@ package dev.valeryvpetrov.decision.feature.make_decision.api
 import dev.valeryvpetrov.decision.feature.problem.api.Problem
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
 
+// FIXME: Rename to MakeDecisionRepository
 interface DecisionRepository {
 
     fun clearDecision()

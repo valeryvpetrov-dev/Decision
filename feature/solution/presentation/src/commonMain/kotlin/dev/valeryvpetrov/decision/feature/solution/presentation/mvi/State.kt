@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class State(
     val solutions: List<Solution>,
+    val isSuggestSolutionEnabled: Boolean,
     val isGoToDecisionEnabled: Boolean,
     val isGoToProblemEnabled: Boolean,
 ) {
@@ -16,6 +17,7 @@ data class State(
 
         fun initial(): State = State(
             solutions = emptyList(),
+            isSuggestSolutionEnabled = true,
             isGoToDecisionEnabled = false,
             isGoToProblemEnabled = true,
         )

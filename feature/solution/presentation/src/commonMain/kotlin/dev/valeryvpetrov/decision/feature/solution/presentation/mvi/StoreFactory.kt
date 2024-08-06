@@ -17,7 +17,7 @@ class StoreFactory(
         solutions: List<Solution>?,
         onBackToProblem: (List<Solution>) -> Unit,
         onGoToDecision: (List<Solution>) -> Unit,
-    ): Store<Intent, State, Nothing> {
+    ): Store<Intent, State, Label> {
         val initialState = stateKeeper.consume(
             key = State.STATE_KEEPER_KEY, strategy = State.serializer()
         ) ?: State.initial()

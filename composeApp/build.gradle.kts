@@ -17,7 +17,7 @@ kotlin {
         }
     }
 
-    jvm("desktop")
+    jvm()
 
     listOf(
         iosX64(),
@@ -40,8 +40,6 @@ kotlin {
     }
 
     sourceSets {
-        val desktopMain by getting
-
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
@@ -49,27 +47,29 @@ kotlin {
         }
         commonMain.dependencies {
             // Use api for exported dependencies in ios
-            api(projects.feature.makeDecision.api)
             api(projects.feature.makeDecision.presentation)
             api(projects.umbrella.di)
             api(libs.decompose)
             api(libs.essenty.lifecycle)
 
-            implementation(projects.feature.makeDecision.di)
             implementation(projects.feature.makeDecision.ui.compose)
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
             implementation(libs.mvikotlin.timetravel)
             implementation(libs.decompose.extensions.compose)
             implementation(libs.koin.core)
             implementation(libs.koin.jetbrains.compose)
         }
-        desktopMain.dependencies {
+        jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
+
+            implementation(libs.mvikotlin)
         }
     }
 }

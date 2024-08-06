@@ -37,5 +37,12 @@ sealed class Qualifier {
             object StoreName : MakeDecision()
             object StoreFactoryProvider : MakeDecision()
         }
+
+        sealed class ChatGpt : Feature() {
+
+            object BaseUrl : ChatGpt()
+            object ApiTokenProvider : ChatGpt()
+            object Model : ChatGpt()
+        }
     }
 }

@@ -1,15 +1,20 @@
 package dev.valeryvpetrov.decision.feature.solution.presentation.component
 
 import com.arkivanov.decompose.ComponentContext
-import dev.valeryvpetrov.decision.base.presentation.BaseComponent
+import dev.valeryvpetrov.decision.base.presentation.ComponentWithStore
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
 import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Intent
+import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Label
 import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.State
 
 typealias SolutionComponent = Component
 typealias SolutionComponentFactory = Component.Factory
 
-interface Component : BaseComponent<State, Intent> {
+abstract class Component(
+    componentContext: ComponentContext,
+) : ComponentWithStore<State, Intent, Label>(
+    componentContext = componentContext,
+) {
 
     interface Factory {
 
