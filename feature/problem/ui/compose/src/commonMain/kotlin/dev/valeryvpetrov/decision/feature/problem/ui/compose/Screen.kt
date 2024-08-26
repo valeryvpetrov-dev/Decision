@@ -17,8 +17,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.valeryvpetrov.decision.feature.problem.presentation.component.ProblemComponent
-import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.Intent
-import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.State
+import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.ProblemIntent
+import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.ProblemState
 
 @Composable
 fun Screen(
@@ -28,17 +28,17 @@ fun Screen(
     ScreenContent(
         state = state,
         onChangeProblemDescription = { description ->
-            component.accept(Intent.ChangeProblemDescription(description))
+            component.accept(ProblemIntent.ChangeProblemDescription(description))
         },
         onGoToSolutionsClick = {
-            component.accept(Intent.GoToSolutions)
+            component.accept(ProblemIntent.GoToSolutions)
         }
     )
 }
 
 @Composable
 private fun ScreenContent(
-    state: State,
+    state: ProblemState,
     onChangeProblemDescription: (description: String) -> Unit,
     onGoToSolutionsClick: () -> Unit,
 ) {

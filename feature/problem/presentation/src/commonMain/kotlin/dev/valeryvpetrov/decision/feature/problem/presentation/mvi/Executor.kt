@@ -5,26 +5,26 @@ import dev.valeryvpetrov.decision.feature.problem.api.Problem
 
 class Executor(
     private val onGoToSolutions: (Problem) -> Unit,
-) : CoroutineExecutor<Intent, Nothing, State, Message, Nothing>() {
+) : CoroutineExecutor<ProblemIntent, Nothing, ProblemState, Message, Nothing>() {
 
     interface Factory {
 
         fun create(onGoToSolutions: (Problem) -> Unit): Executor
     }
 
-    override fun executeIntent(intent: Intent) {
+    override fun executeIntent(intent: ProblemIntent) {
         when (intent) {
-            is Intent.ChangeProblemDescription -> dispatch(
+            is ProblemIntent.ChangeProblemDescription -> dispatch(
                 Message.OnChangeProblemDescription(intent.description)
             )
 
-            Intent.GoToSolutions -> {
+            ProblemIntent.GoToSolutions -> {
                 val state = state()
                 val problem = Problem(state.description)
                 onGoToSolutions(problem)
             }
 
-            is Intent.Restore -> dispatch(Message.OnRestore(problem = intent.problem))
+            is ProblemIntent.Restore -> dispatch(Message.OnRestore(problem = intent.problem))
         }
     }
 }

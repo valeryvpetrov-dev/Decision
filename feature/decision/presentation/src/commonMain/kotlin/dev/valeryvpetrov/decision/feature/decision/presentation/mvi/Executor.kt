@@ -5,7 +5,7 @@ import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 class Executor(
     private val onGoToSolutions: () -> Unit,
     private val onRestart: () -> Unit,
-) : CoroutineExecutor<Intent, Nothing, State, Message, Nothing>() {
+) : CoroutineExecutor<DecisionIntent, Nothing, DecisionState, Message, Nothing>() {
 
     interface Factory {
 
@@ -15,14 +15,14 @@ class Executor(
         ): Executor
     }
 
-    override fun executeIntent(intent: Intent) {
+    override fun executeIntent(intent: DecisionIntent) {
         when (intent) {
-            is Intent.GoToSolutions,
-            Intent.Back,
+            is DecisionIntent.GoToSolutions,
+            DecisionIntent.Back,
             -> onGoToSolutions()
 
-            is Intent.Restart -> onRestart()
-            is Intent.Restore -> dispatch(Message.OnRestore(decisionMessage = intent.decisionMessage))
+            is DecisionIntent.Restart -> onRestart()
+            is DecisionIntent.Restore -> dispatch(Message.OnRestore(decisionMessage = intent.decisionMessage))
         }
     }
 }

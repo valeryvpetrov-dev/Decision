@@ -32,9 +32,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.valeryvpetrov.decision.feature.solution.presentation.component.SolutionComponent
-import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Intent
-import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Label
-import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.State
+import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.SolutionIntent
+import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.SolutionLabel
+import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.SolutionState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -49,7 +49,7 @@ fun Screen(
     LaunchedEffect(Unit) {
         component.labels.collectLatest { label ->
             when (label) {
-                is Label.OnAddNewSolutionFailure -> {
+                is SolutionLabel.OnAddNewSolutionFailure -> {
                     scope.launch {
                         snackbarHostState.showSnackbar(
                             message = label.message,
@@ -70,30 +70,30 @@ fun Screen(
             modifier = Modifier.padding(contentPadding),
             state = state,
             onAddNewSolution = {
-                component.accept(Intent.AddNewSolution)
+                component.accept(SolutionIntent.AddNewSolution)
             },
             onSuggestNewSolution = {
-                component.accept(Intent.SuggestNewSolution)
+                component.accept(SolutionIntent.SuggestNewSolution)
             },
             onSelectSolution = { index ->
-                component.accept(Intent.SelectSolution(index))
+                component.accept(SolutionIntent.SelectSolution(index))
             },
             onDeleteSolution = { index ->
-                component.accept(Intent.DeleteSolution(index))
+                component.accept(SolutionIntent.DeleteSolution(index))
             },
             onChangeSolutionDescription = { index, description ->
                 component.accept(
-                    Intent.ChangeSolutionDescription(
+                    SolutionIntent.ChangeSolutionDescription(
                         index = index,
                         description = description
                     )
                 )
             },
             onGoToProblem = {
-                component.accept(Intent.GoToProblem)
+                component.accept(SolutionIntent.GoToProblem)
             },
             onGoToDecision = {
-                component.accept(Intent.GoToDecision)
+                component.accept(SolutionIntent.GoToDecision)
             }
         )
     }
@@ -102,7 +102,7 @@ fun Screen(
 @Composable
 private fun ScreenContent(
     modifier: Modifier,
-    state: State,
+    state: SolutionState,
     onAddNewSolution: () -> Unit,
     onSuggestNewSolution: () -> Unit,
     onSelectSolution: (index: Int) -> Unit,

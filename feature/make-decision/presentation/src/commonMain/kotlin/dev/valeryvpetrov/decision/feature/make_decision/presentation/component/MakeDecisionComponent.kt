@@ -5,27 +5,19 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 import dev.valeryvpetrov.decision.base.presentation.ComponentWithStore
 import dev.valeryvpetrov.decision.feature.decision.presentation.component.DecisionComponent
-import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.Intent
-import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.Label
-import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.State
-import dev.valeryvpetrov.decision.feature.problem.api.Problem
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.MakeDecisionIntent
+import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.MakeDecisionState
 import dev.valeryvpetrov.decision.feature.problem.presentation.component.ProblemComponent
-import dev.valeryvpetrov.decision.feature.solution.api.Solution
 import dev.valeryvpetrov.decision.feature.solution.presentation.component.SolutionComponent
 
-typealias MakeDecisionComponent = Component
-
-abstract class Component(
+abstract class MakeDecisionComponent(
     componentContext: ComponentContext,
-) : ComponentWithStore<State, Intent, Label>(
+) : ComponentWithStore<MakeDecisionState, MakeDecisionIntent, Nothing>(
     componentContext = componentContext,
 ) {
 
-    abstract fun onGoToSolution(solutions: List<Solution>?)
-    abstract fun onGoToDecision(decisionMessage: String)
-    abstract fun onBackToProblem(problem: Problem?)
-    abstract fun onBackToSolution(solutions: List<Solution>?)
-    abstract fun onRestart(problem: Problem?)
+    abstract fun onBack()
+    abstract fun onBack(toIndex: Int)
 
     abstract val childStack: Value<ChildStack<*, Child>>
 
@@ -36,6 +28,6 @@ abstract class Component(
     }
 
     interface Factory {
-        fun create(componentContext: ComponentContext): Component
+        fun create(componentContext: ComponentContext): MakeDecisionComponent
     }
 }

@@ -5,11 +5,11 @@ import com.arkivanov.essenty.backhandler.BackCallback
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.core.store.Store
 import dev.valeryvpetrov.decision.base.api.Provider
-import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.Intent
-import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.State
+import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.DecisionIntent
+import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.DecisionState
 import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.StoreFactory
 
-class RealComponent(
+class DefaultDecisionComponent(
     componentContext: ComponentContext,
     private val decisionMessage: String,
     private val onGoToSolutions: () -> Unit,
@@ -21,14 +21,14 @@ class RealComponent(
 
     class Factory(
         private val storeFactoryProvider: Provider<StoreFactory>,
-    ) : DecisionComponentFactory {
+    ) : DecisionComponent.Factory {
 
         override fun create(
             componentContext: ComponentContext,
             decisionMessage: String,
             onGoToSolution: () -> Unit,
             onRestart: () -> Unit,
-        ): Component = RealComponent(
+        ): DecisionComponent = DefaultDecisionComponent(
             componentContext = componentContext,
             decisionMessage = decisionMessage,
             onGoToSolutions = onGoToSolution,
@@ -37,7 +37,7 @@ class RealComponent(
         )
     }
 
-    override val store: Store<Intent, State, Nothing> = instanceKeeper.getStore {
+    override val store: Store<DecisionIntent, DecisionState, Nothing> = instanceKeeper.getStore {
         storeFactoryProvider.get().create(
             stateKeeper = stateKeeper,
             decisionMessage = decisionMessage,
@@ -47,7 +47,7 @@ class RealComponent(
     }
 
     private val backCallback = BackCallback {
-        store.accept(Intent.Back)
+        store.accept(DecisionIntent.Back)
     }
 
     init {

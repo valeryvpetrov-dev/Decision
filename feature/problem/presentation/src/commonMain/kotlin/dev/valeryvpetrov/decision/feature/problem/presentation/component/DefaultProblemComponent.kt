@@ -5,11 +5,11 @@ import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.core.store.Store
 import dev.valeryvpetrov.decision.base.api.Provider
 import dev.valeryvpetrov.decision.feature.problem.api.Problem
-import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.Intent
-import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.State
+import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.ProblemIntent
+import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.ProblemState
 import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.StoreFactory
 
-class RealComponent(
+class DefaultProblemComponent(
     componentContext: ComponentContext,
     private val problem: Problem?,
     private val onGoToSolutions: (Problem) -> Unit,
@@ -20,13 +20,13 @@ class RealComponent(
 
     class Factory(
         private val storeFactoryProvider: Provider<StoreFactory>,
-    ) : ProblemComponentFactory {
+    ) : ProblemComponent.Factory {
 
         override fun create(
             componentContext: ComponentContext,
             problem: Problem?,
             onGoToSolutions: (Problem) -> Unit,
-        ): Component = RealComponent(
+        ): ProblemComponent = DefaultProblemComponent(
             componentContext = componentContext,
             problem = problem,
             onGoToSolutions = onGoToSolutions,
@@ -34,7 +34,7 @@ class RealComponent(
         )
     }
 
-    override val store: Store<Intent, State, Nothing> = instanceKeeper.getStore {
+    override val store: Store<ProblemIntent, ProblemState, Nothing> = instanceKeeper.getStore {
         storeFactoryProvider.get().create(
             stateKeeper = stateKeeper,
             problem = problem,

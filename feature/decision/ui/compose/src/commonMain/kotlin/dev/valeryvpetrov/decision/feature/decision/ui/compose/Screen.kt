@@ -16,8 +16,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.valeryvpetrov.decision.feature.decision.presentation.component.DecisionComponent
-import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.Intent
-import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.State
+import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.DecisionIntent
+import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.DecisionState
 
 @Composable
 fun Screen(
@@ -27,17 +27,17 @@ fun Screen(
     ScreenContent(
         state = state,
         onGoToSolutions = {
-            component.accept(Intent.GoToSolutions)
+            component.accept(DecisionIntent.GoToSolutions)
         },
         onRestart = {
-            component.accept(Intent.Restart)
+            component.accept(DecisionIntent.Restart)
         }
     )
 }
 
 @Composable
 private fun ScreenContent(
-    state: State,
+    state: DecisionState,
     onGoToSolutions: () -> Unit,
     onRestart: () -> Unit,
 ) {

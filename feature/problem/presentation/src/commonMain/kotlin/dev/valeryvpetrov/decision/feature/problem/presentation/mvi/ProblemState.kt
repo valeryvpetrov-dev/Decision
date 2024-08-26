@@ -3,7 +3,7 @@ package dev.valeryvpetrov.decision.feature.problem.presentation.mvi
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class State(
+data class ProblemState(
     val description: String,
     val isGoToSolutionsEnabled: Boolean,
 ) {
@@ -12,7 +12,7 @@ data class State(
 
         val STATE_KEEPER_KEY = "${this::class.qualifiedName}"
 
-        fun initial(): State = State(
+        fun initial(): ProblemState = ProblemState(
             description = "",
             isGoToSolutionsEnabled = false
         )

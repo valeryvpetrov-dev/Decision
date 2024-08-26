@@ -17,10 +17,10 @@ class StoreFactory(
         solutions: List<Solution>?,
         onBackToProblem: (List<Solution>) -> Unit,
         onGoToDecision: (List<Solution>) -> Unit,
-    ): Store<Intent, State, Label> {
+    ): Store<SolutionIntent, SolutionState, SolutionLabel> {
         val initialState = stateKeeper.consume(
-            key = State.STATE_KEEPER_KEY, strategy = State.serializer()
-        ) ?: State.initial()
+            key = SolutionState.STATE_KEEPER_KEY, strategy = SolutionState.serializer()
+        ) ?: SolutionState.initial()
         return storeFactory.create(
             name = storeName,
             initialState = initialState,
@@ -33,11 +33,11 @@ class StoreFactory(
             reducer = reducer,
         ).also {
             stateKeeper.register(
-                key = State.STATE_KEEPER_KEY, strategy = State.serializer()
+                key = SolutionState.STATE_KEEPER_KEY, strategy = SolutionState.serializer()
             ) {
                 it.state
             }
-            it.accept(Intent.Restore(solutions))
+            it.accept(SolutionIntent.Restore(solutions))
         }
     }
 }

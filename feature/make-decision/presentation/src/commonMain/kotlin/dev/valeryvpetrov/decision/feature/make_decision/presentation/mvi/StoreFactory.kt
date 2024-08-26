@@ -2,6 +2,8 @@ package dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi
 
 import com.arkivanov.essenty.statekeeper.StateKeeper
 import com.arkivanov.mvikotlin.core.store.Store
+import dev.valeryvpetrov.decision.feature.problem.api.Problem
+import dev.valeryvpetrov.decision.feature.solution.api.Solution
 import com.arkivanov.mvikotlin.core.store.StoreFactory as MviStoreFactory
 
 class StoreFactory(
@@ -12,11 +14,25 @@ class StoreFactory(
     private val executorFactory: Executor.Factory,
 ) {
 
-    fun create(stateKeeper: StateKeeper): Store<Intent, State, Label> {
+    fun create(
+        stateKeeper: StateKeeper,
+        onGoToSolution: (List<Solution>?) -> Unit,
+        onGoToDecision: (String) -> Unit,
+        onBackToProblem: (Problem?) -> Unit,
+        onRestart: (Problem?) -> Unit,
+        onBackToSolution: (List<Solution>?) -> Unit,
+    ): Store<MakeDecisionIntent, MakeDecisionState, Nothing> {
         val initialState = stateKeeper.consume(
-            key = State.STATE_KEEPER_KEY, strategy = State.serializer()
-        ) ?: State.initial()
-        val executor = executorFactory.create(initialState)
+            key = MakeDecisionState.STATE_KEEPER_KEY, strategy = MakeDecisionState.serializer()
+        ) ?: MakeDecisionState.initial()
+        val executor = executorFactory.create(
+            savedState = initialState,
+            onGoToSolution = onGoToSolution,
+            onGoToDecision = onGoToDecision,
+            onBackToProblem = onBackToProblem,
+            onRestart = onRestart,
+            onBackToSolution = onBackToSolution,
+        )
         return storeFactory.create(
             name = storeName,
             initialState = initialState,
@@ -25,7 +41,7 @@ class StoreFactory(
             executorFactory = { executor },
         ).also {
             stateKeeper.register(
-                key = State.STATE_KEEPER_KEY, strategy = State.serializer()
+                key = MakeDecisionState.STATE_KEEPER_KEY, strategy = MakeDecisionState.serializer()
             ) {
                 it.state
             }

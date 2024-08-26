@@ -3,15 +3,12 @@ package dev.valeryvpetrov.decision.feature.problem.presentation.component
 import com.arkivanov.decompose.ComponentContext
 import dev.valeryvpetrov.decision.base.presentation.ComponentWithStore
 import dev.valeryvpetrov.decision.feature.problem.api.Problem
-import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.Intent
-import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.State
+import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.ProblemIntent
+import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.ProblemState
 
-typealias ProblemComponent = Component
-typealias ProblemComponentFactory = Component.Factory
-
-abstract class Component(
+abstract class ProblemComponent(
     componentContext: ComponentContext,
-) : ComponentWithStore<State, Intent, Nothing>(
+) : ComponentWithStore<ProblemState, ProblemIntent, Nothing>(
     componentContext = componentContext,
 ) {
 
@@ -21,6 +18,6 @@ abstract class Component(
             componentContext: ComponentContext,
             problem: Problem?,
             onGoToSolutions: (Problem) -> Unit,
-        ): Component
+        ): ProblemComponent
     }
 }

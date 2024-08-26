@@ -10,7 +10,15 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
-		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		7555FF83242A565900829871 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* RootView.swift */; };
+		A9D631E42C7A066500926800 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631E32C7A066500926800 /* StackView.swift */; };
+		A9D631E62C7A068E00926800 /* StateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631E52C7A068E00926800 /* StateValue.swift */; };
+		A9D631E82C7A06AB00926800 /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631E72C7A06AB00926800 /* ObservableValue.swift */; };
+		A9D631EA2C7A06CD00926800 /* MutableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631E92C7A06CD00926800 /* MutableValue.swift */; };
+		A9D631EC2C7A06EA00926800 /* SimpleChildStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631EB2C7A06EA00926800 /* SimpleChildStack.swift */; };
+		A9D631EE2C7A080400926800 /* ProblemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631ED2C7A080400926800 /* ProblemView.swift */; };
+		A9D631F02C7A083F00926800 /* SolutionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631EF2C7A083F00926800 /* SolutionsView.swift */; };
+		A9D631F22C7A085200926800 /* DecisionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631F12C7A085200926800 /* DecisionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,8 +26,16 @@
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* Decision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Decision.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7555FF82242A565900829871 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9D631E32C7A066500926800 /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
+		A9D631E52C7A068E00926800 /* StateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateValue.swift; sourceTree = "<group>"; };
+		A9D631E72C7A06AB00926800 /* ObservableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
+		A9D631E92C7A06CD00926800 /* MutableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableValue.swift; sourceTree = "<group>"; };
+		A9D631EB2C7A06EA00926800 /* SimpleChildStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleChildStack.swift; sourceTree = "<group>"; };
+		A9D631ED2C7A080400926800 /* ProblemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemView.swift; sourceTree = "<group>"; };
+		A9D631EF2C7A083F00926800 /* SolutionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolutionsView.swift; sourceTree = "<group>"; };
+		A9D631F12C7A085200926800 /* DecisionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecisionView.swift; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,13 +86,37 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				A9D631F32C7A093B00926800 /* Views */,
+				A9D631E22C7A064D00926800 /* DecomposeHelpers */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
-				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
 			path = iosApp;
+			sourceTree = "<group>";
+		};
+		A9D631E22C7A064D00926800 /* DecomposeHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				A9D631E32C7A066500926800 /* StackView.swift */,
+				A9D631E52C7A068E00926800 /* StateValue.swift */,
+				A9D631E72C7A06AB00926800 /* ObservableValue.swift */,
+				A9D631E92C7A06CD00926800 /* MutableValue.swift */,
+				A9D631EB2C7A06EA00926800 /* SimpleChildStack.swift */,
+			);
+			path = DecomposeHelpers;
+			sourceTree = "<group>";
+		};
+		A9D631F32C7A093B00926800 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7555FF82242A565900829871 /* RootView.swift */,
+				A9D631ED2C7A080400926800 /* ProblemView.swift */,
+				A9D631EF2C7A083F00926800 /* SolutionsView.swift */,
+				A9D631F12C7A085200926800 /* DecisionView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		AB1DB47929225F7C00F7AF9C /* Configuration */ = {
@@ -175,7 +215,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :umbrella:ios:embedAndSignAppleFrameworkForXcode\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -184,8 +224,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9D631F02C7A083F00926800 /* SolutionsView.swift in Sources */,
+				A9D631EE2C7A080400926800 /* ProblemView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
-				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				A9D631E82C7A06AB00926800 /* ObservableValue.swift in Sources */,
+				A9D631F22C7A085200926800 /* DecisionView.swift in Sources */,
+				A9D631E62C7A068E00926800 /* StateValue.swift in Sources */,
+				7555FF83242A565900829871 /* RootView.swift in Sources */,
+				A9D631EA2C7A06CD00926800 /* MutableValue.swift in Sources */,
+				A9D631EC2C7A06EA00926800 /* SimpleChildStack.swift in Sources */,
+				A9D631E42C7A066500926800 /* StackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +371,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)\n$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)\n$(SRCROOT)/../umbrella/ios/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
@@ -350,7 +398,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)\n$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)\n$(SRCROOT)/../umbrella/ios/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.3;

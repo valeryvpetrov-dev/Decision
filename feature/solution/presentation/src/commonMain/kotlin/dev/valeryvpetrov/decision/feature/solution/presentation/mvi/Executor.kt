@@ -9,7 +9,7 @@ class Executor(
     private val onBackToProblem: (List<Solution>) -> Unit,
     private val onGoToDecision: (List<Solution>) -> Unit,
     private val suggestSolutionUseCase: SuggestSolutionUseCase,
-) : CoroutineExecutor<Intent, Nothing, State, Message, Label>() {
+) : CoroutineExecutor<SolutionIntent, Nothing, SolutionState, Message, SolutionLabel>() {
 
     interface Factory {
         fun create(
@@ -18,33 +18,33 @@ class Executor(
         ): Executor
     }
 
-    override fun executeIntent(intent: Intent) {
+    override fun executeIntent(intent: SolutionIntent) {
         when (intent) {
-            is Intent.AddNewSolution -> dispatch(Message.OnAddNewSolution)
-            is Intent.ChangeSolutionDescription -> dispatch(
+            is SolutionIntent.AddNewSolution -> dispatch(Message.OnAddNewSolution)
+            is SolutionIntent.ChangeSolutionDescription -> dispatch(
                 Message.OnChangeSolutionDescription(
                     index = intent.index,
                     description = intent.description
                 )
             )
 
-            is Intent.SelectSolution -> dispatch(Message.OnSelectSolution(index = intent.index))
-            is Intent.DeleteSolution -> dispatch(Message.OnDeleteSolution(index = intent.index))
+            is SolutionIntent.SelectSolution -> dispatch(Message.OnSelectSolution(index = intent.index))
+            is SolutionIntent.DeleteSolution -> dispatch(Message.OnDeleteSolution(index = intent.index))
 
-            Intent.GoToProblem,
-            Intent.Back,
+            SolutionIntent.GoToProblem,
+            SolutionIntent.Back,
             -> {
                 val state = state()
                 onBackToProblem(state.solutions)
             }
 
-            Intent.GoToDecision -> {
+            SolutionIntent.GoToDecision -> {
                 val state = state()
                 onGoToDecision(state.solutions)
             }
 
-            is Intent.Restore -> dispatch(Message.OnRestore(solutions = intent.solutions))
-            Intent.SuggestNewSolution -> scope.launch {
+            is SolutionIntent.Restore -> dispatch(Message.OnRestore(solutions = intent.solutions))
+            SolutionIntent.SuggestNewSolution -> scope.launch {
                 dispatch(Message.OnSuggestNewSolution.Loading)
                 val solutions = state().solutions
                 try {
@@ -53,7 +53,7 @@ class Executor(
                     )
                     dispatch(Message.OnSuggestNewSolution.Success(newSolution))
                 } catch (e: Throwable) {
-                    publish(Label.OnAddNewSolutionFailure(e.message ?: "Ошибка"))
+                    publish(SolutionLabel.OnAddNewSolutionFailure(e.message ?: "Ошибка"))
                     dispatch(Message.OnSuggestNewSolution.Failed(e))
                 }
             }

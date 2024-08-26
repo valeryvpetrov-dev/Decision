@@ -4,7 +4,7 @@ import dev.valeryvpetrov.decision.feature.solution.api.Solution
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class State(
+data class SolutionState(
     val solutions: List<Solution>,
     val isSuggestSolutionEnabled: Boolean,
     val isGoToDecisionEnabled: Boolean,
@@ -15,7 +15,7 @@ data class State(
 
         val STATE_KEEPER_KEY = "${this::class.qualifiedName}"
 
-        fun initial(): State = State(
+        fun initial(): SolutionState = SolutionState(
             solutions = emptyList(),
             isSuggestSolutionEnabled = true,
             isGoToDecisionEnabled = false,

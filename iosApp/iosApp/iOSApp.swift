@@ -1,5 +1,5 @@
 import SwiftUI
-import ComposeApp
+import UmbrellaIos
 
 @main
 struct iOSApp: App {
@@ -12,14 +12,13 @@ struct iOSApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(component: appDelegate.root)
-                .ignoresSafeArea(.all)
+            RootView(root: appDelegate.root)
         }
     }
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-    var root: Component = IosKoin.shared.createMakeDecisionComponent(
+    var root: MakeDecisionComponent = IosKoin.shared.createMakeDecisionComponent(
         componentContext: DefaultComponentContext(lifecycle: ApplicationLifecycle())
     )
 }

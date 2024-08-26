@@ -6,12 +6,12 @@ import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.core.store.Store
 import dev.valeryvpetrov.decision.base.api.Provider
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
-import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Intent
-import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Label
-import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.State
+import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.SolutionIntent
+import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.SolutionLabel
+import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.SolutionState
 import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.StoreFactory
 
-class RealComponent(
+class DefaultSolutionComponent(
     componentContext: ComponentContext,
     private val solutions: List<Solution>?,
     private val onBackToProblem: (List<Solution>) -> Unit,
@@ -23,14 +23,14 @@ class RealComponent(
 
     class Factory(
         private val storeFactoryProvider: Provider<StoreFactory>,
-    ) : SolutionComponentFactory {
+    ) : SolutionComponent.Factory {
 
         override fun create(
             componentContext: ComponentContext,
             solutions: List<Solution>?,
             onBackToProblem: (List<Solution>) -> Unit,
             onGoToDecision: (List<Solution>) -> Unit,
-        ): Component = RealComponent(
+        ): SolutionComponent = DefaultSolutionComponent(
             componentContext = componentContext,
             solutions = solutions,
             onBackToProblem = onBackToProblem,
@@ -39,7 +39,8 @@ class RealComponent(
         )
     }
 
-    override val store: Store<Intent, State, Label> = instanceKeeper.getStore {
+    override val store: Store<SolutionIntent, SolutionState, SolutionLabel> =
+        instanceKeeper.getStore {
         storeFactoryProvider.get().create(
             stateKeeper = stateKeeper,
             solutions = solutions,
@@ -49,7 +50,7 @@ class RealComponent(
     }
 
     private val backCallback = BackCallback {
-        store.accept(Intent.Back)
+        store.accept(SolutionIntent.Back)
     }
 
     init {

@@ -18,26 +18,9 @@ kotlin {
     }
 
     jvm()
-
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64(),
-    ).takeIf {
-        // Export the framework only for Xcode builds
-        "XCODE_VERSION_MAJOR" in System.getenv().keys
-    }?.forEach {
-        it.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-
-            export(projects.feature.makeDecision.api)
-            export(projects.feature.makeDecision.presentation)
-            export(projects.umbrella.di)
-            export(libs.decompose)
-            export(libs.essenty.lifecycle)
-        }
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         androidMain.dependencies {
@@ -46,11 +29,10 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
-            // Use api for exported dependencies in ios
-            api(projects.feature.makeDecision.presentation)
-            api(projects.umbrella.di)
-            api(libs.decompose)
-            api(libs.essenty.lifecycle)
+            implementation(projects.feature.makeDecision.presentation)
+            implementation(projects.umbrella.di)
+            implementation(libs.decompose)
+            implementation(libs.essenty.lifecycle)
 
             implementation(projects.feature.makeDecision.ui.compose)
 

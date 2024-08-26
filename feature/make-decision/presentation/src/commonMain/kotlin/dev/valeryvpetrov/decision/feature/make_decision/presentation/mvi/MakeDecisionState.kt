@@ -4,7 +4,7 @@ import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecision
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class State(
+data class MakeDecisionState(
     val makeDecision: MakeDecision.Builder,
 ) {
 
@@ -12,7 +12,7 @@ data class State(
 
         val STATE_KEEPER_KEY = "${this::class.qualifiedName}"
 
-        fun initial(): State = State(
+        fun initial(): MakeDecisionState = MakeDecisionState(
             makeDecision = MakeDecision.Builder(),
         )
     }

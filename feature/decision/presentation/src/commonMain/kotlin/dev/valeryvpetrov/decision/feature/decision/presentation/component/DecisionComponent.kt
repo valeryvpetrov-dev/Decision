@@ -2,15 +2,12 @@ package dev.valeryvpetrov.decision.feature.decision.presentation.component
 
 import com.arkivanov.decompose.ComponentContext
 import dev.valeryvpetrov.decision.base.presentation.ComponentWithStore
-import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.Intent
-import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.State
+import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.DecisionIntent
+import dev.valeryvpetrov.decision.feature.decision.presentation.mvi.DecisionState
 
-typealias DecisionComponent = Component
-typealias DecisionComponentFactory = Component.Factory
-
-abstract class Component(
+abstract class DecisionComponent(
     componentContext: ComponentContext,
-) : ComponentWithStore<State, Intent, Nothing>(
+) : ComponentWithStore<DecisionState, DecisionIntent, Nothing>(
     componentContext = componentContext,
 ) {
 
@@ -21,6 +18,6 @@ abstract class Component(
             decisionMessage: String,
             onGoToSolution: () -> Unit,
             onRestart: () -> Unit,
-        ): Component
+        ): DecisionComponent
     }
 }

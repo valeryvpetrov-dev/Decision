@@ -3,9 +3,9 @@ package dev.valeryvpetrov.decision.feature.solution.presentation.mvi
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
 import com.arkivanov.mvikotlin.core.store.Reducer as MviReducer
 
-class Reducer : MviReducer<State, Message> {
+class Reducer : MviReducer<SolutionState, Message> {
 
-    override fun State.reduce(msg: Message): State = when (msg) {
+    override fun SolutionState.reduce(msg: Message): SolutionState = when (msg) {
         Message.OnAddNewSolution -> {
             val updatedSolutions = solutions + Solution.empty()
             copy(

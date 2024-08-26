@@ -66,5 +66,6 @@ include(
     ":base:di",
     ":base:impl",
 
-    ":umbrella:di"
+    ":umbrella:di",
+    ":umbrella:ios"
 )

@@ -3,7 +3,7 @@ package dev.valeryvpetrov.decision.feature.decision.presentation.mvi
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class State(
+data class DecisionState(
     val decisionMessage: String,
     val isGoToSolutionsEnabled: Boolean,
     val isRestartEnabled: Boolean,
@@ -13,7 +13,7 @@ data class State(
 
         val STATE_KEEPER_KEY = "${this::class.qualifiedName}"
 
-        fun initial(): State = State(
+        fun initial(): DecisionState = DecisionState(
             decisionMessage = "",
             isGoToSolutionsEnabled = true,
             isRestartEnabled = true,
