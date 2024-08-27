@@ -21,7 +21,7 @@ struct DecisionView: View {
     }
     
     var body: some View {
-        ScreenContent(
+        DecisionContent(
             state: state,
             onGoToSolutions: {
                 component.accept(intent: DecisionIntent.GoToSolutions())
@@ -30,39 +30,39 @@ struct DecisionView: View {
                 component.accept(intent: DecisionIntent.Restart())
             }
         )
+            .padding()
     }
 }
 
-struct ScreenContent: View {
+struct DecisionContent: View {
     let state: DecisionState
     let onGoToSolutions: () -> Void
     let onRestart: () -> Void
     
+    @ScaledMetric private var spacing = 16
+    
     var body: some View {
-        VStack(spacing: 8) {
+        VStack {
             ScrollView {
-                VStack(spacing: 8) {
+                VStack(spacing: spacing) {
                     Text(state.decisionMessage)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.bottom, 8)
-                    
-                    HStack(spacing: 8) {
+                    HStack(spacing: spacing) {
                         Button(action: onGoToSolutions) {
                             Text("To solutions")
                                 .frame(maxWidth: .infinity)
                         }
-                        .disabled(!state.isGoToSolutionsEnabled)
-                        
+                            .disabled(!state.isGoToSolutionsEnabled)
+                            .buttonStyle(.bordered)
                         Button(action: onRestart) {
                             Text("Restart")
                                 .frame(maxWidth: .infinity)
                         }
-                        .disabled(!state.isRestartEnabled)
+                            .disabled(!state.isRestartEnabled)
+                            .buttonStyle(.borderedProminent)
                     }
                 }
-                .padding(16)
             }
         }
-        .padding()
     }
 }

@@ -15,58 +15,100 @@ struct SolutionsView: View {
     @StateValue
     private var state: SolutionState
     
-    @State private var showSnackbar: Bool = false
-    @State private var snackbarMessage: String = ""
-    
     init(component: SolutionComponent) {
         self.component = component
         _state = StateValue(component.stateValue)
     }
     
     var body: some View {
-        VStack(spacing: 16) {
+        SolutionContent(
+            state: state,
+            onAddSolutionClick: {
+                component.accept(intent: SolutionIntent.AddNewSolution())
+            },
+            onSuggestSolutionClick: {
+                component.accept(intent: SolutionIntent.SuggestNewSolution())
+            },
+            onSelectSolution: { index in
+                component.accept(intent: SolutionIntent.SelectSolution(index: Int32(index)))
+            },
+            onDeleteSolution: { index in
+                component.accept(intent: SolutionIntent.DeleteSolution(index: Int32(index)))
+            },
+            onChangeSolutionDescription: { index, description in
+                component.accept(intent: SolutionIntent.ChangeSolutionDescription(index: Int32(index), description: description))
+            },
+            onGoToProblem: {
+                component.accept(intent: SolutionIntent.GoToProblem())
+            },
+            onGoToDecision: {
+                component.accept(intent: SolutionIntent.GoToDecision())
+            }
+        )
+            .padding()
+    }
+}
+
+private struct SolutionContent: View {
+    let state: SolutionState
+    let onAddSolutionClick: () -> Void
+    let onSuggestSolutionClick: () -> Void
+    let onSelectSolution: (Int32) -> Void
+    let onDeleteSolution: (Int32) -> Void
+    let onChangeSolutionDescription: (Int32, String) -> Void
+    let onGoToProblem: () -> Void
+    let onGoToDecision: () -> Void
+    
+    @ScaledMetric private var spacing = 16
+    
+    @State private var showSnackbar: Bool = false
+    @State private var snackbarMessage: String = ""
+    
+    var body: some View {
+        VStack {
             ScrollView {
-                VStack(spacing: 8) {
-                    AddSolutionButton {
-                        component.accept(intent: SolutionIntent.AddNewSolution())
+                VStack(spacing: spacing) {
+                    Button(action: onAddSolutionClick) {
+                        Text("Add solution")
+                            .frame(maxWidth: .infinity)
                     }
-                    
-                    SuggestSolutionButton(isEnabled: state.isSuggestSolutionEnabled) {
-                        component.accept(intent: SolutionIntent.SuggestNewSolution())
+                        .buttonStyle(.borderedProminent)
+                    Button(action: onSuggestSolutionClick) {
+                        Text("Suggest solution")
+                            .frame(maxWidth: .infinity)
                     }
-                    
-                    ForEach(state.solutions.indices, id: \.self) { index in
-                        let solution = state.solutions[index]
+                        .disabled(!state.isSuggestSolutionEnabled)
+                        .buttonStyle(.borderedProminent)
+                    ForEach(Array(state.solutions.enumerated()), id: \.element) { index, solution in
                         SolutionRow(
-                            text: solution.description_,
+                            description: solution.description_,
                             isSelected: solution.isSelected,
                             onSelect: {
-                                component.accept(intent: SolutionIntent.SelectSolution(index: Int32(index)))
+                                onSelectSolution(Int32(index))
                             },
                             onDelete: {
-                                component.accept(intent: SolutionIntent.DeleteSolution(index: Int32(index)))
+                                onDeleteSolution(Int32(index))
                             },
-                            onTextChange: { text in
-                                component.accept(intent: SolutionIntent.ChangeSolutionDescription(index: Int32(index), description: text))
+                            onDescriptionChange: { description in
+                                onChangeSolutionDescription(Int32(index), description)
                             }
                         )
                     }
-                    
-                    HStack(spacing: 8) {
-                        Button("To problem") {
-                            component.accept(intent: SolutionIntent.GoToProblem())
+                    HStack(spacing: spacing) {
+                        Button(action: onGoToProblem) {
+                            Text("To problem")
+                                .frame(maxWidth: .infinity)
                         }
-                        .disabled(!state.isGoToProblemEnabled)
-                        .frame(maxWidth: .infinity)
-                        
-                        Button("To decision") {
-                            component.accept(intent: SolutionIntent.GoToDecision())
+                            .disabled(!state.isGoToProblemEnabled)
+                            .buttonStyle(.bordered)
+                        Button(action: onGoToDecision) {
+                            Text("To decision")
+                                .frame(maxWidth: .infinity)
                         }
-                        .disabled(!state.isGoToDecisionEnabled)
-                        .frame(maxWidth: .infinity)
+                            .disabled(!state.isGoToDecisionEnabled)
+                            .buttonStyle(.borderedProminent)
                     }
                 }
-                .padding(16)
             }
         }
         .snackbar(show: $showSnackbar, message: snackbarMessage)
@@ -80,41 +122,20 @@ struct SolutionsView: View {
     }
 }
 
-private struct AddSolutionButton: View {
-    let onClick: () -> Void
-    
-    var body: some View {
-        Button(action: onClick) {
-            Text("Add solution")
-                .frame(maxWidth: .infinity)
-        }
-    }
-}
-
-private struct SuggestSolutionButton: View {
-    let isEnabled: Bool
-    let onClick: () -> Void
-    
-    var body: some View {
-        Button(action: onClick) {
-            Text("Suggest solution")
-                .frame(maxWidth: .infinity)
-        }
-        .disabled(!isEnabled)
-    }
-}
-
 private struct SolutionRow: View {
-    let text: String
+    let description: String
     let isSelected: Bool
     let onSelect: () -> Void
     let onDelete: () -> Void
-    let onTextChange: (String) -> Void
+    let onDescriptionChange: (String) -> Void
     
     var body: some View {
         HStack {
             RadioButton(isSelected: isSelected, onClick: onSelect)
-            TextField("Solution", text: Binding(get: { text }, set: onTextChange))
+            TextField(
+                "Solution", 
+                text: Binding(get: { description }, set: onDescriptionChange)
+            )
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .frame(maxWidth: .infinity)
             Button(action: onDelete) {

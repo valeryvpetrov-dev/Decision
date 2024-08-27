@@ -30,6 +30,7 @@ struct ProblemView: View {
                 component.accept(intent: ProblemIntent.GoToSolutions.shared)
             }
         )
+            .padding()
     }
 }
 
@@ -38,8 +39,10 @@ private struct ProblemContent: View {
     let onChangeProblemDescription: (String) -> Void
     let onGoToSolutionsClick: () -> Void
     
+    @ScaledMetric private var stackSpacing = 16
+    
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: stackSpacing) {
             ProblemTextField(
                 value: state.description_,
                 onValueChange: onChangeProblemDescription
@@ -48,12 +51,13 @@ private struct ProblemContent: View {
                 action: onGoToSolutionsClick,
                 label: {
                     Text("To solutions")
+                        .frame(maxWidth: .infinity)
                 }
             )
             .disabled(!state.isGoToSolutionsEnabled)
+            .buttonStyle(.borderedProminent)
+            Spacer()
         }
-        .padding(16)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -70,6 +74,5 @@ private struct ProblemTextField: View {
             )
         )
         .textFieldStyle(RoundedBorderTextFieldStyle())
-        .padding()
     }
 }
