@@ -38,7 +38,7 @@ struct SolutionsView: View {
                     ForEach(state.solutions.indices, id: \.self) { index in
                         let solution = state.solutions[index]
                         SolutionRow(
-                            text: solution.description,
+                            text: solution.description_,
                             isSelected: solution.isSelected,
                             onSelect: {
                                 component.accept(intent: SolutionIntent.SelectSolution(index: Int32(index)))

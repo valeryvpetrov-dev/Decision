@@ -41,7 +41,7 @@ private struct ProblemContent: View {
     var body: some View {
         VStack(spacing: 8) {
             ProblemTextField(
-                value: state.description,
+                value: state.description_,
                 onValueChange: onChangeProblemDescription
             )
             Button(
