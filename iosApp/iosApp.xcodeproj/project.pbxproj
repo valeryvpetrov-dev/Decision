@@ -11,6 +11,7 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* RootView.swift */; };
+		A95ED3C82C7F29230098C4E9 /* FlowExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95ED3C72C7F29230098C4E9 /* FlowExt.swift */; };
 		A9D631E42C7A066500926800 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631E32C7A066500926800 /* StackView.swift */; };
 		A9D631E62C7A068E00926800 /* StateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631E52C7A068E00926800 /* StateValue.swift */; };
 		A9D631E82C7A06AB00926800 /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631E72C7A06AB00926800 /* ObservableValue.swift */; };
@@ -28,6 +29,7 @@
 		7555FF7B242A565900829871 /* Decision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Decision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A95ED3C72C7F29230098C4E9 /* FlowExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowExt.swift; sourceTree = "<group>"; };
 		A9D631E32C7A066500926800 /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		A9D631E52C7A068E00926800 /* StateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateValue.swift; sourceTree = "<group>"; };
 		A9D631E72C7A06AB00926800 /* ObservableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				A95ED3C62C7F290D0098C4E9 /* KotlinCoroutinesHelpers */,
 				A9D631F32C7A093B00926800 /* Views */,
 				A9D631E22C7A064D00926800 /* DecomposeHelpers */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
@@ -94,6 +97,14 @@
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
 			path = iosApp;
+			sourceTree = "<group>";
+		};
+		A95ED3C62C7F290D0098C4E9 /* KotlinCoroutinesHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				A95ED3C72C7F29230098C4E9 /* FlowExt.swift */,
+			);
+			path = KotlinCoroutinesHelpers;
 			sourceTree = "<group>";
 		};
 		A9D631E22C7A064D00926800 /* DecomposeHelpers */ = {
@@ -225,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9D631F02C7A083F00926800 /* SolutionsView.swift in Sources */,
+				A95ED3C82C7F29230098C4E9 /* FlowExt.swift in Sources */,
 				A9D631EE2C7A080400926800 /* ProblemView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				A9D631E82C7A06AB00926800 /* ObservableValue.swift in Sources */,

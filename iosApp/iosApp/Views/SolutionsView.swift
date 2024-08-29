@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 import UmbrellaIos
 
 struct SolutionsView: View {
@@ -14,10 +15,15 @@ struct SolutionsView: View {
     
     @StateValue
     private var state: SolutionState
+    private var labels: AnyPublisher<SolutionLabel, Never>
+    
+    @State private var alertIsPresented = false
+    @State private var alertMessage = ""
     
     init(component: SolutionComponent) {
         self.component = component
         _state = StateValue(component.stateValue)
+        labels = component.labels.asPublisher() as AnyPublisher<SolutionLabel, Never>
     }
     
     var body: some View {
@@ -46,6 +52,21 @@ struct SolutionsView: View {
             }
         )
             .padding()
+            .onReceive(labels) { label in
+                switch label {
+                case let onAddNewSolutionFailure as SolutionLabel.OnAddNewSolutionFailure:
+                    alertIsPresented = true
+                    alertMessage = onAddNewSolutionFailure.message
+                default: break
+                }
+            }
+            .alert(isPresented: $alertIsPresented) {
+                Alert(
+                    title: Text("Error"),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
     }
 }
 

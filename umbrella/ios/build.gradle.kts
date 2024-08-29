@@ -39,6 +39,8 @@ kotlin {
             export(projects.umbrella.di)
             export(libs.decompose)
             export(libs.essenty.lifecycle)
+
+            export(libs.kotlinx.coroutines.core)
         }
     }
 
@@ -58,6 +60,8 @@ kotlin {
             api(projects.umbrella.di)
             api(libs.decompose)
             api(libs.essenty.lifecycle)
+
+            api(libs.kotlinx.coroutines.core)
         }
     }
 }
