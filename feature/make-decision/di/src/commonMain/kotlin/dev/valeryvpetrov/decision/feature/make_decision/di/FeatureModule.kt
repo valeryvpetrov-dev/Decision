@@ -5,7 +5,7 @@ import dev.valeryvpetrov.decision.feature.decision.di.featureModule as decisionF
 import dev.valeryvpetrov.decision.feature.problem.di.featureModule as problemFeatureModule
 import dev.valeryvpetrov.decision.feature.solution.di.featureModule as solutionFeatureModule
 
-val featureModule = module {
+val makeDecisionFeatureModule = module {
     includes(
         componentModule,
         mviModule,

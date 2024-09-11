@@ -61,6 +61,10 @@ include(
     ":feature:chat-gpt:impl",
     ":feature:chat-gpt:di",
 
+    ":feature:tabs:di",
+    ":feature:tabs:presentation",
+    ":feature:tabs:ui:compose",
+
     ":base:api",
     ":base:presentation",
     ":base:di",
