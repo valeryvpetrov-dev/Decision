@@ -5,9 +5,8 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.feature.makeDecision.api)
-            implementation(projects.feature.makeDecision.presentation)
-            implementation(projects.feature.makeDecision.di)
+            implementation(projects.feature.tabs.di)
+            implementation(projects.feature.tabs.presentation)
             implementation(projects.feature.chatGpt.di)
             implementation(libs.koin.core)
             implementation(libs.decompose)

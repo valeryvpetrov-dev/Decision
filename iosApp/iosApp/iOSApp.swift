@@ -18,7 +18,7 @@ struct iOSApp: App {
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-    var root: MakeDecisionComponent = IosKoin.shared.createMakeDecisionComponent(
+    var root: TabsComponent = IosKoin.shared.createTabsComponent(
         componentContext: DefaultComponentContext(lifecycle: ApplicationLifecycle())
     )
 }

@@ -6,13 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.arkivanov.decompose.defaultComponentContext
-import dev.valeryvpetrov.decision.feature.make_decision.presentation.component.MakeDecisionComponent
+import dev.valeryvpetrov.decision.feature.tabs.presentation.component.TabsComponent
 import org.koin.android.ext.android.getKoin
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val factory = getKoin().get<MakeDecisionComponent.Factory>()
+        val factory = getKoin().get<TabsComponent.Factory>()
         val component = factory.create(
             componentContext = defaultComponentContext()
         )
