@@ -6,6 +6,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.feature.makeDecision.presentation)
+            implementation(projects.feature.history.presentation)
         }
     }
 }

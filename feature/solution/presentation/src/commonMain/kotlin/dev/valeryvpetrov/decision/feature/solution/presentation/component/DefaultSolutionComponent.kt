@@ -41,13 +41,13 @@ class DefaultSolutionComponent(
 
     override val store: Store<SolutionIntent, SolutionState, SolutionLabel> =
         instanceKeeper.getStore {
-        storeFactoryProvider.get().create(
-            stateKeeper = stateKeeper,
-            solutions = solutions,
-            onBackToProblem = onBackToProblem,
-            onGoToDecision = onGoToDecision,
-        )
-    }
+            storeFactoryProvider.get().create(
+                stateKeeper = stateKeeper,
+                solutions = solutions,
+                onBackToProblem = onBackToProblem,
+                onGoToDecision = onGoToDecision,
+            )
+        }
 
     private val backCallback = BackCallback {
         store.accept(SolutionIntent.Back)

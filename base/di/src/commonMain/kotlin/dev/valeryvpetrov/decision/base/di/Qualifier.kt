@@ -44,5 +44,11 @@ sealed class Qualifier {
             object ApiTokenProvider : ChatGpt()
             object Model : ChatGpt()
         }
+
+        sealed class History : Feature() {
+
+            object StoreName : History()
+            object StoreFactoryProvider : History()
+        }
     }
 }

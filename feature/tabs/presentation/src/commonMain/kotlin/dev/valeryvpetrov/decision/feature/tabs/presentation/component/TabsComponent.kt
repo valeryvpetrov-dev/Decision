@@ -3,6 +3,7 @@ package dev.valeryvpetrov.decision.feature.tabs.presentation.component
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
+import dev.valeryvpetrov.decision.feature.history.presentation.component.HistoryComponent
 import dev.valeryvpetrov.decision.feature.make_decision.presentation.component.MakeDecisionComponent
 
 interface TabsComponent {
@@ -10,8 +11,7 @@ interface TabsComponent {
     sealed class Child {
         class MakeDecision(val component: MakeDecisionComponent) : Child()
 
-        // TODO: create HistoryComponent
-        class History(val component: Any) : Child()
+        class History(val component: HistoryComponent) : Child()
     }
 
     interface Factory {

@@ -7,7 +7,6 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Done
@@ -15,9 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.stack.Children
-import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
+import dev.valeryvpetrov.decision.feature.history.ui.compose.HistoryScreen
 import dev.valeryvpetrov.decision.feature.make_decision.ui.compose.MakeDecisionScreen
 import dev.valeryvpetrov.decision.feature.tabs.presentation.component.TabsComponent
 import dev.valeryvpetrov.decision.feature.tabs.presentation.component.TabsComponent.Child
@@ -35,10 +34,13 @@ fun TabsScreen(
         Children(
             stack = component.tabs,
             modifier = modifier,
-            animation = stackAnimation(slide())
+            animation = stackAnimation()
         ) {
             when (val child = it.instance) {
-                is Child.History -> Text("""TODO("HistoryScreen(component = child.component, modifier = Modifier.fillMaxSize())")""")
+                is Child.History -> HistoryScreen(
+                    component = child.component,
+                    modifier = Modifier.fillMaxSize(),
+                )
                 is Child.MakeDecision -> MakeDecisionScreen(
                     component = child.component,
                     modifier = Modifier.fillMaxSize()

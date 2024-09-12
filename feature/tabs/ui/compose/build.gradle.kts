@@ -8,6 +8,8 @@ kotlin {
             implementation(projects.feature.tabs.presentation)
             implementation(projects.feature.makeDecision.presentation)
             implementation(projects.feature.makeDecision.ui.compose)
+            implementation(projects.feature.history.presentation)
+            implementation(projects.feature.history.ui.compose)
             implementation(libs.decompose.extensions.compose)
         }
     }
