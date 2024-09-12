@@ -7,7 +7,11 @@ class HistoryRepositoryImpl : HistoryRepository {
 
     private val historyList: MutableList<History> = mutableListOf()
 
-    override suspend fun save(history: History) {
+    override suspend fun save(decision: String) {
+        val history = History(
+            id = historyList.size,
+            decisionMessage = decision,
+        )
         historyList.add(history)
     }
 

@@ -9,7 +9,7 @@ val makeDecisionFeatureModule = module {
     includes(
         componentModule,
         mviModule,
-        repositoryModule,
+        implModule,
         problemFeatureModule,
         solutionFeatureModule,
         decisionFeatureModule,

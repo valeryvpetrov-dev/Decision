@@ -1,5 +1,6 @@
 package dev.valeryvpetrov.decision.feature.history.ui.compose
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -19,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import dev.valeryvpetrov.decision.feature.history.api.model.History
 import dev.valeryvpetrov.decision.feature.history.presentation.component.HistoryComponent
 import dev.valeryvpetrov.decision.feature.history.presentation.mvi.HistoryState
@@ -54,7 +56,10 @@ fun HistoryScreen(component: HistoryComponent, modifier: Modifier = Modifier) {
 private fun ScreenContent(modifier: Modifier = Modifier, state: HistoryState) {
     when (state) {
         is HistoryState.Content -> {
-            LazyColumn(modifier = modifier) {
+            LazyColumn(
+                modifier = modifier,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 itemsIndexed(state.historyList) { i, item ->
                     HistoryItem(item)
                     if (i < state.historyList.lastIndex) {
@@ -83,5 +88,5 @@ private fun ScreenContent(modifier: Modifier = Modifier, state: HistoryState) {
 
 @Composable
 fun HistoryItem(history: History) {
-    Text(history.decisionMessage)
+    Text("${history.id}: ${history.decisionMessage}")
 }
