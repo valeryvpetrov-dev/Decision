@@ -9,7 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import dev.valeryvpetrov.decision.feature.make_decision.presentation.component.MakeDecisionComponent
-import dev.valeryvpetrov.decision.feature.make_decision.ui.compose.Screen
+import dev.valeryvpetrov.decision.feature.make_decision.ui.compose.MakeDecisionScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -24,7 +24,7 @@ fun Root(
                 .fillMaxSize()
                 .windowInsetsPadding(WindowInsets.systemBars)
         ) {
-            Screen(component)
+            MakeDecisionScreen(component)
         }
     }
 }

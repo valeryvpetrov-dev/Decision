@@ -18,9 +18,6 @@ kotlin {
     }
 
     jvm()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
 
     sourceSets {
         androidMain.dependencies {
@@ -29,11 +26,11 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
-            implementation(projects.feature.makeDecision.presentation)
             implementation(projects.umbrella.di)
             implementation(libs.decompose)
             implementation(libs.essenty.lifecycle)
 
+            implementation(projects.feature.makeDecision.presentation)
             implementation(projects.feature.makeDecision.ui.compose)
 
             implementation(compose.runtime)

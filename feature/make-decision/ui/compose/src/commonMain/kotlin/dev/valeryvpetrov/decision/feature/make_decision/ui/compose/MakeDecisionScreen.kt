@@ -12,7 +12,7 @@ import dev.valeryvpetrov.decision.feature.problem.ui.compose.Screen as ProblemSc
 import dev.valeryvpetrov.decision.feature.solution.ui.compose.Screen as SolutionScreen
 
 @Composable
-fun Screen(
+fun MakeDecisionScreen(
     component: MakeDecisionComponent,
 ) {
     Children(
