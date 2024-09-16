@@ -51,7 +51,6 @@ struct SolutionsView: View {
                 component.accept(intent: SolutionIntent.GoToDecision())
             }
         )
-            .padding()
             .onReceive(labels) { label in
                 switch label {
                 case let onAddNewSolutionFailure as SolutionLabel.OnAddNewSolutionFailure:

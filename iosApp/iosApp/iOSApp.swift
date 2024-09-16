@@ -12,13 +12,13 @@ struct iOSApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView(root: appDelegate.root)
+            RootView(component: appDelegate.tabsComponent)
         }
     }
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-    var root: TabsComponent = IosKoin.shared.createTabsComponent(
+    var tabsComponent: TabsComponent = IosKoin.shared.createTabsComponent(
         componentContext: DefaultComponentContext(lifecycle: ApplicationLifecycle())
     )
 }

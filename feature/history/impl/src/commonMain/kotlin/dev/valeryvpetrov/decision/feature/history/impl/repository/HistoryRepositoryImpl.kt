@@ -5,7 +5,10 @@ import dev.valeryvpetrov.decision.feature.history.api.repository.HistoryReposito
 
 class HistoryRepositoryImpl : HistoryRepository {
 
-    private val historyList: MutableList<History> = mutableListOf()
+    private val historyList: MutableList<History> = mutableListOf(
+        History(0, "Test 0"),
+        History(1, "Test 1")
+    )
 
     override suspend fun save(decision: String) {
         val history = History(
