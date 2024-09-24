@@ -40,7 +40,6 @@ include(
     ":feature:make-decision:ui:compose",
 
     ":feature:problem:api",
-    ":feature:problem:impl",
     ":feature:problem:presentation",
     ":feature:problem:di",
     ":feature:problem:ui:compose",
@@ -52,7 +51,6 @@ include(
     ":feature:solution:ui:compose",
 
     ":feature:decision:api",
-    ":feature:decision:impl",
     ":feature:decision:presentation",
     ":feature:decision:di",
     ":feature:decision:ui:compose",
