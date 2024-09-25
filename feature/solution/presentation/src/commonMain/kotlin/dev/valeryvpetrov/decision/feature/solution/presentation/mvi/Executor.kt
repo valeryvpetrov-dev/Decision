@@ -2,6 +2,7 @@ package dev.valeryvpetrov.decision.feature.solution.presentation.mvi
 
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
+import dev.valeryvpetrov.decision.feature.solution.api.SolutionRepository
 import dev.valeryvpetrov.decision.feature.solution.api.SuggestSolutionUseCase
 import kotlinx.coroutines.launch
 
@@ -9,6 +10,7 @@ class Executor(
     private val onBackToProblem: (List<Solution>) -> Unit,
     private val onGoToDecision: (List<Solution>) -> Unit,
     private val suggestSolutionUseCase: SuggestSolutionUseCase,
+    private val solutionRepository: SolutionRepository,
 ) : CoroutineExecutor<SolutionIntent, Nothing, SolutionState, Message, SolutionLabel>() {
 
     interface Factory {
@@ -20,16 +22,28 @@ class Executor(
 
     override fun executeIntent(intent: SolutionIntent) {
         when (intent) {
-            is SolutionIntent.AddNewSolution -> dispatch(Message.OnAddNewSolution)
-            is SolutionIntent.ChangeSolutionDescription -> dispatch(
-                Message.OnChangeSolutionDescription(
-                    index = intent.index,
-                    description = intent.description
-                )
-            )
+            is SolutionIntent.AddNewSolution -> scope.launch {
+                solutionRepository.create()
+                dispatch(Message.OnChangeSolutions(solutions = solutionRepository.get()))
+            }
 
-            is SolutionIntent.SelectSolution -> dispatch(Message.OnSelectSolution(index = intent.index))
-            is SolutionIntent.DeleteSolution -> dispatch(Message.OnDeleteSolution(index = intent.index))
+            is SolutionIntent.ChangeSolutionDescription -> scope.launch {
+                solutionRepository.changeDescription(
+                    id = intent.id,
+                    newDescription = intent.description
+                )
+                dispatch(Message.OnChangeSolutions(solutions = solutionRepository.get()))
+            }
+
+            is SolutionIntent.SelectSolution -> scope.launch {
+                solutionRepository.select(id = intent.id)
+                dispatch(Message.OnChangeSolutions(solutions = solutionRepository.get()))
+            }
+
+            is SolutionIntent.DeleteSolution -> scope.launch {
+                solutionRepository.delete(id = intent.id)
+                dispatch(Message.OnChangeSolutions(solutions = solutionRepository.get()))
+            }
 
             SolutionIntent.GoToProblem,
             SolutionIntent.Back,
@@ -46,12 +60,11 @@ class Executor(
             is SolutionIntent.Restore -> dispatch(Message.OnRestore(solutions = intent.solutions))
             SolutionIntent.SuggestNewSolution -> scope.launch {
                 dispatch(Message.OnSuggestNewSolution.Loading)
-                val solutions = state().solutions
                 try {
-                    val newSolution = suggestSolutionUseCase.suggestSolution(
-                        currentSolutions = solutions
+                    suggestSolutionUseCase.suggestSolution()
+                    dispatch(
+                        Message.OnSuggestNewSolution.Success(solutions = solutionRepository.get())
                     )
-                    dispatch(Message.OnSuggestNewSolution.Success(newSolution))
                 } catch (e: Throwable) {
                     publish(SolutionLabel.OnAddNewSolutionFailure(e.message ?: "Ошибка"))
                     dispatch(Message.OnSuggestNewSolution.Failed(e))

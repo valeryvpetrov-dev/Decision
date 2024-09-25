@@ -2,6 +2,7 @@ package dev.valeryvpetrov.decision.feature.solution.di
 
 import dev.valeryvpetrov.decision.base.api.Provider
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
+import dev.valeryvpetrov.decision.feature.solution.api.SolutionRepository
 import dev.valeryvpetrov.decision.feature.solution.api.SuggestSolutionUseCase
 import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Executor
 import dev.valeryvpetrov.decision.feature.solution.presentation.mvi.Reducer
@@ -37,6 +38,7 @@ internal val mviModule = module {
                 onBackToProblem = onBackToProblem,
                 onGoToDecision = onGoToDecision,
                 suggestSolutionUseCase = get<SuggestSolutionUseCase>(),
+                solutionRepository = get<SolutionRepository>(),
             )
         }
     }

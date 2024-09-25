@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SolutionState(
+    // TODO: use immutable list
     val solutions: List<Solution>,
     val isSuggestSolutionEnabled: Boolean,
     val isGoToDecisionEnabled: Boolean,

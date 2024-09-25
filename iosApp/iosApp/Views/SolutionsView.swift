@@ -35,14 +35,14 @@ struct SolutionsView: View {
             onSuggestSolutionClick: {
                 component.accept(intent: SolutionIntent.SuggestNewSolution())
             },
-            onSelectSolution: { index in
-                component.accept(intent: SolutionIntent.SelectSolution(index: Int32(index)))
+            onSelectSolution: { id in
+                component.accept(intent: SolutionIntent.SelectSolution(id: id))
             },
-            onDeleteSolution: { index in
-                component.accept(intent: SolutionIntent.DeleteSolution(index: Int32(index)))
+            onDeleteSolution: { id in
+                component.accept(intent: SolutionIntent.DeleteSolution(id: id))
             },
-            onChangeSolutionDescription: { index, description in
-                component.accept(intent: SolutionIntent.ChangeSolutionDescription(index: Int32(index), description: description))
+            onChangeSolutionDescription: { id, description in
+                component.accept(intent: SolutionIntent.ChangeSolutionDescription(id: id, description: description))
             },
             onGoToProblem: {
                 component.accept(intent: SolutionIntent.GoToProblem())
@@ -100,18 +100,18 @@ private struct SolutionContent: View {
                     }
                         .disabled(!state.isSuggestSolutionEnabled)
                         .buttonStyle(.borderedProminent)
-                    ForEach(Array(state.solutions.enumerated()), id: \.element) { index, solution in
+                    ForEach(Array(state.solutions.enumerated()), id: \.element.id) { _, solution in
                         SolutionRow(
                             description: solution.description_,
                             isSelected: solution.isSelected,
                             onSelect: {
-                                onSelectSolution(Int32(index))
+                                onSelectSolution(Int32(solution.id))
                             },
                             onDelete: {
-                                onDeleteSolution(Int32(index))
+                                onDeleteSolution(Int32(solution.id))
                             },
                             onDescriptionChange: { description in
-                                onChangeSolutionDescription(Int32(index), description)
+                                onChangeSolutionDescription(Int32(solution.id), description)
                             }
                         )
                     }

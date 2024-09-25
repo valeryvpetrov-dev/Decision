@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -75,16 +76,16 @@ fun Screen(
             onSuggestNewSolution = {
                 component.accept(SolutionIntent.SuggestNewSolution)
             },
-            onSelectSolution = { index ->
-                component.accept(SolutionIntent.SelectSolution(index))
+            onSelectSolution = { id ->
+                component.accept(SolutionIntent.SelectSolution(id))
             },
-            onDeleteSolution = { index ->
-                component.accept(SolutionIntent.DeleteSolution(index))
+            onDeleteSolution = { id ->
+                component.accept(SolutionIntent.DeleteSolution(id))
             },
-            onChangeSolutionDescription = { index, description ->
+            onChangeSolutionDescription = { id, description ->
                 component.accept(
                     SolutionIntent.ChangeSolutionDescription(
-                        index = index,
+                        id = id,
                         description = description
                     )
                 )
@@ -105,9 +106,9 @@ private fun ScreenContent(
     state: SolutionState,
     onAddNewSolution: () -> Unit,
     onSuggestNewSolution: () -> Unit,
-    onSelectSolution: (index: Int) -> Unit,
-    onDeleteSolution: (index: Int) -> Unit,
-    onChangeSolutionDescription: (index: Int, description: String) -> Unit,
+    onSelectSolution: (id: Int) -> Unit,
+    onDeleteSolution: (id: Int) -> Unit,
+    onChangeSolutionDescription: (id: Int, description: String) -> Unit,
     onGoToProblem: () -> Unit,
     onGoToDecision: () -> Unit,
 ) {
@@ -125,20 +126,22 @@ private fun ScreenContent(
             onClick = onSuggestNewSolution,
             isEnabled = state.isSuggestSolutionEnabled,
         )
-        state.solutions.forEachIndexed { index, solution ->
-            SolutionRow(
-                text = solution.description,
-                isSelected = solution.isSelected,
-                onSelect = {
-                    onSelectSolution.invoke(index)
-                },
-                onDelete = {
-                    onDeleteSolution.invoke(index)
-                },
-                onTextChange = { text ->
-                    onChangeSolutionDescription.invoke(index, text)
-                },
-            )
+        state.solutions.forEach { solution ->
+            key(solution.id) {
+                SolutionRow(
+                    text = solution.description,
+                    isSelected = solution.isSelected,
+                    onSelect = {
+                        onSelectSolution.invoke(solution.id)
+                    },
+                    onDelete = {
+                        onDeleteSolution.invoke(solution.id)
+                    },
+                    onTextChange = { text ->
+                        onChangeSolutionDescription.invoke(solution.id, text)
+                    },
+                )
+            }
         }
         Row(
             modifier = Modifier.fillMaxWidth(),

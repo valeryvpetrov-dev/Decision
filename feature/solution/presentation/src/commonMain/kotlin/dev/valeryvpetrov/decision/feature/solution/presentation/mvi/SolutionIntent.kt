@@ -9,14 +9,11 @@ sealed class SolutionIntent {
     data object AddNewSolution : SolutionIntent()
     data object SuggestNewSolution : SolutionIntent()
 
-    data class ChangeSolutionDescription(
-        val index: Int,
-        val description: String,
-    ) : SolutionIntent()
+    data class ChangeSolutionDescription(val id: Int, val description: String) : SolutionIntent()
 
-    data class SelectSolution(val index: Int) : SolutionIntent()
+    data class SelectSolution(val id: Int) : SolutionIntent()
 
-    data class DeleteSolution(val index: Int) : SolutionIntent()
+    data class DeleteSolution(val id: Int) : SolutionIntent()
 
     data object GoToProblem : SolutionIntent()
 

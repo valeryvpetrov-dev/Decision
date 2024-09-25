@@ -4,15 +4,18 @@ import dev.valeryvpetrov.decision.feature.chat_gpt.api.model.Message
 import dev.valeryvpetrov.decision.feature.chat_gpt.api.repository.ChatGptRepository
 import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecisionRepository
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
+import dev.valeryvpetrov.decision.feature.solution.api.SolutionRepository
 import dev.valeryvpetrov.decision.feature.solution.api.SuggestSolutionUseCase
 
 class SuggestSolutionUseCaseImpl(
     private val makeDecisionRepository: MakeDecisionRepository,
     private val chatGptRepository: ChatGptRepository,
+    private val solutionRepository: SolutionRepository,
 ) : SuggestSolutionUseCase {
 
-    override suspend fun suggestSolution(currentSolutions: List<Solution>): Solution {
+    override suspend fun suggestSolution(): Solution {
         val problem = makeDecisionRepository.getProblem() ?: error("No problem to suggest solution")
+        val currentSolutions = solutionRepository.get()
         val messages = listOf(
             Message(
                 text = """
@@ -23,6 +26,6 @@ class SuggestSolutionUseCaseImpl(
             )
         )
         val description = chatGptRepository.suggestSolution(messages).firstOrNull()?.text ?: ""
-        return Solution(description = description, isSelected = false)
+        return solutionRepository.create(description)
     }
 }
