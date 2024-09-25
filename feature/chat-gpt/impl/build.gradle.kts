@@ -10,8 +10,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.feature.chatGpt.api)
-            implementation(projects.feature.problem.api)
-            implementation(projects.feature.solution.api)
 
             api(libs.ktor.client.core)
             api(libs.ktor.client.content.negotiation)

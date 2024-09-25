@@ -2,7 +2,7 @@ package dev.valeryvpetrov.decision.feature.chat_gpt.di
 
 import dev.valeryvpetrov.decision.base.api.Provider
 import dev.valeryvpetrov.decision.base.di.Qualifier
-import dev.valeryvpetrov.decision.feature.chat_gpt.api.ChatGptRepository
+import dev.valeryvpetrov.decision.feature.chat_gpt.api.repository.ChatGptRepository
 import dev.valeryvpetrov.decision.feature.chat_gpt.impl.ChatGptApiTokenProvider
 import dev.valeryvpetrov.decision.feature.chat_gpt.impl.ChatGptRepositoryImpl
 import dev.valeryvpetrov.decision.feature.chat_gpt.impl.api.ChatGptApi
