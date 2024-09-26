@@ -30,7 +30,6 @@ struct ProblemView: View {
                 component.accept(intent: ProblemIntent.GoToSolutions.shared)
             }
         )
-            .padding()
     }
 }
 

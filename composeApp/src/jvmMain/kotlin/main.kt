@@ -7,7 +7,7 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.mvikotlin.core.utils.setMainThreadId
 import com.arkivanov.mvikotlin.timetravel.server.TimeTravelServer
 import dev.valeryvpetrov.decision.Root
-import dev.valeryvpetrov.decision.feature.make_decision.presentation.component.MakeDecisionComponent
+import dev.valeryvpetrov.decision.feature.tabs.presentation.component.TabsComponent
 import dev.valeryvpetrov.decision.umbrella.di.startKoin
 import javax.swing.SwingUtilities
 import org.koin.core.logger.Level
@@ -18,9 +18,9 @@ fun main() {
     }
     // FIXME provide through DI
     val lifecycle = LifecycleRegistry()
-    val factory = koin.koin.get<MakeDecisionComponent.Factory>()
+    val factory = koin.koin.get<TabsComponent.Factory>()
 
-    lateinit var component: MakeDecisionComponent
+    lateinit var component: TabsComponent
     SwingUtilities.invokeAndWait {
         setMainThreadId(Thread.currentThread().id)
         component = factory.create(

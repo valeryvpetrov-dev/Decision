@@ -30,8 +30,8 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.essenty.lifecycle)
 
-            implementation(projects.feature.makeDecision.presentation)
-            implementation(projects.feature.makeDecision.ui.compose)
+            implementation(projects.feature.tabs.presentation)
+            implementation(projects.feature.tabs.ui.compose)
 
             implementation(compose.runtime)
             implementation(compose.foundation)

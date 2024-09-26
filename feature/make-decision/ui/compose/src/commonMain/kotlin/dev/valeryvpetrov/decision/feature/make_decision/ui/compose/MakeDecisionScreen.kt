@@ -1,6 +1,5 @@
 package dev.valeryvpetrov.decision.feature.make_decision.ui.compose
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.stack.Children
@@ -14,10 +13,11 @@ import dev.valeryvpetrov.decision.feature.solution.ui.compose.Screen as Solution
 @Composable
 fun MakeDecisionScreen(
     component: MakeDecisionComponent,
+    modifier: Modifier = Modifier,
 ) {
     Children(
         stack = component.childStack,
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier,
         animation = stackAnimation(slide())
     ) {
         when (val instance = it.instance) {

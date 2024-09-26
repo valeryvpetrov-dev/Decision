@@ -9,25 +9,28 @@ class MakeDecisionRepositoryImpl : MakeDecisionRepository {
 
     private var makeDecision = MakeDecision.Builder()
 
-    override fun clearDecision() {
+    override suspend fun clearDecision() {
         makeDecision = MakeDecision.Builder()
     }
 
-    override fun restore(makeDecision: MakeDecision.Builder) {
+    override suspend fun restore(makeDecision: MakeDecision.Builder) {
         this.makeDecision = makeDecision
     }
 
-    override fun setProblem(problem: Problem) {
+    override suspend fun setProblem(problem: Problem) {
         makeDecision.problem(problem)
     }
 
-    override fun getProblem(): Problem? = makeDecision.problem
+    override suspend fun getProblem(): Problem? = makeDecision.problem
 
-    override fun setSolutions(solutions: List<Solution>) {
+    override suspend fun setSolutions(solutions: List<Solution>) {
         makeDecision.solutions(solutions)
     }
 
-    override fun getSolutions(): List<Solution>? = makeDecision.solutions
+    override suspend fun getSolutions(): List<Solution>? = makeDecision.solutions
 
-    override fun getDecision(): MakeDecision = makeDecision.build()
+    override suspend fun finalizeDecision(): String {
+        val decision = makeDecision.build()
+        return "Problem \"${decision.problem.description}\" was solved by \"${decision.selectedSolution.description}\""
+    }
 }

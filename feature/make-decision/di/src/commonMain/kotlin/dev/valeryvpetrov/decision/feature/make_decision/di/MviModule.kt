@@ -2,7 +2,7 @@ package dev.valeryvpetrov.decision.feature.make_decision.di
 
 import dev.valeryvpetrov.decision.base.api.Provider
 import dev.valeryvpetrov.decision.base.di.Qualifier.Feature.MakeDecision
-import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecisionRepository
+import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecisionUseCase
 import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.Bootstrapper
 import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.Executor
 import dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi.Reducer
@@ -31,7 +31,7 @@ internal val mviModule = module {
     }
     factory<Executor.Factory> {
         Executor.Factory(
-            makeDecisionRepository = get<MakeDecisionRepository>()
+            makeDecisionUseCase = get<MakeDecisionUseCase>()
         )
     }
     factoryOf(::Reducer)

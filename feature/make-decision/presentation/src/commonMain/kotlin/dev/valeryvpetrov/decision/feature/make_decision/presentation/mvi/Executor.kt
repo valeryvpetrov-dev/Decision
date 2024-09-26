@@ -1,14 +1,14 @@
 package dev.valeryvpetrov.decision.feature.make_decision.presentation.mvi
 
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
-import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecision
-import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecisionRepository
+import dev.valeryvpetrov.decision.feature.make_decision.api.MakeDecisionUseCase
 import dev.valeryvpetrov.decision.feature.problem.api.Problem
 import dev.valeryvpetrov.decision.feature.solution.api.Solution
+import kotlinx.coroutines.launch
 
 class Executor(
     private val savedState: MakeDecisionState,
-    private val makeDecisionRepository: MakeDecisionRepository,
+    private val makeDecisionUseCase: MakeDecisionUseCase,
     private val onGoToSolution: (List<Solution>?) -> Unit,
     private val onGoToDecision: (String) -> Unit,
     private val onBackToProblem: (Problem?) -> Unit,
@@ -17,7 +17,7 @@ class Executor(
 ) : CoroutineExecutor<MakeDecisionIntent, Action, MakeDecisionState, Message, Nothing>() {
 
     class Factory(
-        private val makeDecisionRepository: MakeDecisionRepository,
+        private val makeDecisionUseCase: MakeDecisionUseCase,
     ) {
 
         fun create(
@@ -29,7 +29,7 @@ class Executor(
             onBackToSolution: (List<Solution>?) -> Unit,
         ): Executor = Executor(
             savedState = savedState,
-            makeDecisionRepository = makeDecisionRepository,
+            makeDecisionUseCase = makeDecisionUseCase,
             onGoToSolution = onGoToSolution,
             onGoToDecision = onGoToDecision,
             onBackToProblem = onBackToProblem,
@@ -38,48 +38,46 @@ class Executor(
         )
     }
 
-    override fun executeIntent(intent: MakeDecisionIntent) = when (intent) {
-        is MakeDecisionIntent.GoToSolution -> {
-            makeDecisionRepository.setProblem(intent.problem)
-            val solutions = makeDecisionRepository.getSolutions()
-            onGoToSolution(solutions)
-        }
+    override fun executeIntent(intent: MakeDecisionIntent) {
+        when (intent) {
+            is MakeDecisionIntent.GoToSolution -> scope.launch {
+                makeDecisionUseCase.setProblem(intent.problem)
+                val solutions = makeDecisionUseCase.getSolutions()
+                onGoToSolution(solutions)
+            }
 
-        is MakeDecisionIntent.GoToDecision -> {
-            makeDecisionRepository.setSolutions(intent.solutions)
-            val makeDecision = makeDecisionRepository.getDecision()
-            val decisionMessage = makeDecision.getDecisionMessage()
-            onGoToDecision(decisionMessage)
-        }
+            is MakeDecisionIntent.GoToDecision -> scope.launch {
+                makeDecisionUseCase.setSolutions(intent.solutions)
+                val decisionMessage = makeDecisionUseCase.finalizeDecision()
+                onGoToDecision(decisionMessage)
+            }
 
-        is MakeDecisionIntent.BackToProblem -> {
-            makeDecisionRepository.setSolutions(intent.solutions)
-            val problem = makeDecisionRepository.getProblem()
-            onBackToProblem(problem)
-        }
+            is MakeDecisionIntent.BackToProblem -> scope.launch {
+                makeDecisionUseCase.setSolutions(intent.solutions)
+                val problem = makeDecisionUseCase.getProblem()
+                onBackToProblem(problem)
+            }
 
-        MakeDecisionIntent.Restart -> {
-            makeDecisionRepository.clearDecision()
-            val problem = makeDecisionRepository.getProblem()
-            onRestart(problem)
-        }
+            MakeDecisionIntent.Restart -> scope.launch {
+                makeDecisionUseCase.clearDecision()
+                val problem = makeDecisionUseCase.getProblem()
+                onRestart(problem)
+            }
 
-        MakeDecisionIntent.BackToSolution -> {
-            val solutions = makeDecisionRepository.getSolutions()
-            onBackToSolution(solutions)
+            MakeDecisionIntent.BackToSolution -> scope.launch {
+                val solutions = makeDecisionUseCase.getSolutions()
+                onBackToSolution(solutions)
+            }
         }
     }
 
     override fun executeAction(action: Action) {
         when (action) {
-            Action.Restore -> {
+            Action.Restore -> scope.launch {
                 val makeDecision = savedState.makeDecision
-                makeDecisionRepository.restore(makeDecision)
+                makeDecisionUseCase.restore(makeDecision)
                 dispatch(Message.OnRestore(makeDecision))
             }
         }
     }
-
-    private fun MakeDecision.getDecisionMessage(): String =
-        "Problem ${problem.description} was solved by ${decision.description}"
 }

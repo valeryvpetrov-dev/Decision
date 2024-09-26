@@ -10,7 +10,7 @@ data class MakeDecision(
     val solutions: List<Solution>,
 ) {
 
-    val decision: Solution
+    val selectedSolution: Solution
         get() = solutions.first { it.isSelected }
 
 

@@ -12,6 +12,8 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* RootView.swift */; };
 		A95ED3C82C7F29230098C4E9 /* FlowExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95ED3C72C7F29230098C4E9 /* FlowExt.swift */; };
+		A98292BE2C94616C00212142 /* MakeDecisionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98292BD2C94616C00212142 /* MakeDecisionView.swift */; };
+		A98292C02C9461C400212142 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98292BF2C9461C400212142 /* HistoryView.swift */; };
 		A9D631E42C7A066500926800 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631E32C7A066500926800 /* StackView.swift */; };
 		A9D631E62C7A068E00926800 /* StateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631E52C7A068E00926800 /* StateValue.swift */; };
 		A9D631E82C7A06AB00926800 /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D631E72C7A06AB00926800 /* ObservableValue.swift */; };
@@ -30,6 +32,8 @@
 		7555FF82242A565900829871 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95ED3C72C7F29230098C4E9 /* FlowExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowExt.swift; sourceTree = "<group>"; };
+		A98292BD2C94616C00212142 /* MakeDecisionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDecisionView.swift; sourceTree = "<group>"; };
+		A98292BF2C9461C400212142 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		A9D631E32C7A066500926800 /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		A9D631E52C7A068E00926800 /* StateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateValue.swift; sourceTree = "<group>"; };
 		A9D631E72C7A06AB00926800 /* ObservableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 				A9D631ED2C7A080400926800 /* ProblemView.swift */,
 				A9D631EF2C7A083F00926800 /* SolutionsView.swift */,
 				A9D631F12C7A085200926800 /* DecisionView.swift */,
+				A98292BD2C94616C00212142 /* MakeDecisionView.swift */,
+				A98292BF2C9461C400212142 /* HistoryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -239,10 +245,12 @@
 				A95ED3C82C7F29230098C4E9 /* FlowExt.swift in Sources */,
 				A9D631EE2C7A080400926800 /* ProblemView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				A98292C02C9461C400212142 /* HistoryView.swift in Sources */,
 				A9D631E82C7A06AB00926800 /* ObservableValue.swift in Sources */,
 				A9D631F22C7A085200926800 /* DecisionView.swift in Sources */,
 				A9D631E62C7A068E00926800 /* StateValue.swift in Sources */,
 				7555FF83242A565900829871 /* RootView.swift in Sources */,
+				A98292BE2C94616C00212142 /* MakeDecisionView.swift in Sources */,
 				A9D631EA2C7A06CD00926800 /* MutableValue.swift in Sources */,
 				A9D631EC2C7A06EA00926800 /* SimpleChildStack.swift in Sources */,
 				A9D631E42C7A066500926800 /* StackView.swift in Sources */,
