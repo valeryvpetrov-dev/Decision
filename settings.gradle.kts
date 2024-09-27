@@ -31,7 +31,6 @@ dependencyResolutionManagement {
 
 include(
     ":composeApp",
-    ":server",
 
     ":feature:make-decision:api",
     ":feature:make-decision:impl",
