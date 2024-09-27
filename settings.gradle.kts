@@ -30,7 +30,7 @@ dependencyResolutionManagement {
 }
 
 include(
-    ":composeApp",
+    "app:multiplatformCompose",
 
     ":feature:make-decision:api",
     ":feature:make-decision:impl",
