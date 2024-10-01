@@ -3,7 +3,7 @@ import ext.versionCatalog
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 with(plugins) {
-    apply(project.versionCatalog.plugins.decisionCommonKmp.get().pluginId)
+    apply(project.versionCatalog.plugins.buildLogicCommonKmp.get().pluginId)
     apply(project.versionCatalog.plugins.kotlinSerialization.get().pluginId)
 }
 

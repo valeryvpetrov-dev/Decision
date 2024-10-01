@@ -72,8 +72,8 @@ class PluginsCatalog(private val versionCatalog: VersionCatalog) {
     val jetbrainsCompose: Provider<PluginDependency>
         get() = versionCatalog.findPluginProviderOrThrow("jetbrains-compose")
 
-    val decisionCommonKmp: Provider<PluginDependency>
-        get() = versionCatalog.findPluginProviderOrThrow("decision-common-kmp")
+    val buildLogicCommonKmp: Provider<PluginDependency>
+        get() = versionCatalog.findPluginProviderOrThrow("build-logic-common-kmp")
 }
 
 class VersionsCatalogs(private val versionCatalog: VersionCatalog) {

@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.decision.common.kmp)
+    alias(libs.plugins.build.logic.common.kmp)
 }
 
 kotlin {

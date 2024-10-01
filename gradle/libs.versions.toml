@@ -1,19 +1,20 @@
 [versions]
-agp = "8.2.0"
+agp = "8.5.2"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
-androidx-activityCompose = "1.9.1"
-android-gradle-plugin = "8.2.0"
+androidx-activityCompose = "1.9.2"
+android-gradle-plugin = "8.2.2"
 compose-plugin = "1.6.11"
 kotlin = "2.0.0"
 kotlin-dsl = "4.3.0"
 ktor = "2.3.12"
-mvikotlin = "4.1.0"
+mvikotlin = "4.2.0"
 decompose = "3.1.0"
 essenty = "2.1.0"
 kotlinx-serialization = "1.7.1"
 kotlinx-coroutines = "1.8.1"
+# TODO: update koin to 4.0.0. App crushed when I attempt to use 4.0
 koin = "3.5.6"
 koin-jetbrains-compose = "1.1.5"
 compose-gradle-plugin = "1.6.11"
@@ -61,13 +62,13 @@ kotlin-dsl = { id = "org.gradle.kotlin.kotlin-dsl", version.ref = "kotlin-dsl" }
 kotlin-dsl-precompiledScriptPlugins = { id = "org.gradle.kotlin.kotlin-dsl.precompiled-script-plugins", version.ref = "kotlin-dsl" }
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
 
-# Custom plugins prefixed with "decision". To make them accesible via version catalog stub version is set
-decision-common-kmp = { id = "common-kmp", version = "0.0.0" }
-decision-feature-api = { id = "feature-api", version = "0.0.0" }
-decision-feature-impl = { id = "feature-impl", version = "0.0.0" }
-decision-feature-di = { id = "feature-di", version = "0.0.0" }
-decision-feature-presentation = { id = "feature-presentation", version = "0.0.0" }
-decision-feature-ui-compose = { id = "feature-ui-compose", version = "0.0.0" }
+# Custom plugins prefixed with "build-logic". To make them accesible via version catalog stub version is set
+build-logic-common-kmp = { id = "common-kmp", version = "0.0.0" }
+build-logic-feature-api = { id = "feature-api", version = "0.0.0" }
+build-logic-feature-impl = { id = "feature-impl", version = "0.0.0" }
+build-logic-feature-di = { id = "feature-di", version = "0.0.0" }
+build-logic-feature-presentation = { id = "feature-presentation", version = "0.0.0" }
+build-logic-feature-ui-compose = { id = "feature-ui-compose", version = "0.0.0" }
 
 [bundles]
 mvikotlin = ["mvikotlin", "mvikotlin-main", "mvikotlin-logging"]

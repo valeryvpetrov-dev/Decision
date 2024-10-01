@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.decision.feature.api)
+    alias(libs.plugins.build.logic.feature.api)
 }
 
 kotlin {

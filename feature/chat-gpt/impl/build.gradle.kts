@@ -1,7 +1,7 @@
 import java.util.Properties
 
 plugins {
-    alias(libs.plugins.decision.feature.impl)
+    alias(libs.plugins.build.logic.feature.impl)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.buildconfig)
 }

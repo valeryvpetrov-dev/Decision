@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import com.android.build.gradle.LibraryExtension as AndroidLibraryExtension
 
 with(plugins) {
-    apply(project.versionCatalog.plugins.decisionCommonKmp.get().pluginId)
+    apply(project.versionCatalog.plugins.buildLogicCommonKmp.get().pluginId)
     apply(project.versionCatalog.plugins.jetbrainsCompose.get().pluginId)
     apply(project.versionCatalog.plugins.composeCompiler.get().pluginId)
 }
