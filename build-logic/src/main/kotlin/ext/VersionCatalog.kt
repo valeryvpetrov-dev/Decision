@@ -58,10 +58,10 @@ class LibsCatalog(private val versionCatalog: VersionCatalog) {
 
 class PluginsCatalog(private val versionCatalog: VersionCatalog) {
     val kotlinMultiplatform: Provider<PluginDependency>
-        get() = versionCatalog.findPluginProviderOrThrow("kotlinMultiplatform")
+        get() = versionCatalog.findPluginProviderOrThrow("kotlin-multiplatform")
 
     val androidLibrary: Provider<PluginDependency>
-        get() = versionCatalog.findPluginProviderOrThrow("androidLibrary")
+        get() = versionCatalog.findPluginProviderOrThrow("android-library")
 
     val kotlinSerialization: Provider<PluginDependency>
         get() = versionCatalog.findPluginProviderOrThrow("kotlin-serialization")
@@ -70,7 +70,7 @@ class PluginsCatalog(private val versionCatalog: VersionCatalog) {
         get() = versionCatalog.findPluginProviderOrThrow("compose-compiler")
 
     val jetbrainsCompose: Provider<PluginDependency>
-        get() = versionCatalog.findPluginProviderOrThrow("jetbrainsCompose")
+        get() = versionCatalog.findPluginProviderOrThrow("jetbrains-compose")
 
     val decisionCommonKmp: Provider<PluginDependency>
         get() = versionCatalog.findPluginProviderOrThrow("decision-common-kmp")
