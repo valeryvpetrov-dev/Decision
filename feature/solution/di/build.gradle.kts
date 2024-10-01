@@ -8,9 +8,7 @@ kotlin {
             implementation(projects.feature.solution.api)
             implementation(projects.feature.solution.presentation)
             implementation(projects.feature.solution.impl)
-
             implementation(projects.feature.chatGpt.api)
-
             implementation(projects.feature.makeDecision.api)
         }
     }

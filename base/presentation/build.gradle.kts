@@ -8,8 +8,7 @@ kotlin {
             implementation(projects.base.api)
             implementation(libs.kotlinx.coroutines.core)
             api(libs.decompose)
-            api(libs.mvikotlin)
-            api(libs.mvikotlin.main)
+            api(libs.bundles.mvikotlin)
             api(libs.mvikotlin.extensions.coroutines)
         }
     }

@@ -69,5 +69,6 @@ decision-feature-di = { id = "feature-di", version = "0.0.0" }
 decision-feature-presentation = { id = "feature-presentation", version = "0.0.0" }
 decision-feature-ui-compose = { id = "feature-ui-compose", version = "0.0.0" }
 
-# TODO: use https://github.com/VictorKabata/Notflix/blob/b26c47d30565f69b42f2d4c159dc667777c59133/gradle/libs.versions.toml#L138
 [bundles]
+mvikotlin = ["mvikotlin", "mvikotlin-main", "mvikotlin-logging"]
+ktor = ["ktor-client-core", "ktor-client-logging", "ktor-client-auth", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json"]

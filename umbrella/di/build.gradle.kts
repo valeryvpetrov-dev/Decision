@@ -11,9 +11,7 @@ kotlin {
             implementation(projects.feature.chatGpt.di)
             implementation(libs.koin.core)
             implementation(libs.decompose)
-            implementation(libs.mvikotlin)
-            implementation(libs.mvikotlin.main)
-            implementation(libs.mvikotlin.logging)
+            implementation(libs.bundles.mvikotlin)
         }
     }
 }

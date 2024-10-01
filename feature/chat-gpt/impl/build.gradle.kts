@@ -10,13 +10,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.feature.chatGpt.api)
-
-            api(libs.ktor.client.core)
-            api(libs.ktor.client.content.negotiation)
-            api(libs.ktor.client.logging)
-            api(libs.ktor.client.auth)
-
-            api(libs.ktor.serialization.kotlinx.json)
+            api(libs.bundles.ktor)
             api(libs.kotlinx.serialization.json)
         }
         androidMain.dependencies {
