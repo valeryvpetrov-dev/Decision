@@ -58,6 +58,13 @@ include(
     ":feature:chat-gpt:impl",
     ":feature:chat-gpt:di",
 
+    ":feature:hello-world:api",
+    ":feature:hello-world:impl",
+    ":feature:hello-world:presentation",
+    ":feature:hello-world:di",
+    ":feature:hello-world:ui:compose",
+    ":feature:hello-world:sample",
+
     ":base:api",
     ":base:presentation",
     ":base:di",
