@@ -10,10 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import dev.valeryvpetrov.decision.feature.hello_world.presentation.component.HelloWorldComponent
 import dev.valeryvpetrov.decision.feature.hello_world.ui.compose.HelloWorldScreen
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-@Preview
 fun Root(
     component: HelloWorldComponent,
     modifier: Modifier = Modifier,

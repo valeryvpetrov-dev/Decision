@@ -14,7 +14,9 @@ import kotlinx.coroutines.flow.StateFlow
 class HelloWorldComponentImpl(
     componentContext: ComponentContext,
     storeFactoryProvider: Provider<HelloWorldStoreFactory>,
-) : ComponentContext by componentContext, HelloWorldComponent {
+) : ComponentContext by componentContext, HelloWorldComponent(
+    componentContext = componentContext
+) {
 
     class Factory(
         private val storeFactoryProvider: Provider<HelloWorldStoreFactory>,
@@ -34,10 +36,10 @@ class HelloWorldComponentImpl(
 
     override fun accept(intent: HelloWorldIntent) = store.accept(intent)
 
-    private val store: Store<HelloWorldIntent, HelloWorldState, Nothing> =
+    override val store: Store<HelloWorldIntent, HelloWorldState, Nothing> =
         instanceKeeper.getStore {
             storeFactoryProvider.get().create(
-                stateKeeper = stateKeeper,
+                stateKeeper = stateKeeper
             )
         }
 }

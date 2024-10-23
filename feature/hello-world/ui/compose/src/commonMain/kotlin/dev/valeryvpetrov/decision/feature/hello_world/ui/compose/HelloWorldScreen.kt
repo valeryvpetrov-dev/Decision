@@ -14,8 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.valeryvpetrov.decision.feature.hello_world.presentation.component.HelloWorldComponent
+import dev.valeryvpetrov.decision.feature.hello_world.presentation.component.HelloWorldComponentPreview
 import dev.valeryvpetrov.decision.feature.hello_world.presentation.mvi.HelloWorldIntent
 import dev.valeryvpetrov.decision.feature.hello_world.presentation.mvi.HelloWorldState
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun HelloWorldScreen(
@@ -52,4 +54,13 @@ fun HelloWorldScreen(
             )
         }
     }
+}
+
+
+@Preview
+@Composable
+fun HelloWorldScreenPreview() {
+    HelloWorldScreen(
+        component = HelloWorldComponentPreview()
+    )
 }
