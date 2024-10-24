@@ -1,0 +1,10 @@
+package {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi
+
+import com.arkivanov.mvikotlin.core.store.Reducer as MviReducer
+
+class {{entityName}}Reducer : MviReducer<{{entityName}}State, {{entityName}}Message> {
+
+    override fun {{entityName}}State.reduce(msg: {{entityName}}Message): {{entityName}}State = when (msg) {
+        else -> TODO()
+    }
+}

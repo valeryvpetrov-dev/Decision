@@ -1,0 +1,11 @@
+package {{packageName}}.feature.{{snakeCase moduleName}}.di
+
+import {{packageName}}.feature.{{snakeCase moduleName}}.api.repository.{{entityName}}Repository
+import {{packageName}}.feature.{{snakeCase moduleName}}.impl.repository.{{entityName}}RepositoryImpl
+import org.koin.dsl.module
+
+val {{camelCase entityName}}ImplModule = module {
+    single<{{entityName}}Repository> {
+        {{entityName}}RepositoryImpl()
+    }
+}

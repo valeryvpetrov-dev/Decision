@@ -1,0 +1,36 @@
+package {{packageName}}.feature.{{snakeCase moduleName}}.presentation.component
+
+import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.mvikotlin.core.instancekeeper.getStore
+import com.arkivanov.mvikotlin.core.store.Store
+import {{packageName}}.base.api.Provider
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi.{{entityName}}Intent
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi.{{entityName}}State
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi.{{entityName}}Label
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi.{{entityName}}StoreFactory
+
+class {{entityName}}ComponentImpl(
+    componentContext: ComponentContext,
+    private val storeFactoryProvider: Provider<{{entityName}}StoreFactory>,
+) : ComponentContext by componentContext, {{entityName}}Component(
+    componentContext = componentContext
+) {
+
+    class Factory(
+        private val storeFactoryProvider: Provider<{{entityName}}StoreFactory>,
+    ) : {{entityName}}Component.Factory {
+
+        override fun create(
+            componentContext: ComponentContext,
+        ): {{entityName}}Component = {{entityName}}ComponentImpl(
+            componentContext = componentContext,
+            storeFactoryProvider = storeFactoryProvider,
+        )
+    }
+
+    override val store: Store<{{entityName}}Intent, {{entityName}}State, {{entityName}}Label> = instanceKeeper.getStore {
+        storeFactoryProvider.get().create(
+            stateKeeper = stateKeeper,
+        )
+    }
+}

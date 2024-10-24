@@ -1,0 +1,13 @@
+package {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+class {{entityName}}State {
+
+    companion object {
+        val STATE_KEEPER_KEY = "${this::class.qualifiedName}"
+
+        fun initial() = {{entityName}}State()
+    }
+}

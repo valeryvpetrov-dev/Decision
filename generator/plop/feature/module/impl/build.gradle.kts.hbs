@@ -1,0 +1,15 @@
+plugins {
+    alias(libs.plugins.build.logic.feature.impl)
+}
+
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.feature.{{camelCase moduleName}}.api)
+        }
+    }
+}
+
+android {
+    namespace = "{{packageName}}.feature.{{snakeCase moduleName}}.impl"
+}

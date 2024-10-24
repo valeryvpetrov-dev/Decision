@@ -44,5 +44,7 @@ sealed class Qualifier {
             object ApiTokenProvider : ChatGpt()
             object Model : ChatGpt()
         }
+
+        // Do not remove this line. It is used by generator to put feature-module qualifiers
     }
 }

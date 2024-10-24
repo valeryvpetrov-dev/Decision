@@ -1,0 +1,32 @@
+package {{packageName}}.feature.{{snakeCase moduleName}}.sample
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.runtime.Composable
+import com.arkivanov.decompose.defaultComponentContext
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.component.{{entityName}}Component
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.component.{{entityName}}ComponentPreview
+import org.koin.android.ext.android.getKoin
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val factory = getKoin().get<{{entityName}}Component.Factory>()
+        val component = factory.create(
+            componentContext = defaultComponentContext()
+        )
+        setContent {
+            Root(
+                component = component
+            )
+        }
+    }
+}
+
+@Composable
+fun AppAndroidPreview() {
+    Root(
+        component = {{entityName}}ComponentPreview()
+    )
+}

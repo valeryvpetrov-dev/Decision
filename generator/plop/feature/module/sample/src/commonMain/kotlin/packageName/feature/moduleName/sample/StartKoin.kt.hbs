@@ -1,0 +1,26 @@
+package {{packageName}}.feature.{{snakeCase moduleName}}.sample
+
+import com.arkivanov.mvikotlin.core.store.StoreFactory
+import com.arkivanov.mvikotlin.logging.store.LoggingStoreFactory
+import com.arkivanov.mvikotlin.timetravel.store.TimeTravelStoreFactory
+import {{packageName}}.feature.{{snakeCase moduleName}}.di.{{camelCase entityName}}FeatureModule
+import org.koin.core.KoinApplication
+import org.koin.dsl.KoinAppDeclaration
+import org.koin.dsl.module
+import org.koin.core.context.startKoin as srcStartKoin
+
+val mviModule = module {
+    single<StoreFactory> {
+        LoggingStoreFactory(TimeTravelStoreFactory())
+    }
+}
+
+fun startKoin(appDeclaration: KoinAppDeclaration = {}): KoinApplication {
+    return srcStartKoin {
+        appDeclaration()
+        modules(
+            {{camelCase entityName}}FeatureModule,
+            mviModule,
+        )
+    }
+}

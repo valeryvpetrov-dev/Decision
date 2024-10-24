@@ -71,5 +71,7 @@ include(
     ":base:impl",
 
     ":umbrella:di",
-    ":umbrella:ios"
+    ":umbrella:ios",
+
+    // Do not remove this line. It is used by generator to put feature-module dependencies
 )

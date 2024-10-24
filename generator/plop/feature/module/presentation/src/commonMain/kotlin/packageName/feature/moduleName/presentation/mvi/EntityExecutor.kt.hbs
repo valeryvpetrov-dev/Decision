@@ -1,0 +1,12 @@
+package {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi
+
+import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
+
+class {{entityName}}Executor : CoroutineExecutor<{{entityName}}Intent, Nothing, {{entityName}}State, {{entityName}}Message, {{entityName}}Label>() {
+
+    interface Factory {
+        fun create(): {{entityName}}Executor
+    }
+
+    override fun executeIntent(intent: {{entityName}}Intent) {}
+}

@@ -1,0 +1,38 @@
+package {{packageName}}.feature.{{snakeCase moduleName}}.di
+
+import {{packageName}}.base.api.Provider
+import {{packageName}}.base.di.Qualifier
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.component.{{entityName}}Component
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.component.{{entityName}}ComponentImpl
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi.{{entityName}}Executor
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi.{{entityName}}Reducer
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi.{{entityName}}StoreFactory
+import org.koin.core.module.dsl.factoryOf
+import org.koin.dsl.module
+import com.arkivanov.mvikotlin.core.store.StoreFactory as MviStoreFactory
+
+internal val {{camelCase entityName}}PresentationModule = module {
+    factory<{{entityName}}Component.Factory> {
+        {{entityName}}ComponentImpl.Factory(
+            storeFactoryProvider = get<Provider<{{entityName}}StoreFactory>>(),
+        )
+    }
+    factory<Provider<{{entityName}}StoreFactory>> {
+        object : Provider<{{entityName}}StoreFactory> {
+            override fun get(): {{entityName}}StoreFactory = get<{{entityName}}StoreFactory>()
+        }
+    }
+    factory<{{entityName}}StoreFactory> {
+        {{entityName}}StoreFactory(
+            storeName = get<String>(qualifier =  Qualifier.Feature.{{pascalCase moduleName}}.StoreName.qualifier),
+            storeFactory = get<MviStoreFactory>(),
+            executor = get<{{entityName}}Executor>(),
+            reducer = get<{{entityName}}Reducer>(),
+        )
+    }
+    factoryOf(::{{entityName}}Executor)
+    factoryOf(::{{entityName}}Reducer)
+    factory<String>(qualifier =  Qualifier.Feature.{{pascalCase moduleName}}.StoreName.qualifier) {
+        "{{entityName}}Store"
+    }
+}

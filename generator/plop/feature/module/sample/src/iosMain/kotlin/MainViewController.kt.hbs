@@ -1,0 +1,7 @@
+import androidx.compose.ui.window.ComposeUIViewController
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.component.{{entityName}}Component
+import {{packageName}}.feature.{{snakeCase moduleName}}.sample.Root
+
+fun MainViewController(component: {{entityName}}Component) = ComposeUIViewController {
+    Root(component = component)
+}

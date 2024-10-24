@@ -1,0 +1,20 @@
+package {{packageName}}.feature.{{snakeCase moduleName}}.presentation.component
+
+import com.arkivanov.decompose.ComponentContext
+import {{packageName}}.base.presentation.ComponentWithStore
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi.{{entityName}}Intent
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi.{{entityName}}Label
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi.{{entityName}}State
+
+abstract class {{entityName}}Component(
+    componentContext: ComponentContext,
+) : ComponentWithStore<{{entityName}}State, {{entityName}}Intent, {{entityName}}Label>(
+    componentContext = componentContext,
+) {
+
+    interface Factory {
+        fun create(
+            componentContext: ComponentContext,
+        ): {{entityName}}Component
+    }
+}

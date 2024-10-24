@@ -1,0 +1,14 @@
+package {{packageName}}.feature.{{snakeCase moduleName}}.ui.compose.screen
+
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.component.{{entityName}}Component
+
+@Composable
+fun {{entityName}}Screen(
+    component: {{entityName}}Component,
+    modifier: Modifier = Modifier,
+) {
+    Text("{{entityName}}Screen")
+}
