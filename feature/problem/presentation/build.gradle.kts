@@ -13,3 +13,7 @@ kotlin {
 android {
     namespace = "dev.valeryvpetrov.decision.feature.problem.presentation"
 }
+
+libres {
+    generateNamedArguments = true
+}

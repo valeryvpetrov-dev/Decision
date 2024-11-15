@@ -19,6 +19,7 @@ koin = "3.5.6"
 koin-jetbrains-compose = "1.1.5"
 compose-gradle-plugin = "1.6.11"
 buildconfig = "5.4.0"
+libres = "1.2.2"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin" }
@@ -49,6 +50,7 @@ essenty-lifecycle = { group = "com.arkivanov.essenty", name = "lifecycle", versi
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-jetbrains-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-jetbrains-compose" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+libres-gradlePlugin = { module = "io.github.skeptick.libres:gradle-plugin", version.ref = "libres" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -61,6 +63,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 kotlin-dsl = { id = "org.gradle.kotlin.kotlin-dsl", version.ref = "kotlin-dsl" }
 kotlin-dsl-precompiledScriptPlugins = { id = "org.gradle.kotlin.kotlin-dsl.precompiled-script-plugins", version.ref = "kotlin-dsl" }
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
+libres = { id = "io.github.skeptick.libres", version.ref = "libres" }
 
 # Custom plugins prefixed with "build-logic". To make them accesible via version catalog stub version is set
 build-logic-common-kmp = { id = "common-kmp", version = "0.0.0" }

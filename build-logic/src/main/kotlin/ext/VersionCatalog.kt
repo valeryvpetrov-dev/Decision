@@ -74,6 +74,9 @@ class PluginsCatalog(private val versionCatalog: VersionCatalog) {
 
     val buildLogicCommonKmp: Provider<PluginDependency>
         get() = versionCatalog.findPluginProviderOrThrow("build-logic-common-kmp")
+
+    val libres: Provider<PluginDependency>
+        get() = versionCatalog.findPluginProviderOrThrow("libres")
 }
 
 class VersionsCatalogs(private val versionCatalog: VersionCatalog) {

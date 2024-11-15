@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="problem_text_field_label">Problem</string>
+    <string name="problem_text_field_placeholder">Type your problem description here...</string>
+</resources>

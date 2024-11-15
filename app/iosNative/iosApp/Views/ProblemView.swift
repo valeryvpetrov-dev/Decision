@@ -44,7 +44,9 @@ private struct ProblemContent: View {
     var body: some View {
         VStack(spacing: stackSpacing) {
             ProblemTextField(
-                value: state.description_,
+                value: state.problemTextFieldState.value,
+                label: state.problemTextFieldState.label,
+                placeholder: state.problemTextFieldState.placeholder,
                 onValueChange: onChangeProblemDescription
             )
             Button(
@@ -63,16 +65,21 @@ private struct ProblemContent: View {
 
 private struct ProblemTextField: View {
     let value: String
+    let label: String
+    let placeholder: String
     let onValueChange: (String) -> Void
     
     var body: some View {
-        TextField(
-            "Problem",
-            text: Binding(
-                get: { value },
-                set: { newValue in onValueChange(newValue) }
+        VStack(alignment: .leading) {
+            Text(label)
+            TextField(
+                placeholder,
+                text: Binding(
+                    get: { value },
+                    set: { newValue in onValueChange(newValue) }
+                )
             )
-        )
-        .textFieldStyle(RoundedBorderTextFieldStyle())
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+        }
     }
 }

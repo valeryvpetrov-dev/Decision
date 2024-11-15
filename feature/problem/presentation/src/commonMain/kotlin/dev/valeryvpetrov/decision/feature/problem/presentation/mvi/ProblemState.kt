@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ProblemState(
-    val description: String,
+    val problemTextFieldState: TextFieldState,
     val isGoToSolutionsEnabled: Boolean,
 ) {
 
@@ -12,9 +12,24 @@ data class ProblemState(
 
         val STATE_KEEPER_KEY = "${this::class.qualifiedName}"
 
-        fun initial(): ProblemState = ProblemState(
-            description = "",
+        fun initial(
+            value: String = "",
+            label: String = "",
+            placeholder: String = "",
+        ): ProblemState = ProblemState(
+            problemTextFieldState = TextFieldState(
+                value = value,
+                label = label,
+                placeholder = placeholder,
+            ),
             isGoToSolutionsEnabled = false
         )
     }
+
+    @Serializable
+    data class TextFieldState(
+        val value: String,
+        val label: String,
+        val placeholder: String,
+    )
 }

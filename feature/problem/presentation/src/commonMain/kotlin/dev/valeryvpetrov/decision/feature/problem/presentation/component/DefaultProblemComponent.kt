@@ -5,6 +5,7 @@ import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.core.store.Store
 import dev.valeryvpetrov.decision.base.api.Provider
 import dev.valeryvpetrov.decision.feature.problem.api.Problem
+import dev.valeryvpetrov.decision.feature.problem.presentation.Res
 import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.ProblemIntent
 import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.ProblemState
 import dev.valeryvpetrov.decision.feature.problem.presentation.mvi.StoreFactory
@@ -37,6 +38,10 @@ class DefaultProblemComponent(
     override val store: Store<ProblemIntent, ProblemState, Nothing> = instanceKeeper.getStore {
         storeFactoryProvider.get().create(
             stateKeeper = stateKeeper,
+            initialState = ProblemState.initial(
+                label = Res.string.problem_text_field_label,
+                placeholder = Res.string.problem_text_field_placeholder,
+            ),
             problem = problem,
             onGoToSolutions = onGoToSolutions,
         )

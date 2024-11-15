@@ -7,7 +7,9 @@ class Reducer : MviReducer<ProblemState, Message> {
     override fun ProblemState.reduce(msg: Message): ProblemState = when (msg) {
         is Message.OnChangeProblemDescription -> {
             copy(
-                description = msg.description,
+                problemTextFieldState = problemTextFieldState.copy(
+                    value = msg.description
+                ),
                 isGoToSolutionsEnabled = isGoToSolutionsEnabled(msg.description)
             )
         }
@@ -15,7 +17,9 @@ class Reducer : MviReducer<ProblemState, Message> {
         is Message.OnRestore -> {
             val description = msg.problem?.description ?: ""
             copy(
-                description = description,
+                problemTextFieldState = problemTextFieldState.copy(
+                    value = description
+                ),
                 isGoToSolutionsEnabled = isGoToSolutionsEnabled(description)
             )
         }

@@ -14,15 +14,16 @@ class StoreFactory(
 
     fun create(
         stateKeeper: StateKeeper,
+        initialState: ProblemState,
         problem: Problem?,
         onGoToSolutions: (Problem) -> Unit,
     ): Store<ProblemIntent, ProblemState, Nothing> {
-        val initialState = stateKeeper.consume(
+        val state = stateKeeper.consume(
             key = ProblemState.STATE_KEEPER_KEY, strategy = ProblemState.serializer()
-        ) ?: ProblemState.initial()
+        ) ?: initialState
         return storeFactory.create(
             name = storeName,
-            initialState = initialState,
+            initialState = state,
             executorFactory = {
                 executorFactory.create(onGoToSolutions)
             },

@@ -20,7 +20,7 @@ class Executor(
 
             ProblemIntent.GoToSolutions -> {
                 val state = state()
-                val problem = Problem(state.description)
+                val problem = Problem(state.problemTextFieldState.value)
                 onGoToSolutions(problem)
             }
 

@@ -54,8 +54,10 @@ private fun ScreenContent(
                 .fillMaxWidth()
         ) {
             ProblemTextField(
-                value = state.description,
-                onValueChange = onChangeProblemDescription
+                value = state.problemTextFieldState.value,
+                label = state.problemTextFieldState.label,
+                placeholder = state.problemTextFieldState.placeholder,
+                onValueChange = onChangeProblemDescription,
             )
         }
         Button(
@@ -70,11 +72,21 @@ private fun ScreenContent(
 }
 
 @Composable
-private fun ProblemTextField(value: String, onValueChange: (String) -> Unit) {
+private fun ProblemTextField(
+    value: String,
+    label: String,
+    placeholder: String,
+    onValueChange: (String) -> Unit,
+) {
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = value,
         onValueChange = onValueChange,
-        label = { Text("Problem") }
+        label = {
+            Text(label)
+        },
+        placeholder = {
+            Text(placeholder)
+        }
     )
 }
