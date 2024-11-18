@@ -13,6 +13,7 @@ fun startKoin(appDeclaration: KoinAppDeclaration = {}): KoinApplication {
             makeDecisionFeatureModule,
             chatGptFeatureModule,
             mviModule,
+            platformModule()
         )
     }
 }

@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.icerock.multiplatform.resources)
 }
 
 kotlin {
@@ -30,17 +31,15 @@ kotlin {
             export(projects.feature.problem.api)
             export(projects.feature.solution.api)
             export(projects.feature.decision.api)
-
             export(projects.feature.makeDecision.presentation)
             export(projects.feature.problem.presentation)
             export(projects.feature.solution.presentation)
             export(projects.feature.decision.presentation)
-
             export(projects.umbrella.di)
             export(libs.decompose)
             export(libs.essenty.lifecycle)
-
             export(libs.kotlinx.coroutines.core)
+            export(libs.icerock.multiplatform.resources)
         }
     }
 
@@ -51,16 +50,13 @@ kotlin {
             api(projects.feature.problem.api)
             api(projects.feature.solution.api)
             api(projects.feature.decision.api)
-
             api(projects.feature.makeDecision.presentation)
             api(projects.feature.problem.presentation)
             api(projects.feature.solution.presentation)
             api(projects.feature.decision.presentation)
-
             api(projects.umbrella.di)
             api(libs.decompose)
             api(libs.essenty.lifecycle)
-
             api(libs.kotlinx.coroutines.core)
         }
     }

@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.build.logic.feature.presentation)
+    alias(libs.plugins.icerock.multiplatform.resources)
 }
 
 kotlin {
@@ -14,6 +15,6 @@ android {
     namespace = "dev.valeryvpetrov.decision.feature.problem.presentation"
 }
 
-libres {
-    generateNamedArguments = true
+multiplatformResources {
+    resourcesPackage.set("dev.valeryvpetrov.decision.feature.problem.presentation")
 }

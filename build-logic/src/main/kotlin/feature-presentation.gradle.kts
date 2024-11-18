@@ -5,7 +5,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 with(plugins) {
     apply(project.versionCatalog.plugins.buildLogicCommonKmp.get().pluginId)
     apply(project.versionCatalog.plugins.kotlinSerialization.get().pluginId)
-    apply(project.versionCatalog.plugins.libres.get().pluginId)
 }
 
 extensions.configure<KotlinMultiplatformExtension> {

@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.icerock.multiplatform.resources)
 }
 
 kotlin {
@@ -36,6 +37,7 @@ kotlin {
             export(projects.umbrella.di)
             export(libs.decompose)
             export(libs.essenty.lifecycle)
+            export(libs.icerock.multiplatform.resources)
         }
     }
 

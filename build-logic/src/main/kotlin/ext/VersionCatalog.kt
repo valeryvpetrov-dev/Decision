@@ -54,6 +54,9 @@ class LibsCatalog(private val versionCatalog: VersionCatalog) {
 
     val koinAndroid: Provider<MinimalExternalModuleDependency>
         get() = versionCatalog.findLibraryOrThrow("koin-android")
+
+    val icerockMultiplatformResources: Provider<MinimalExternalModuleDependency>
+        get() = versionCatalog.findLibraryOrThrow("icerock-multiplatform-resources")
 }
 
 class PluginsCatalog(private val versionCatalog: VersionCatalog) {
@@ -75,8 +78,8 @@ class PluginsCatalog(private val versionCatalog: VersionCatalog) {
     val buildLogicCommonKmp: Provider<PluginDependency>
         get() = versionCatalog.findPluginProviderOrThrow("build-logic-common-kmp")
 
-    val libres: Provider<PluginDependency>
-        get() = versionCatalog.findPluginProviderOrThrow("libres")
+    val icerockMultiplatformResources: Provider<PluginDependency>
+        get() = versionCatalog.findPluginProviderOrThrow("icerock-multiplatform-resources")
 }
 
 class VersionsCatalogs(private val versionCatalog: VersionCatalog) {

@@ -11,7 +11,17 @@ plugins {
 }
 
 buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
     dependencies {
-        classpath(libs.libres.gradlePlugin)
+        classpath(libs.kotlinpoet)
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
     }
 }
