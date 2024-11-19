@@ -112,6 +112,8 @@ module.exports = function (plop) {
                 type: 'add',
                 path: 'feature/{{moduleName}}/di/src/commonMain/kotlin/{{pathCase packageName}}/feature/{{snakeCase moduleName}}/di/{{entityName}}ComponentModule.kt',
                 templateFile: 'generator/plop/feature/module/di/src/commonMain/kotlin/packageName/feature/moduleName/di/EntityComponentModule.kt.hbs',
+                path: 'feature/{{moduleName}}/di/src/commonMain/kotlin/{{pathCase packageName}}/feature/{{snakeCase moduleName}}/di/{{entityName}}PresentationModule.kt',
+                templateFile: 'generator/plop/feature/module/di/src/commonMain/kotlin/packageName/feature/moduleName/di/EntityPresentationModule.kt.hbs',
             },
             {
                 type: 'add',
@@ -125,7 +127,7 @@ module.exports = function (plop) {
             },
             {
                 type: 'modify',
-                path: 'base/di/src/commonMain/kotlin/dev/valeryvpetrov/decision/base/di/Qualifier.kt',
+                path: 'base/di/src/commonMain/kotlin/{{pathCase packageName}}/base/di/Qualifier.kt',
                 pattern: /\/\/ Do not remove this line\. It is used by generator to put feature-module qualifiers/g,
                 template: `sealed class {{pascalCase moduleName}} : Feature() {\n\n` +
                           `            object StoreName : {{pascalCase moduleName}}()\n` +
@@ -183,6 +185,11 @@ module.exports = function (plop) {
                 type: 'add',
                 path: 'feature/{{moduleName}}/presentation/src/commonMain/kotlin/{{pathCase packageName}}/feature/{{snakeCase moduleName}}/presentation/mvi/{{entityName}}StoreFactory.kt',
                 templateFile: 'generator/plop/feature/module/presentation/src/commonMain/kotlin/packageName/feature/moduleName/presentation/mvi/EntityStoreFactory.kt.hbs',
+            },
+            {
+                type: 'add',
+                path: 'feature/{{moduleName}}/presentation/src/commonMain/moko-resources/base/strings.xml',
+                templateFile: 'generator/plop/feature/module/presentation/src/commonMain/moko-resources/base/strings.xml.hbs',
             },
             // Add base classes to ui:compose sub-module
             {

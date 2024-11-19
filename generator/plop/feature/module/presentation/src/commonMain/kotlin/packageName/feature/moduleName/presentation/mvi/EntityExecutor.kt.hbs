@@ -1,8 +1,12 @@
 package {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi
 
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
+import {{packageName}}.base.presentation.resources.StringResources
+import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.MR
 
-class {{entityName}}Executor : CoroutineExecutor<{{entityName}}Intent, Nothing, {{entityName}}State, {{entityName}}Message, {{entityName}}Label>() {
+class {{entityName}}Executor(
+    private val stringResources: StringResources,
+): CoroutineExecutor<{{entityName}}Intent, Nothing, {{entityName}}State, {{entityName}}Message, {{entityName}}Label>() {
 
     interface Factory {
         fun create(): {{entityName}}Executor

@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.build.logic.feature.presentation)
+    alias(libs.plugins.icerock.multiplatform.resources)
 }
 
 kotlin {
@@ -12,4 +13,8 @@ kotlin {
 
 android {
     namespace = "{{packageName}}.feature.{{snakeCase moduleName}}.presentation"
+}
+
+multiplatformResources {
+    resourcesPackage.set("{{packageName}}.feature.{{snakeCase moduleName}}.presentation")
 }

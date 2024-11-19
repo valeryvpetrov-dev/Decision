@@ -2,6 +2,7 @@ package {{packageName}}.feature.{{snakeCase moduleName}}.di
 
 import {{packageName}}.base.api.Provider
 import {{packageName}}.base.di.Qualifier
+import {{packageName}}.base.presentation.resources.StringResources
 import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.component.{{entityName}}Component
 import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.component.{{entityName}}ComponentImpl
 import {{packageName}}.feature.{{snakeCase moduleName}}.presentation.mvi.{{entityName}}Executor
@@ -30,7 +31,11 @@ internal val {{camelCase entityName}}PresentationModule = module {
             reducer = get<{{entityName}}Reducer>(),
         )
     }
-    factoryOf(::{{entityName}}Executor)
+    factory<{{entityName}}Executor> {
+        {{entityName}}Executor(
+            stringResources = get<StringResources>(),
+        )
+    }
     factoryOf(::{{entityName}}Reducer)
     factory<String>(qualifier =  Qualifier.Feature.{{pascalCase moduleName}}.StoreName.qualifier) {
         "{{entityName}}Store"

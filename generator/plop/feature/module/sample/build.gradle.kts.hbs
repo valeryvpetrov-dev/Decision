@@ -52,6 +52,7 @@ kotlin {
             implementation(projects.feature.{{camelCase moduleName}}.presentation)
             implementation(projects.feature.{{camelCase moduleName}}.ui.compose)
             implementation(projects.feature.{{camelCase moduleName}}.di)
+            implementation(projects.umbrella.di)
 
             implementation(compose.runtime)
             implementation(compose.foundation)
