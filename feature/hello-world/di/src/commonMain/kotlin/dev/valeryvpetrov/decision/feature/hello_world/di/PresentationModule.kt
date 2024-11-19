@@ -1,6 +1,7 @@
 package dev.valeryvpetrov.decision.feature.hello_world.di
 
 import dev.valeryvpetrov.decision.base.api.Provider
+import dev.valeryvpetrov.decision.base.presentation.resources.StringResources
 import dev.valeryvpetrov.decision.feature.hello_world.api.GreetingUseCase
 import dev.valeryvpetrov.decision.feature.hello_world.presentation.component.HelloWorldComponent
 import dev.valeryvpetrov.decision.feature.hello_world.presentation.component.HelloWorldComponentImpl
@@ -13,6 +14,7 @@ internal val presentationModule = module {
     factory<HelloWorldComponent.Factory> {
         HelloWorldComponentImpl.Factory(
             storeFactoryProvider = get<Provider<HelloWorldStoreFactory>>(),
+            stringResources = get<StringResources>(),
         )
     }
     factory<Provider<HelloWorldStoreFactory>> {

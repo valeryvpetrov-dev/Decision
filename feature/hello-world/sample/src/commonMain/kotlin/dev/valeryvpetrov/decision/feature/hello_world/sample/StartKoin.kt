@@ -4,6 +4,7 @@ import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.logging.store.LoggingStoreFactory
 import com.arkivanov.mvikotlin.timetravel.store.TimeTravelStoreFactory
 import dev.valeryvpetrov.decision.feature.hello_world.di.helloWorldFeature
+import dev.valeryvpetrov.decision.umbrella.di.platformModule
 import org.koin.core.KoinApplication
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
@@ -21,6 +22,7 @@ fun startKoin(appDeclaration: KoinAppDeclaration = {}): KoinApplication {
         modules(
             helloWorldFeature,
             mviModule,
+            platformModule()
         )
     }
 }

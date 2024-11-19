@@ -52,6 +52,7 @@ kotlin {
             implementation(projects.feature.helloWorld.presentation)
             implementation(projects.feature.helloWorld.ui.compose)
             implementation(projects.feature.helloWorld.di)
+            implementation(projects.umbrella.di)
 
             implementation(compose.runtime)
             implementation(compose.foundation)

@@ -10,5 +10,18 @@ class HelloWorldComponentPreview : HelloWorldComponent(
     componentContext = PreviewComponentContext
 ) {
     override val store: Store<HelloWorldIntent, HelloWorldState, Nothing>
-        get() = createPreviewStore(HelloWorldState.initial())
+        get() = createPreviewStore(
+            HelloWorldState.initial(
+                nameTextField = HelloWorldState.TextFieldState(
+                    value = "Value",
+                    label = "Label",
+                    placeholder = "Placeholder",
+                ),
+                greetingButtonState = HelloWorldState.ButtonState(
+                    text = "Text",
+                    isEnabled = true
+                ),
+                greeting = "Placeholder"
+            )
+        )
 }

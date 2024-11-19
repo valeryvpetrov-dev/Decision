@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="name_text_field_value_default"></string>
+    <string name="name_text_field_label">Name</string>
+    <string name="name_text_field_placeholder">Type your name here...</string>
+    <string name="greeting_button_text">Greet</string>
+    <string name="greeting_placeholder">Greeting will be displayed here...</string>
+    <string name="greeting_loading">Greeting is loading...</string>
+</resources>

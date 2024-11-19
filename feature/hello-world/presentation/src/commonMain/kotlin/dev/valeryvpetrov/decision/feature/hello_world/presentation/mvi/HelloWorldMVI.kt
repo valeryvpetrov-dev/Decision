@@ -4,7 +4,9 @@ import com.arkivanov.essenty.statekeeper.StateKeeper
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.extensions.coroutines.coroutineExecutorFactory
+import dev.valeryvpetrov.decision.base.presentation.resources.StringResources
 import dev.valeryvpetrov.decision.feature.hello_world.api.GreetingUseCase
+import dev.valeryvpetrov.decision.feature.hello_world.presentation.MR
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
@@ -19,8 +21,8 @@ sealed class HelloWorldIntent {
 
 @Serializable
 data class HelloWorldState(
-    val name: String,
-    val isGreetingButtonEnabled: Boolean,
+    val nameTextField: TextFieldState,
+    val greetingButtonState: ButtonState,
     val greeting: String?,
 ) {
 
@@ -28,12 +30,29 @@ data class HelloWorldState(
 
         val STATE_KEEPER_KEY = "${this::class.qualifiedName}"
 
-        fun initial() = HelloWorldState(
-            name = "",
-            isGreetingButtonEnabled = false,
-            greeting = null,
+        fun initial(
+            nameTextField: TextFieldState,
+            greetingButtonState: ButtonState,
+            greeting: String?,
+        ) = HelloWorldState(
+            nameTextField = nameTextField,
+            greetingButtonState = greetingButtonState,
+            greeting = greeting,
         )
     }
+
+    @Serializable
+    data class TextFieldState(
+        val value: String,
+        val label: String,
+        val placeholder: String,
+    )
+
+    @Serializable
+    data class ButtonState(
+        val text: String,
+        val isEnabled: Boolean,
+    )
 }
 
 class HelloWorldStoreFactory(
@@ -44,17 +63,19 @@ class HelloWorldStoreFactory(
 
     fun create(
         stateKeeper: StateKeeper,
+        stringResources: StringResources,
+        initialState: HelloWorldState,
     ): Store<HelloWorldIntent, HelloWorldState, Nothing> {
-        val initialState = stateKeeper.consume(
+        val state = stateKeeper.consume(
             key = HelloWorldState.STATE_KEEPER_KEY, strategy = HelloWorldState.serializer()
-        ) ?: HelloWorldState.initial()
+        ) ?: initialState
         return storeFactory.create<HelloWorldIntent, Nothing, HelloWorldMessage, HelloWorldState, Nothing>(
             name = storeName,
-            initialState = initialState,
+            initialState = state,
             executorFactory = coroutineExecutorFactory {
                 onIntent<HelloWorldIntent.Greeting> {
                     launch {
-                        val name = state().name
+                        val name = state().nameTextField.value
                         dispatch(HelloWorldMessage.OnGreeting(name))
                         try {
                             val greeting = greetingUseCase.greet(name)
@@ -73,24 +94,36 @@ class HelloWorldStoreFactory(
 
                 when (msg) {
                     is HelloWorldMessage.OnChangeName -> copy(
-                        name = msg.name,
-                        isGreetingButtonEnabled = isGreetingButtonEnabled(msg.name),
+                        nameTextField = nameTextField.copy(
+                            value = msg.name
+                        ),
+                        greetingButtonState = greetingButtonState.copy(
+                            isEnabled = isGreetingButtonEnabled(msg.name)
+                        ),
                         greeting = null
                     )
 
                     is HelloWorldMessage.OnGreeting -> copy(
-                        name = msg.name,
-                        isGreetingButtonEnabled = false,
-                        greeting = null
+                        nameTextField = nameTextField.copy(
+                            value = msg.name
+                        ),
+                        greetingButtonState = greetingButtonState.copy(
+                            isEnabled = false
+                        ),
+                        greeting = stringResources.getString(MR.strings.greeting_loading)
                     )
 
                     is HelloWorldMessage.OnGreetingFailed -> copy(
-                        isGreetingButtonEnabled = true,
+                        greetingButtonState = greetingButtonState.copy(
+                            isEnabled = true
+                        ),
                         greeting = msg.message
                     )
 
                     is HelloWorldMessage.OnGreetingSucceed -> copy(
-                        isGreetingButtonEnabled = true,
+                        greetingButtonState = greetingButtonState.copy(
+                            isEnabled = true
+                        ),
                         greeting = msg.greeting
                     )
                 }

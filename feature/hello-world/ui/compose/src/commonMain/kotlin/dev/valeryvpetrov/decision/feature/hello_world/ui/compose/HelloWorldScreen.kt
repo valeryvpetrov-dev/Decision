@@ -32,9 +32,15 @@ fun HelloWorldScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         TextField(
-            value = state.name,
+            value = state.nameTextField.value,
             onValueChange = {
                 component.accept(HelloWorldIntent.ChangeName(it))
+            },
+            label = {
+                Text(state.nameTextField.label)
+            },
+            placeholder = {
+                Text(state.nameTextField.placeholder)
             },
             modifier = Modifier.fillMaxWidth()
         )
@@ -42,10 +48,10 @@ fun HelloWorldScreen(
             onClick = {
                 component.accept(HelloWorldIntent.Greeting)
             },
-            enabled = state.isGreetingButtonEnabled,
+            enabled = state.greetingButtonState.isEnabled,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Greet")
+            Text(state.greetingButtonState.text)
         }
         state.greeting?.let {
             Text(
