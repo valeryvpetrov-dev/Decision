@@ -30,7 +30,6 @@ struct DecisionView: View {
                 component.accept(intent: DecisionIntent.Restart())
             }
         )
-            .padding()
     }
 }
 

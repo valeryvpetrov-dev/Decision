@@ -8,14 +8,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import dev.valeryvpetrov.decision.feature.make_decision.presentation.component.MakeDecisionComponent
-import dev.valeryvpetrov.decision.feature.make_decision.ui.compose.MakeDecisionScreen
+import dev.valeryvpetrov.decision.feature.tabs.presentation.component.TabsComponent
+import dev.valeryvpetrov.decision.feature.tabs.ui.compose.TabsScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun Root(
-    component: MakeDecisionComponent,
+    component: TabsComponent,
     modifier: Modifier = Modifier,
 ) {
     MaterialTheme {
@@ -24,7 +24,7 @@ fun Root(
                 .fillMaxSize()
                 .windowInsetsPadding(WindowInsets.systemBars)
         ) {
-            MakeDecisionScreen(component)
+            TabsScreen(component)
         }
     }
 }

@@ -32,6 +32,14 @@ dependencyResolutionManagement {
 include(
     "app:multiplatformCompose",
 
+    ":base:api",
+    ":base:presentation",
+    ":base:di",
+    ":base:impl",
+
+    ":umbrella:di",
+    ":umbrella:ios",
+
     ":feature:make-decision:api",
     ":feature:make-decision:impl",
     ":feature:make-decision:presentation",
@@ -65,13 +73,15 @@ include(
     ":feature:hello-world:ui:compose",
     ":feature:hello-world:sample",
 
-    ":base:api",
-    ":base:presentation",
-    ":base:di",
-    ":base:impl",
+    ":feature:tabs:di",
+    ":feature:tabs:presentation",
+    ":feature:tabs:ui:compose",
 
-    ":umbrella:di",
-    ":umbrella:ios",
+    ":feature:history:api",
+    ":feature:history:impl",
+    ":feature:history:di",
+    ":feature:history:presentation",
+    ":feature:history:ui:compose",
 
     // Do not remove this line. It is used by generator to put feature-module dependencies
 )

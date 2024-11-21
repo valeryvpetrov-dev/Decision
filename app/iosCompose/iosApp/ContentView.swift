@@ -3,7 +3,7 @@ import SwiftUI
 import MultiplatformCompose
 
 struct ContentView: UIViewControllerRepresentable {
-    let component: MakeDecisionComponent
+    let component: TabsComponent
 
     func makeUIViewController(context: Context) -> UIViewController {
         MainViewControllerKt.MainViewController(component: component)

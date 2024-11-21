@@ -32,8 +32,7 @@ kotlin {
             baseName = "MultiplatformCompose"
             isStatic = true
 
-            export(projects.feature.makeDecision.api)
-            export(projects.feature.makeDecision.presentation)
+            export(projects.feature.tabs.presentation)
             export(projects.umbrella.di)
             export(libs.decompose)
             export(libs.essenty.lifecycle)
@@ -49,12 +48,11 @@ kotlin {
         }
         commonMain.dependencies {
             // Use api for exported dependencies in ios
-            api(projects.feature.makeDecision.presentation)
             api(projects.umbrella.di)
             api(libs.decompose)
             api(libs.essenty.lifecycle)
-
-            implementation(projects.feature.makeDecision.ui.compose)
+            api(projects.feature.tabs.presentation)
+            api(projects.feature.tabs.ui.compose)
 
             implementation(compose.runtime)
             implementation(compose.foundation)

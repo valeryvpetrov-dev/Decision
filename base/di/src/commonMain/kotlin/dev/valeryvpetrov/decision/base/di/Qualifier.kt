@@ -45,6 +45,12 @@ sealed class Qualifier {
             object Model : ChatGpt()
         }
 
+        sealed class History : Feature() {
+
+            object StoreName : History()
+            object StoreFactoryProvider : History()
+        }
+
         // Do not remove this line. It is used by generator to put feature-module qualifiers
     }
 }
